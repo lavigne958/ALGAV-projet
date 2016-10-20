@@ -1,21 +1,22 @@
 CC=gcc
-CFLAGS=-W -Wall -ansi -pedantic
+CFLAGS=-W -Wall -pedantic
 LDFLAGS=
 EXEC=
 SRC=src/
-SRCS=$(SRC)access.c $(SRC)test.c
 OBJ=obj/
 OBJS=$(OBJ)access.o
-BIN=bin
+BIN=bin/
 
 .PHONY: all test clean
 
 
 test: $(OBJS) $(OBJ)test.o
-	$(CC) -o test-patricia $^
-	
+	$(CC) -o $(BIN)test-patricia $^
+
+$(OBJ)test.o: $(SRC)test.c
+	$(CC) -o $@ -c $^ $(CFLAGS)
 $(OBJ)%.o: $(SRC)%.c
-	$(CC) -o $@ -c $^ $(LDFLAGS)
+	$(CC) -o $@ -c $^ $(CFLAGS)
 
 clean:
 	rm -f $(OBJ)/* $(BIN)/*
