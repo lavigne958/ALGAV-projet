@@ -16,6 +16,7 @@ node* creer_noeud(){
     }
 
     retour->fils = NULL;
+    strcpy(retour->prefix,"\0");
 
     return retour;
 }
@@ -23,7 +24,7 @@ node* creer_noeud(){
 
 int is_node_null(node* n){
     if(n == NULL){
-       fprintf(stderr,"erreur node = null , creer fils\n");
+       fprintf(stderr,"erreur node = null\n");
        return 1;
     }else{
         return 0;
@@ -46,8 +47,7 @@ int creer_fils(node* n){
 	
     for(i = 0; i < (NB_CHAR_MAX + 1); i++){
         n->fils[i] = (node*) malloc(sizeof(node));
-        if(n->fils[i] == NULL){
-			fprintf(stderr,"erreur node->fils[%d] = null , creer fils\n",i);
+        if(is_node_null(n->fils[i])){
 			return -1;
 		}
     }
@@ -70,8 +70,7 @@ node* get_fils_node(node* n, char index){
 	
 	node* fils = n->fils[(int)index];
 	
-	if(fils == NULL){
-		fprintf(stderr,"erreur node = null , creer fils\n");
+	if(is_node_null(fils)){
         return -1;
 	}
 	

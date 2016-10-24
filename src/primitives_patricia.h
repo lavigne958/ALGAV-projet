@@ -31,7 +31,7 @@ int supprimer_mot(char* mot, node* arbre);
 descr:  indique si un mot est present dans le Patricia_Tries
 param:  char* mot -> le mot à chercher dans  l'arbre 'arbre'
         pt* arbre -> le patricia tries ou on va chercher le mot '*mot'
-retour: retourne 0 si le '*mot' est present dans 'arbre' */
+retour: retourne 1 si le '*mot' est present dans 'arbre' */
 int mot_est_present(char* mot, node* arbre);
 
 

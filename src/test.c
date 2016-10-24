@@ -11,6 +11,8 @@ int main(){
     printf("creation structure\n");
     
     node* nd = creer_noeud();
+
+    printf("le noeud est initialement vide %s\n",nd->prefix);
     
     strcpy(nd->prefix,"test phrase");
     
