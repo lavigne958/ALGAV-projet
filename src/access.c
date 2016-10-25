@@ -17,6 +17,7 @@ node* creer_noeud(){
 
     retour->fils = NULL;
     strcpy(retour->prefix,"\0");
+    retour->size = 0;
 
     return retour;
 }
@@ -42,10 +43,7 @@ int creer_fils(node* n){
     }
     
     for(i = 0; i < (NB_CHAR_MAX + 1); i++){
-      n->fils[i] = (node*) malloc(sizeof(node));
-      if(is_node_null(n->fils[i])){
-	return -1;
-      }
+      n->fils[i] = creer_noeud();
     }
     
     return 0;
@@ -56,8 +54,30 @@ char* get_prefix(node* n){
     if( is_node_null(n) ){
       return NULL;
     }
+    
     return n->prefix;
 }
+
+void set_prefix(node* node, char* prefix){
+  if( is_node_null(node) ){
+    fprintf(stderr,"erreur node: NULL - set_prefix");
+    exit(EXIT_FAILURE);
+  }
+
+  if( node->prefix == NULL){
+    fprintf(stderr,"erreur prefix: NULL - set_prefix");
+    exit(EXIT_FAILURE);
+  }
+
+  if(strlen(prefix) > (NB_CHAR_MAX + 1)){
+    fprintf(stderr,"erreur prefix > %d - set_prefix",(NB_CHAR_MAX + 1));
+    exit(EXIT_FAILURE);
+  }
+  
+  strcpy(node->prefix,prefix);
+  node->size = strlen(prefix);
+}
+
 
 node* get_fils_node(node* n, char index){
 
@@ -75,5 +95,3 @@ node* get_fils_node(node* n, char index){
   
   return fils;
 }
-
-

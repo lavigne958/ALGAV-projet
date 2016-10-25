@@ -28,13 +28,16 @@ int creer_fils(node* node);
 char* get_prefix(node* node);
 
 /**
+ * modifie le préfixe du noeud
+ * 
+*/
+void set_prefix(node* node, char* prefix);
+
+
+/**
  * renvoie le fils pointé par la lettre index
 */
 node* get_fils_node(node* node, char index);
 
-/**
- * copie la chaine pointé par chaine dans le préfixe du noeud n
-*/
-void copy_chaine(node* n, char* chaine);
 
 #endif

@@ -1,0 +1,11 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "struct.h"
+#include "access.h"
+
+
+int recherche_mot(node* zrbre,char* chaine){
+  
+
+}
