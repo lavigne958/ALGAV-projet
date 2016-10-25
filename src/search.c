@@ -39,6 +39,8 @@ int sub_search(node* node,char* chaine){
  
   if(taille_prefix==taille_chaine){ 
     if( strncmp(chaine, prefix, taille_prefix) ==0 ){
+      /* bon en fait ici il faut traiter le cas ou le prefix ne se finit pas
+	 par EPSILON je fai ca en rentrant */
       return 1;
     }else{
       return 0;
