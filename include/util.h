@@ -1,6 +1,7 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+
 /**
  * affiche un message dans le flux d'erreur
  * prend un nom de fonction (celle qui à déclenché l'erreur
@@ -8,6 +9,13 @@
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * ATTENTION: cette fonction quitte le programme
  */
-
 void exit_failure(char* , char* );
+
+
+/**
+ * renvoie la taille du prefix commun aux chaines de caracteres passe en parametre
+ */
+int taille_prefixe_commun(char*  , char*);
+
+
 #endif

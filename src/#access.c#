@@ -11,7 +11,7 @@ node* creer_noeud(){
     
     if( (retour = (node*) malloc(sizeof(node))) == NULL)
       exit_failure("creer_noeud","erreur malloc dans creer_noeud");
-
+    
     retour->fils = NULL;
     strcpy(retour->prefix,"\0");
     retour->size = 0;
