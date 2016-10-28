@@ -7,7 +7,7 @@
 
 int main(){
     int i;
-
+    
     printf("creation structure\n");
     
     node* nd = creer_noeud();
@@ -18,16 +18,21 @@ int main(){
     
     printf("préfixe de racine: %s\n",nd->prefix);
     
-    if( creer_fils(nd) ){
-		fprintf(stderr,"erreur lors de la création de mes fils\n");
-		exit(1);
-	}
+    creer_tableau_fils(nd);
+    
 	
-	node* filsA = get_fils_node(nd,'A');
-	strcpy(filsA->prefix,"A");
+    node* filsA = get_fils_node(nd,'A');
+    if(filsA == NULL){
+      filsA = creer_noeud();
+      set_fils_node(nd,filsA,'B');
+    }
+
+    filsA = get_fils_node(nd,'A');
+
+    set_prefix(filsA,"BBB");
 	
-	printf("test des liens (pointeurs)\n");
-	printf("nd->fils[A]->prefix: %s\tfilsA->prefix: %s\n",nd->fils['A']->prefix,filsA->prefix);
+    printf("test des liens (pointeurs)\n");
+    printf("nd->fils[A]->prefix: %s\tfilsA->prefix: %s\n",nd->fils['A']->prefix,filsA->prefix);
     
 
     return 0;
