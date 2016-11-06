@@ -34,6 +34,11 @@ char* get_prefix(node*);
 */
 void set_prefix(node*, char*);
 
+/** 
+ * vérifie si un prefix est égale à une string, 
+ * si EPSILON est présent, la fonction ne le compte pas
+ */
+int prefix_equals_string(node*, char*);
 
 /**
  * renvoie le fils pointé par la lettre index
@@ -60,8 +65,23 @@ void prefix_add_epsilon(node*);
 void add_espilon_node(node*);
 
 /**
+ * test si le noeud en cours ce termine par EPSILON ou contient EPSILON dans son premier noeud (le noeud est un mot mais n'est pas une feuille
+ */
+int prefix_has_epsilon(node*);
+
+/**
  * creer un tableau de pointeur sur node soit un node
  */
 node** creer_tab_fils(void);
+
+/**
+ * verifie qu'un noeurs possède un fils epsilon
+ */
+int node_has_epsilon(node*);
+
+/**
+ * test si un noeud à des fils, par défaut un noeud creer n'a pas de fils, sont tableau de fils vaut NULL
+ */
+int has_childs(node*);
 
 #endif

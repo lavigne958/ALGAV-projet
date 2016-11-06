@@ -7,6 +7,7 @@ BIN=$(DIR)bin/
 OBJ=$(DIR)obj/
 OBJS=$(OBJ)access.o\
 	$(OBJ)search.o\
+	$(OBJ)search_alex.o\
 	$(OBJ)util.o\
 	$(OBJ)test.o
 INCLUDE=$(DIR)include/

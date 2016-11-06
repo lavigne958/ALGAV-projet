@@ -6,20 +6,6 @@
 
 
 
-node* creer_noeud(){
-    node* retour;
-    
-    if( (retour = (node*) malloc(sizeof(node))) == NULL)
-      exit_failure("creer_noeud","erreur malloc dans creer_noeud");
-
-    retour->fils = NULL;
-    strcpy(retour->prefix,"\0");
-    retour->size = 0;
-
-    return retour;
-}
-
-
 int is_node_null(node* n){
        return n == NULL;
 }
@@ -49,8 +35,23 @@ void creer_tableau_fils(node* n){
       exit_failure("creer_tableau_fils","erreur node = null");
     }
 	
-    n->fils = creer_tab_fils();
+    n->fils = creer_tab_sans_pere();
 }
+
+node* creer_noeud(){
+    node* retour;
+    
+    if( (retour = (node*) malloc(sizeof(node))) == NULL)
+      exit_failure("creer_noeud","erreur malloc dans creer_noeud");
+
+    retour->fils = NULL;
+    strcpy(retour->prefix,"\0");
+    retour->size = 0;
+
+    return retour;
+}
+
+
 
 char* get_prefix(node* n){
   
@@ -76,6 +77,32 @@ void set_prefix(node* node, char* prefix){
   
   strcpy(node->prefix,prefix);
   node->size = strlen(prefix);
+}
+
+int prefix_equals_string(node* nd, char* string){
+  //get the prefix size to iterate thru
+  unsigned int prefix_size = nd->size;
+  unsigned int i=0;
+
+  //if the prefix has EPSILON, do not take it into count
+  /*if(nd->prefix[nd->size] == EPSILON){
+    prefix_size--;
+    }*/
+
+  //if the string is not exactly the same size it can not be equals
+  if(strlen(string) != prefix_size){
+    return 0;
+  }
+
+  //iterate thru the two word if any charactere is different then return 0
+  while(i < prefix_size){
+    if(nd->prefix[i] != string[i]){
+      return 0;
+    }
+    i++;
+  }
+
+  return 1;
 }
 
 
@@ -107,7 +134,7 @@ void set_fils_node(node* nd, node* fils, char index){
   }
 
   if(nd->fils == NULL){
-    exit_failure("set_fils_node", "nd vaut NULL");
+    exit_failure("set_fils_node", "tableau de fils vaut NULL");
     exit(EXIT_FAILURE);
   }
 
@@ -148,3 +175,33 @@ void add_espilon_node(node* nd){
   nd->fils[(int)EPSILON]->prefix[1] = '\0';
 }
 
+int prefix_has_epsilon(node* nd){
+  if(nd->prefix[nd->size] == EPSILON){
+    return 1;
+  }else{
+    return 0;
+  }
+}
+
+int node_has_epsilon(node* nd){
+  char epsi[1];
+  epsi[0] = EPSILON;
+  if(prefix_has_epsilon(nd)){
+    return 1;
+  }else{
+    node* epsilon = get_fils_node(nd,EPSILON);
+    if(strcmp(get_prefix(epsilon),epsi)){
+	return 1;
+    }else{
+      return 0;
+    }
+  }
+}
+
+int has_childs(node* nd){
+  if(nd->fils == NULL){
+    return 0;
+  }else{
+    return 1;
+  }
+}
