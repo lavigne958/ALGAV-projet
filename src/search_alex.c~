@@ -1,0 +1,10 @@
+#include "struct.h"
+#include "util.h"
+#include "access.h"
+
+
+int search_word(node* nd, char* string){
+  if( !node_has_epsilon(nd) && strlen(string) <= 0){
+    return 1;
+  }else if(
+}

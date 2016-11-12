@@ -205,3 +205,17 @@ int has_childs(node* nd){
     return 1;
   }
 }
+
+int get_nb_fils(node* nd){
+  int i;
+  int nb_fils = 0;
+
+  for(i = 0; i < NB_CHAR_MAX; i++){
+    if(nd->fils[i] != NULL){
+      nb_fils++;
+    }
+  }
+
+  return nd_fils;
+}
+

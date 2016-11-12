@@ -38,7 +38,7 @@ void set_prefix(node*, char*);
  * vérifie si un prefix est égale à une string, 
  * si EPSILON est présent, la fonction ne le compte pas
  */
-int prefix_equals_string(node*, char*);
+sint prefix_equals_string(node*, char*);
 
 /**
  * renvoie le fils pointé par la lettre index
@@ -84,4 +84,9 @@ int node_has_epsilon(node*);
  */
 int has_childs(node*);
 
+
+/**
+ * retourne le nombre de fils du noeud
+ */
+int get_nb_fils(node*);
 #endif
