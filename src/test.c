@@ -6,6 +6,8 @@
 #include "access.h"
 #include "search.h"
 #include "search_alex.h"
+#include "supression.h"
+#include "affichage.h"
 
 int main(){
   
@@ -46,8 +48,13 @@ int main(){
   set_fils_node(nd,filst,'t');
   printf("fils 't' creer\n");
   node* filsoaster = creer_noeud();
-  set_prefix(filsoaster,"oaster");
-  prefix_add_epsilon(filsoaster);
+  set_prefix(filsoaster,"oast");
+  creer_tableau_fils(filsoaster);
+  add_epsilon_node(filsoaster);
+  node* er = creer_noeud();
+  set_prefix(er, "er");
+  prefix_add_epsilon(er);
+  set_fils_node(filsoaster, er, 'e');
   set_fils_node(filst,filsoaster,'o');
   printf("fils 'oaster' creer\n");
   node* filsester = creer_noeud();
@@ -75,6 +82,14 @@ int main(){
   }
 
   printf("nd: %s->%s\n",get_prefix(get_fils_node(nd,'t')),get_prefix(get_fils_node(get_fils_node(nd,'t'),'o')));
+
+  printf("test de suppression dans l'arbre\n");
+
+  int res = supression(nd, "toast");
+
+  printf("suppresion: %d\n", res);
+
+  affiche_noeud_simple(nd);
   
   return 0;
 }

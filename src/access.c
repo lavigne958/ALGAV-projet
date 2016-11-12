@@ -19,7 +19,7 @@ node** creer_tab_sans_pere(){
   tab_fils = (node**) malloc(sizeof(node*) * (NB_CHAR_MAX + 1));
 
   if(tab_fils == NULL){
-    exit_failure("add_epsilon_node","fils vaut NULL");
+    exit_failure("creer_tab_sans_pere","fils vaut NULL");
   }
 
   for(i = 0; i < (NB_CHAR_MAX + 1); i++){
@@ -158,7 +158,7 @@ void prefix_add_epsilon(node* nd){
   nd->prefix[taille_prefix+1] = '\0';
 }
 
-void add_espilon_node(node* nd){
+void add_epsilon_node(node* nd){
   if(is_node_null(nd)){
     exit_failure("add_epsilon_node", "nd vaut NULL");
     exit(EXIT_FAILURE);
@@ -173,6 +173,7 @@ void add_espilon_node(node* nd){
 
   nd->fils[(int)EPSILON]->prefix[0] = EPSILON;
   nd->fils[(int)EPSILON]->prefix[1] = '\0';
+  nd->fils[(int)EPSILON]->size = 1;
 }
 
 int prefix_has_epsilon(node* nd){
@@ -190,7 +191,7 @@ int node_has_epsilon(node* nd){
     return 1;
   }else{
     node* epsilon = get_fils_node(nd,EPSILON);
-    if(strcmp(get_prefix(epsilon),epsi)){
+    if(epsilon->prefix[0] == EPSILON){
 	return 1;
     }else{
       return 0;
@@ -216,6 +217,6 @@ int get_nb_fils(node* nd){
     }
   }
 
-  return nd_fils;
+  return nb_fils;
 }
 

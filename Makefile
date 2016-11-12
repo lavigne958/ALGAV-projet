@@ -9,7 +9,9 @@ OBJS=$(OBJ)access.o\
 	$(OBJ)search.o\
 	$(OBJ)search_alex.o\
 	$(OBJ)util.o\
-	$(OBJ)test.o
+	$(OBJ)test.o\
+	$(OBJ)supression.o\
+	$(OBJ)affichage.o
 INCLUDE=$(DIR)include/
 LIB=$(DIR)lib/
 SRC=$(DIR)src/
