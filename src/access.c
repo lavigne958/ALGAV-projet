@@ -185,8 +185,6 @@ int prefix_has_epsilon(node* nd){
 }
 
 int node_has_epsilon(node* nd){
-  char epsi[1];
-  epsi[0] = EPSILON;
   if(prefix_has_epsilon(nd)){
     return 1;
   }else{

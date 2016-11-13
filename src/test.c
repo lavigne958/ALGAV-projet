@@ -83,6 +83,9 @@ int main(){
 
   printf("nd: %s->%s\n",get_prefix(get_fils_node(nd,'t')),get_prefix(get_fils_node(get_fils_node(nd,'t'),'o')));
 
+  printf("arbre avant suppression:\n");
+  affiche_noeud_simple(nd);
+  
   printf("test de suppression dans l'arbre\n");
 
   int res = supression(nd, "toast");

@@ -32,39 +32,18 @@ int aux_supression(node* nd, char* mot){
 	int pos = -1;
 	//look for the position of the only child
 	while(i < NB_CHAR_MAX || pos == -1){
-	  if(nd->fils[i] != NULL){
+	  if(nd->fils[i] != NULL && nd->fils[i]->prefix[0] != EPSILON){
 	    pos = i;
 	  }
 	  i++;
 	}
 
-	//concat the actual prefix and the child prefix
-	char* tmp_pre = malloc(sizeof(char) * strlen(get_prefix(nd->fils[pos])));
-	strcpy(tmp_pre, get_prefix(nd->fils[pos]));
-	sprintf(nd->fils[pos]->prefix, "%s%s",get_prefix(nd), tmp_pre);
-	printf("resultat nouvelle chaine: %s\n",nd->fils[pos]->prefix);
-	node* del_node = nd;
-	/* ---------------------------------
-
-	il n'est pas possible de changer les pointeur dans la fonction
-	car nd n'est qu'un paramètre, il faut le faire dans la fonction appelante
-
-
-
-
-	//-----------------------------------*/
-	nd = get_fils_node(nd,(char)pos);
-	//delete the node
-	free(del_node);
-	free(tmp_pre);
+	return (long)nd->fils[pos];
       }
 
       //return 0 so we stop deleteting in chain the nodes
       return 0;
     }
-
-    
-
     exit_failure("aux_suppression", "prefix = mot (%s), epsilon non present\n");
     
   }else{
@@ -85,7 +64,8 @@ int aux_supression(node* nd, char* mot){
       }
 
       printf("prefix commun, sub_str: %s\n", sub_str);
-      if( aux_supression(fils, sub_str) == 1){
+      int supp = aux_supression(fils, sub_str);
+      if( supp == 1){
 	printf("aux_ return 1\n");
 	int i;
 	int nb_fils = 0;
@@ -116,12 +96,27 @@ int aux_supression(node* nd, char* mot){
 	}
 
 	return 0;
+
+      }else if(supp > 1){
+	node* grd_child = (node*) ((long)supp);
+	char* tmp_pre = malloc(sizeof(char) * grd_child->size);
+	strcpy(tmp_pre, grd_child->prefix);
+	printf("tmp_prefix: %s\n", tmp_pre);
+	sprintf(grd_child->prefix, "%s%s", get_prefix(fils), tmp_pre);
+	printf("resultat concat: %s\n", grd_child->prefix);
+	set_fils_node(nd, grd_child, grd_child->prefix[0]);
+	free(tmp_pre);
+	free(fils);
+	return 0;
       }else{
 	printf("aux_ return 0\n");
 	return 0;
       }
     }
   }
+
+  printf("impossible d'arriver à ce point -- sinon erreur\n\n");
+  return -1;
 }
 
 int supression(node* nd, char* mot){
