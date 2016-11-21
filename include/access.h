@@ -89,4 +89,23 @@ int has_childs(node*);
  * retourne le nombre de fils du noeud
  */
 int get_nb_fils(node*);
+
+
+/**
+ * renvoie le tableau de fils d'un node
+ */
+node** get_tab_fils(node*  n);
+
+/**
+ * affect le tableau de node tf au node n
+ */
+void set_tab_fils(node*  n, node** tf);
+
+/**
+ * affect new_size au node n
+ */
+void set_size(node* n, int new_size);
+
 #endif
+
+

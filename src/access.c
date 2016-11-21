@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "struct.h"
+#include "struct.h" 
 #include "util.h"
 
 
@@ -10,9 +10,6 @@ int is_node_null(node* n){
        return n == NULL;
 }
 
-/*
-node** creer_tab_fils(){
-*/
 node** creer_tab_sans_pere(){
   node** tab_fils = NULL;
   int i = 0;
@@ -35,7 +32,7 @@ void creer_tableau_fils(node* n){
       exit_failure("creer_tableau_fils","erreur node = null");
     }
 	
-    n->fils = creer_tab_sans_pere();
+    n->tab_fils = creer_tab_sans_pere();
 }
 
 node* creer_noeud(){
@@ -44,7 +41,7 @@ node* creer_noeud(){
     if( (retour = (node*) malloc(sizeof(node))) == NULL)
       exit_failure("creer_noeud","erreur malloc dans creer_noeud");
 
-    retour->fils = NULL;
+    retour->tab_fils = NULL;  /* moi j'ai retour->tab_fils = NULL; */
     strcpy(retour->prefix,"\0");
     retour->size = 0;
 
@@ -113,11 +110,12 @@ node* get_fils_node(node* n, char index){
   if(is_node_null(n))
     exit_failure("get_fils_node","node vaut NULL");
 
-  if( n->fils == NULL)
+  if( n->tab_fils == NULL) /* moi j'ai   if( n->tab_fils == NULL) */
     exit_failure("get_fils_node","fils vaut NULL");
 
     
-  fils = n->fils[(int)index];
+  fils = n->tab_fils[(int)index];
+  /* moi j ai fils = n->tab_fils[(int)index]; */
   
   if(is_node_null(fils)){
     return NULL;
@@ -133,7 +131,7 @@ void set_fils_node(node* nd, node* fils, char index){
     exit(EXIT_FAILURE);
   }
 
-  if(nd->fils == NULL){
+  if(nd->tab_fils == NULL){ /*   if(nd->tab_fils == NULL){ */
     exit_failure("set_fils_node", "tableau de fils vaut NULL");
     exit(EXIT_FAILURE);
   }
@@ -143,8 +141,10 @@ void set_fils_node(node* nd, node* fils, char index){
     exit(EXIT_FAILURE);
   }
 
-  nd->fils[(int) index] = fils;
+  nd->tab_fils[(int) index] = fils;
+  /*nd->tab_fils[(int) index] = fils;*/
 }
+
 
 void prefix_add_epsilon(node* nd){
   if(is_node_null(nd)){
@@ -156,6 +156,8 @@ void prefix_add_epsilon(node* nd){
 
   nd->prefix[taille_prefix] = EPSILON;
   nd->prefix[taille_prefix+1] = '\0';
+
+  nd->size ++;
 }
 
 void add_epsilon_node(node* nd){
@@ -164,16 +166,17 @@ void add_epsilon_node(node* nd){
     exit(EXIT_FAILURE);
   }
 
-  if(nd->fils == NULL){
+  if(nd->tab_fils == NULL){
     exit_failure("add_epsilon_node", "fils vaut NULL");
     exit(EXIT_FAILURE);
   }
 
-  nd->fils[(int)EPSILON] = creer_noeud();
+  nd->tab_fils[(int)EPSILON] = creer_noeud();
 
-  nd->fils[(int)EPSILON]->prefix[0] = EPSILON;
-  nd->fils[(int)EPSILON]->prefix[1] = '\0';
-  nd->fils[(int)EPSILON]->size = 1;
+  nd->tab_fils[(int)EPSILON]->prefix[0] = EPSILON;
+  nd->tab_fils[(int)EPSILON]->prefix[1] = '\0';
+  nd->tab_fils[(int)EPSILON]->size = 1;
+  /* partout j 'ai tab_fils */
 }
 
 int prefix_has_epsilon(node* nd){
@@ -198,7 +201,7 @@ int node_has_epsilon(node* nd){
 }
 
 int has_childs(node* nd){
-  if(nd->fils == NULL){
+  if(nd->tab_fils == NULL){
     return 0;
   }else{
     return 1;
@@ -210,11 +213,37 @@ int get_nb_fils(node* nd){
   int nb_fils = 0;
 
   for(i = 0; i < NB_CHAR_MAX; i++){
-    if(nd->fils[i] != NULL){
+    if(nd->tab_fils[i] != NULL){
       nb_fils++;
     }
   }
 
   return nb_fils;
 }
+
+
+node** get_tab_fils(node*  n){
+  if( is_node_null(n) ){
+    return NULL;
+  }
+  
+  return n->tab_fils;  
+}
+
+void set_tab_fils(node*  n, node** tf){
+
+  if( is_node_null(n) ){
+    exit_failure("set_prefix","erreur node = NULL");
+  }
+  n->tab_fils = tf;
+}
+
+
+void set_size(node* n, int new_size){
+  if( is_node_null(n) )
+    exit_failure("set_prefix","erreur node = NULL");
+  
+  n->size = new_size;
+}
+
 

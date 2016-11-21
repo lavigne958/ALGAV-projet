@@ -8,7 +8,7 @@
 typedef struct node{
   char prefix[PREFIX_MAX];
   int size;
-  struct node** fils;
+  struct node** tab_fils;
 }node;
 
 #endif

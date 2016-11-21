@@ -17,5 +17,17 @@ void exit_failure(char* , char* );
  */
 int taille_prefixe_commun(char*  , char*);
 
+/**
+ * renvoi la sous chaine qui commence a l'indice start 
+ * et qui se termine a l'indice end
+ */
+char* str_sub (const char *s, int start,int end);
+
+/**
+ * renvoie le max de deux nombre
+ */
+int max(int x, int y);
+
+
 
 #endif

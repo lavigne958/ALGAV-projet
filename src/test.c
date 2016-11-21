@@ -8,10 +8,44 @@
 #include "search_alex.h"
 #include "supression.h"
 #include "affichage.h"
+#include "add_word.h"
+
+
+
+
+#define PATH_FICHIER_TEST "./annexe/test.txt"
+
+
+void test_alex();
+int test_ajouter_mot();
+void test_make_arbre_fichier();
+
 
 int main(){
+
+
+  /* tes tests sont plus bas juste apres le main */
+  test_alex();
+
   
-  printf("creation structure\n");
+  /* test ajouter_mot */
+  if(test_ajouter_mot()){
+    printf(" ===== test reussi =====\n");
+  }
+
+  /* test make_arbre_fichier */
+  test_make_arbre_fichier();
+  
+
+  return 0;
+}
+
+
+void test_alex(){
+
+
+
+    printf("creation structure\n");
   
   node* nd = creer_noeud();
   
@@ -35,7 +69,7 @@ int main(){
   set_prefix(filsA,"BBB");
   
   printf("test des liens (pointeurs)\n");
-  printf("nd->fils[A]->prefix: %s\tfilsA->prefix: %s\n",nd->fils['A']->prefix,filsA->prefix);
+  printf("nd->fils[A]->prefix: %s\tfilsA->prefix: %s\n",nd->tab_fils['A']->prefix,filsA->prefix);
   
   
   nd = creer_noeud();
@@ -63,8 +97,9 @@ int main(){
   set_fils_node(filst,filsester,'e');
   
   printf("recherche du mot toaster\n");
-  if(recherche_mot(nd,"toaster")){
-    printf("mot trouvé\n");
+  /* if(recherche_mot(nd,"toaster")){ */
+  if(search_word(nd,"toaster")){
+  printf("mot trouvé\n");
   }else{
     printf("pas trouvé\n");
   }
@@ -93,6 +128,223 @@ int main(){
   printf("suppresion: %d\n", res);
 
   affiche_noeud_simple(nd);
+ 
+
+}
+
+
+
+
+
+
+int test_ajouter_mot(){
+  node* arbre = creer_noeud();
+  /* test  */
+  if(is_node_null(arbre)){
+    printf("arbre n'est pas cree\n");
+  }else{
+    printf("arbre creer avec succes\n");
+  }
+  node *n1, *n2, *n3, *n4, *n5, *n6, *n7;
+  char* mot1 = "premier";
+  char* mot2 = "premiere";
+  char* mot3 = "premierement";
+  char* mot4 = "prem";
+  char* mot5 = "progres";
+  char* mot6 = "premieredeux";
+  char* mot7 = "pr";
+
+  /* test mot1 */
+  printf("\n---- ajout du mot %s ----\n\n",mot1);
+  ajouter_mot(arbre,mot1);
+
+  n1 = get_fils_node(arbre,mot1[0]);
+  if(!affiche_attribut_node(n1)){
+    printf("n1 n existe pas\n");
+    return 0;
+  }
+
+  /* test mot2 */
+  printf("\n---- ajout du mot %s ----\n\n",mot2);
+  ajouter_mot(arbre,mot2);
+  affiche_attribut_node(n1);
+  if( get_fils_node(n1,EPSILON) )
+    printf("n1 possede comme fils le node EPSILON\n");
+  n2 = get_fils_node(n1,'e');
+  if(!affiche_attribut_node(n2)){
+    printf("n2 n existe pas\n");
+    return 0;
+  }
+
+  /* test mot3 */
+  printf("\n---- ajout du mot %s ----\n\n",mot3);
+  ajouter_mot(arbre,mot3);
+  affiche_attribut_node(n1);
+  if( get_fils_node(n1,EPSILON) )
+    printf("n1 possede comme fils le node EPSILON\n");
+
+  affiche_attribut_node(n2);
+  if( get_fils_node(n2,EPSILON) )
+    printf("n2 possede comme fils le node EPSILON\n");
+ 
+  n3 = get_fils_node(n2,'m');
+  if(!affiche_attribut_node(n3)){
+    printf("n3 n existe pas\n");
+    return 0;
+  }
   
-  return 0;
+  /* test mot4 */
+  printf("\n---- ajout du mot %s ----\n\n",mot4);
+  ajouter_mot(arbre,mot4);
+  affiche_attribut_node(n1);
+  if( get_fils_node(n1,EPSILON) )
+    printf("n1 possede comme fils le node EPSILON\n");
+
+
+  n4 = get_fils_node(n1,'i');
+  if(!affiche_attribut_node(n4)){
+    printf("n4 n existe pas\n");
+    return 0;
+  }
+  if( get_fils_node(n4,EPSILON) )
+    printf("n4 possede comme fils le node EPSILON\n");
+
+  affiche_attribut_node(n2);
+  if( get_fils_node(n2,EPSILON) )
+    printf("n2 possede comme fils le node EPSILON\n");
+
+  affiche_attribut_node(n3);
+
+  /* test mot5 */
+  printf("\n---- ajout du mot %s ----\n\n",mot5);
+  ajouter_mot(arbre,mot5);
+
+  
+  affiche_attribut_node(n1);
+  if( get_fils_node(n1,EPSILON) )
+    printf("n1 possede comme fils le node EPSILON\n");
+
+  n5 = get_fils_node(n1,'o');
+  if(!affiche_attribut_node(n5)){
+    printf("n5 n existe pas\n");
+    return 0;
+  }
+
+  n6 = get_fils_node(n1,'e');
+  if(!affiche_attribut_node(n6)){
+    printf("n6 n existe pas\n");
+    return 0;
+  }
+  if( get_fils_node(n6,EPSILON) )
+    printf("n6 possede comme fils le node EPSILON\n");
+
+  if(!affiche_attribut_node(n4)){
+    printf("n4 n existe pas\n");
+    return 0;
+  }
+  if( get_fils_node(n4,EPSILON) )
+    printf("n4 possede comme fils le node EPSILON\n");
+
+  affiche_attribut_node(n2);
+  if( get_fils_node(n2,EPSILON) )
+    printf("n2 possede comme fils le node EPSILON\n");
+
+  affiche_attribut_node(n3);
+
+
+  /* test mot6 */
+  printf("\n---- ajout du mot %s ----\n\n",mot6);
+  ajouter_mot(arbre,mot6);
+
+  
+  affiche_attribut_node(n1);
+  if( get_fils_node(n1,EPSILON) )
+    printf("n1 possede comme fils le node EPSILON\n");
+
+
+  if(!affiche_attribut_node(n5)){
+    printf("n5 n existe pas\n");
+    return 0;
+  }
+
+  if(!affiche_attribut_node(n6)){
+    printf("n6 n existe pas\n");
+    return 0;
+  }
+  if( get_fils_node(n6,EPSILON) )
+    printf("n6 possede comme fils le node EPSILON\n");
+
+  if(!affiche_attribut_node(n4)){
+    printf("n4 n existe pas\n");
+    return 0;
+  }
+  if( get_fils_node(n4,EPSILON) )
+    printf("n4 possede comme fils le node EPSILON\n");
+
+  affiche_attribut_node(n2);
+  if( get_fils_node(n2,EPSILON) )
+    printf("n2 possede comme fils le node EPSILON\n");
+  
+  n7 = get_fils_node(n2,'d');
+  if(!affiche_attribut_node(n7)){
+    printf("n7 n existe pas\n");
+    return 0;
+  }else{
+    printf("c'etait n7\n");
+  }
+  
+  affiche_attribut_node(n3);
+
+  /* test mot7 */
+  printf("\n---- ajout du mot %s ----\n\n",mot7);
+  ajouter_mot(arbre,mot7);
+
+  
+  affiche_attribut_node(n1);
+  if( get_fils_node(n1,EPSILON) )
+    printf("n1 possede comme fils le node EPSILON\n");
+
+
+  if(!affiche_attribut_node(n5)){
+    printf("n5 n existe pas\n");
+    return 0;
+  }
+
+  if(!affiche_attribut_node(n6)){
+    printf("n6 n existe pas\n");
+    return 0;
+  }
+  if( get_fils_node(n6,EPSILON) )
+    printf("n6 possede comme fils le node EPSILON\n");
+
+  if(!affiche_attribut_node(n4)){
+    printf("n4 n existe pas\n");
+    return 0;
+  }
+  if( get_fils_node(n4,EPSILON) )
+    printf("n4 possede comme fils le node EPSILON\n");
+
+  affiche_attribut_node(n2);
+  if( get_fils_node(n2,EPSILON) )
+    printf("n2 possede comme fils le node EPSILON\n");
+  
+  if(!affiche_attribut_node(n7)){
+    printf("n7 n existe pas\n");
+    return 0;
+  }else{
+    printf("c'etait n7\n");
+  }
+  
+  affiche_attribut_node(n3);
+  
+  affiche_noeud_simple(arbre);
+
+  return 1;
+}
+
+
+void test_make_arbre_fichier(){
+  node* tree = make_arbre_fichier(PATH_FICHIER_TEST);
+  affiche_noeud_simple(tree);
+  return;
 }
