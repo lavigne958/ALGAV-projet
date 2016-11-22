@@ -1,114 +1,41 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
-#include "structure.h"
+#include "struct.h"
+#include "util.h"
 #include "access.h"
 
-/* fonction qui renvoi la sous chaine de s comprise entre les indices stars et end 
- j'ai chope cette fonction sur internet (http://nicolasj.developpez.com/articles/libc/string/)
- et je ne l'ai pas verifie mais ca a l'air pas mal on retourne une chaine vide dans un certain 
- mais vu comment on l'utilise on devrait jamais tomber dans ce cas */
-char* str_sub (const char *s, int start,int end){
-  char* new_s = NULL;
-  if(s != NULL && start < end){
-    new_s = malloc (sizeof (*new_s) * (end - start + 2));
-    if(new_s != NULL){
-      int i;
-      for (i = start; i <= end; i++){
-	new_s[i-start] = s[i];
-      }
-      new_s[i-start] = '\0';
+int search_word(node* nd, char* string){
+  if( prefix_equals_string(nd,string)){
+    if( prefix_has_epsilon(nd) ){
+      printf("le mot %s est dans l'arbre\n",string);
+      return 1;
     }else{
-      fprintf (stderr, "Memoire insuffisante\n");
-      exit (EXIT_FAILURE);
+      printf("le mot %s est dans l'arbre mais n'a pas epsilon\n",string);
+      return -1;
     }
-  }
-  return new_s;
-}
-
-
-int sub_search(node* n,char* chaine){
-  char* prefix_fils;
-  node* fils = NULL;
-  int taille_chaine = strlen(chaine);
-  int taille_prefix = n->size;
-  char* prefix = get_prefix(n);
-  
-  
-  /* verifier que le prefixe ne se termine pas par EPSILON 
-   si oui reduit la taille de 1 pour ne pas le prendre en compte dans la comparaison des tailles*/
-  if(prefix[taille_prefix-1] == EPSILON)
-    taille_prefix--;
- 
-  if(taille_prefix==taille_chaine){ 
-    if( strncmp(chaine, prefix, taille_prefix) ==0 ){
-      /* verifie que EPSILON est present en fin de mot */
-      
-      /* pour savoir si EPSILON est dans le prefixe */
-      if( prefix[taille_prefix] == EPSILON ){
-	return 1;
-      }else{
-
-	/* traiter la valeur de retour */
-	fils = get_fils_node(n,EPSILON);
-	if( fils==NULL ){
-	  /* en theorie passer ici signifie que ya un pb 
-	   parce que ca veut dire que le prefix ne contient pas EPSILON 
-	   et que node n'a pas de fils donc incoherence */
-	  fprintf(stderr,"erreur fils n'existe alors que pas espilon en fin de prefix\n");
-	  exit(EXIT_FAILURE);
-	}else{
-	  prefix_fils = get_prefix(fils);
-	  if( prefix_fils[0]==EPSILON) {
-	    return 1;
-	  }else{
-	    return 0;
-	  }
-
-	}
-      }
-    }
-  }else if(taille_prefix > taille_chaine){
-    return 0;
-  }else{ /* cas ou taille_prefix < taille_chaine */
-
-    /* verifie que chaine et prefix sont egaux: si non le mot n'est pas dans l'arbre */
-    if( strncmp(chaine, prefix, taille_prefix) ==0 ){
-      
-      /* verifie que le node a un fils: si oui recursion, sinon chaine n'est pas dans l'arbre */  
-      /* traiter a valeur de retour */
-      fils = get_fils_node(n,chaine[0]);
-      if(fils == NULL){
-	return 0;
-      }else{
-	return sub_search(fils, str_sub(chaine, (taille_chaine-taille_prefix), taille_chaine ));
-      }
-      
-    }else{ 
+  }else{
+    printf("prefix: %s != string: %s\n",nd->prefix, string);
+    int comon_prefix = taille_prefixe_commun(string, nd->prefix);
+    if( strlen(string) <= (unsigned int)nd->size ||  comon_prefix < nd->size){
+      printf("%s <= pref ou comon_prefix < pref\n",string);
       return 0;
+    }else{
+      printf("%s à un préfixe commun\n",string);
+      //cas ou la string est strictement plus grande que le prefixe avec le prefixe compris dedans
+      char* sub_str = &string[comon_prefix];
+      node* fils = get_fils_node(nd,sub_str[0]);
+      //if the node doesn't have a child with the same first letter then the string is not present
+      if(is_node_null(fils)){
+	printf("le fils: %c vaut NULL, %s n'existe pas dans l'arbre\n",string[0],string);
+	return 0;
+      }
+      printf("perfix egaux recherche %s dans le fils\n",sub_str);
+      return search_word(fils,sub_str);
     }
   }
-  return EXIT_FAILURE;
 }
 
-int recherche_mot(node* arbre,char* chaine){
-  if(is_node_null(arbre)){
-    fprintf(stderr,"erreur arbre: NULL - recherche_mot\n");
-    exit(EXIT_FAILURE);
-  }
-
-  if( !strlen(chaine) ){
-    fprintf(stderr,"erreur chaine vide - recherche_mot\n");
-    exit(EXIT_FAILURE);
-  }
-
-  node* fils = get_fils_node(arbre,chaine[0]);
-
-  if(fils == NULL){
-    fprintf(stderr,"erreur fils:NULL - recherche_mot\n");
-    exit(EXIT_FAILURE);
-  }
-
-  return sub_search(fils,chaine);
+int recherche_arbre(node* nd, char* string){
+  return search_word(get_fils_node(nd,string[0]), string);
 }

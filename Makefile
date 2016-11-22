@@ -7,7 +7,7 @@ BIN=$(DIR)bin/
 OBJ=$(DIR)obj/
 OBJS=$(OBJ)access.o\
 	$(OBJ)add_word.o\
-	$(OBJ)search_alex.o\
+	$(OBJ)search.o\
 	$(OBJ)util.o\
 	$(OBJ)test.o\
 	$(OBJ)supression.o\

@@ -17,6 +17,14 @@ node* creer_noeud();
 int is_node_null(node* );
 
 /**
+ * creer un tableau de pointeur sur structures node*
+ * initialise les pointeurs avec la valeur NULL
+ * renvoi l'adresse du tableau
+ */
+node** creer_tab_sans_pere();
+
+
+/**
  * creer le tableau de fils
  * creer les pointeurs et les structures
 */

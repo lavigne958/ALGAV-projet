@@ -23,8 +23,8 @@ int aux_supression(node* nd, char* mot){
       //if it has more than on child we just delete the epsilon child entry
       if(nb_fils > 2){
 	printf("le noeud a supprimer contient plus d'un fils\n");
-	free(nd->fils[EPSILON]);
-	nd->fils[EPSILON] = NULL;
+	free(nd->tab_fils[EPSILON]);
+	nd->tab_fils[EPSILON] = NULL;
 	//if it has only one child we append the childj
       }else if( nb_fils == 2){
 	printf("le noeud a 1 fils (+ EPSILON)\n");
@@ -32,13 +32,13 @@ int aux_supression(node* nd, char* mot){
 	int pos = -1;
 	//look for the position of the only child
 	while(i < NB_CHAR_MAX || pos == -1){
-	  if(nd->fils[i] != NULL && nd->fils[i]->prefix[0] != EPSILON){
+	  if(nd->tab_fils[i] != NULL && nd->tab_fils[i]->prefix[0] != EPSILON){
 	    pos = i;
 	  }
 	  i++;
 	}
 
-	return (long)nd->fils[pos];
+	return (long)nd->tab_fils[pos];
       }
 
       //return 0 so we stop deleteting in chain the nodes
@@ -71,7 +71,7 @@ int aux_supression(node* nd, char* mot){
 	int nb_fils = 0;
 	int last_fils = -1;
 	for(i = 0; i < NB_CHAR_MAX; i++){
-	  if(nd->fils[i] != NULL){
+	  if(nd->tab_fils[i] != NULL){
 	    nb_fils++;
 	    //conservation de l'index du dernier fils au cas ou il n'y en as qu'un seul
 	    last_fils = i;
@@ -83,15 +83,15 @@ int aux_supression(node* nd, char* mot){
 	//-- cas impossible il me semble --
 	if( nb_fils == 1){
 	  printf("il y a 1 fils\n");
-	  sprintf(nd->fils[last_fils]->prefix, "%s%s", get_prefix(nd),
-		  get_prefix(nd->fils[last_fils]));
+	  sprintf(nd->tab_fils[last_fils]->prefix, "%s%s", get_prefix(nd),
+		  get_prefix(nd->tab_fils[last_fils]));
 	  node* del_node = nd;
 	  free(del_node);
 	//---------------------------------
 	}else{
 	  printf("il y a plus de fils\n");
 	  int index_fils = (int) sub_str[0];
-	  nd->fils[index_fils] = NULL;
+	  nd->tab_fils[index_fils] = NULL;
 	  free(fils);
 	}
 

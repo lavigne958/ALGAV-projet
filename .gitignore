@@ -31,3 +31,11 @@
 # Debug files
 *.dSYM/
 *.su
+
+
+#folder containing object files
+obj/
+
+#temporary files from various editors
+*.*~
+\#*.*#
