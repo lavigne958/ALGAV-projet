@@ -1,6 +1,0 @@
-#ifndef _SUPP_H
-#define _SUPP_H
-
-int suppresion(node*, char*);
-
-#endif
