@@ -23,41 +23,28 @@ node* aux_insert(node* nd, char* mot, int val){
   }else{
     char lettre = get_lettre(nd);
     printf("le noeud ne vaut pas null, verification ou ajouter (eq, inf, supp) lettre: %c\n", lettre);
-    if( strlen(mot) == 1){
-      printf("il ne reste qu'un char à ajouter\n");
-      if(mot[0] == lettre){
-	printf("insertion d'un mot qui existe déjà\n");
-	return NULL;
-      }else if(mot[0] < lettre){
-	printf("%c < %c insertion dans inff\n", mot[0], lettre);
-	node* ndd = creer_noeud();
-	set_lettre(ndd, mot[0]);
-	set_key(ndd, val);
-	set_inf_node(nd, ndd);
-	return nd;
-      }else{
-	printf("%c > %c insertion dans supp\n", mot[0], lettre);
-	node* ndd = creer_noeud();
-	set_lettre(ndd, mot[0]);
-	set_key(ndd, val);
-	set_supp_node(nd, ndd);
-	return nd;
-      }
+    if(mot[0] == lettre && strlen(mot) == 1){
+      printf("insertion d'un mot qui existe déjà\n");
+      // ----------- ajouter la clef ------------ possible
+      // ------------------------------------------------
+      return nd;
+      
+    }
+
+    if(mot[0] == lettre && strlen(mot) > 1){
+      printf("%c == %c insertion dans eq\n", mot[0], lettre);
+      char* sub_str = &mot[1];
+      set_eq_node(nd, aux_insert(get_eq_node(nd), sub_str, val));
+      return nd;
+    }else if(mot[0] < lettre){
+      printf("%c < %c insertion dans inff\n", mot[0], lettre);
+      set_inf_node(nd, aux_insert(get_inf_node(nd), mot, val));
+      return nd;
+      
     }else{
-      if(mot[0] == lettre){
-	printf("%c == %c insertion dans eq\n", mot[0], lettre);
-	char* sub_str = &mot[1];
-	set_eq_node(nd, aux_insert(get_eq_node(nd), sub_str, val));
-	return nd;
-      }else if(mot[0] > lettre){
-	printf("%c > %c insertion dans supp\n", mot[0], lettre);
-	set_supp_node(nd, aux_insert(get_supp_node(nd), mot, val));
-	return nd;
-      }else{
-	printf("%c < %c insertion dans inff\n", mot[0], lettre);
-	set_inf_node(nd, aux_insert(get_inf_node(nd), mot, val));
-	return nd;
-      }
+      printf("%c > %c insertion dans supp\n", mot[0], lettre);
+      set_supp_node(nd, aux_insert(get_supp_node(nd), mot, val));
+      return nd;
     }
   }
 }

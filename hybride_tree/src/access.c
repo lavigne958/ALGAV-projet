@@ -98,6 +98,14 @@ node* get_supp_node(node* nd){
   return nd->supp;
 }
 
+int get_key(node* nd){
+  if( is_node_null(nd)){
+    exit_failure("get_key", "le noeud nd vaut NULL");
+  }
+
+  return nd->key;
+}
+
 void set_key(node* nd, int key){
   if(is_node_null(nd)){
     exit_failure("set_key", "le noeud vaut NULL");

@@ -6,6 +6,7 @@ DIR=./
 BIN=$(DIR)bin/
 OBJ=$(DIR)obj/
 OBJS=$(OBJ)util.o\
+	$(OBJ)search.o\
 	$(OBJ)affiche.o\
 	$(OBJ)access.o\
 	$(OBJ)insertion.o

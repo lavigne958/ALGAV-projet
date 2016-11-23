@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 
 #include "struct.h"
 #include "access.h"
 #include "affiche.h"
 #include "insertion.h"
+#include "search.h"
 
 void testf(node* nd){
   if(nd == NULL){
@@ -19,42 +21,28 @@ void testf(node* nd){
 }
 
 int main(){
-  racine* root = creer_racine();
-  /*
-  node* nl = creer_noeud();
-  node* no = creer_noeud();
-  node* nu = creer_noeud();
-  node* np = creer_noeud();
-  node* ns = creer_noeud();
-  node* nr = creer_noeud();
-  node* nd = creer_noeud();
-
-  set_lettre(nl, 'l');
-  set_lettre(no, 'o');
-  set_lettre(nu, 'u');
-  set_lettre(np, 'p');
-  set_lettre(ns, 's');
-  set_lettre(nr, 'r');
-  set_lettre(nd, 'd');
-  
-  root->tree = nl;
-  set_eq_node(nl, no);
-  set_eq_node(no, nu);
-  set_eq_node(nu, np);
-  set_supp_node(np, nr);
-  set_eq_node(nr, nd);
-  set_eq_node(np, ns);
-  
-  affichage_simple(root);
-  */
-
+  char mot[1024];
   printf("création d'une nouvelle racine\n");
   racine* new_root = creer_racine();
   printf("insertion du mot: tata\n");
   insert(new_root, "tata");
   insert(new_root, "toto");
   insert(new_root, "the");
+  insert(new_root, "tb");
+  insert(new_root, "tba");
+  
   affichage_simple(new_root);
+
+  printf("recherche d'un mot dans l'arbre\n: ");
+  fgets(mot, 1024, stdin);
+  mot[strlen(mot)-1] = '\0';
+  int res = search(new_root, mot);
+
+  if( res ){
+    printf("le mot existe\n");
+  }else{
+    printf("le mot n'existe pas\n");
+  }
   
   return 0;
 }
