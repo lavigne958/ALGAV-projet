@@ -9,9 +9,7 @@
 #include "supression.h"
 #include "affichage.h"
 #include "add_word.h"
-
-
-
+#include "parser.h"
 
 #define PATH_FICHIER_TEST "./annexe/test.txt"
 
@@ -25,10 +23,12 @@ int main(){
 
 
   /* tes tests sont plus bas juste apres le main */
+  printf("==================== TEST ALEX =================\n\n");
   test_alex();
-
+  printf("\n\n\n");
   
   /* test ajouter_mot */
+  printf("================== TEST HATHEM =================\n\n\n");
   if(test_ajouter_mot()){
     printf(" ===== test reussi =====\n");
   }
@@ -42,94 +42,34 @@ int main(){
 
 
 void test_alex(){
+  node* arbre = creer_noeud();
+  creer_tableau_fils(arbre);
 
+  char fichier[] = {"./annexe/test.txt"};
 
-
-    printf("creation structure\n");
-  
-  node* nd = creer_noeud();
-  
-  printf("le noeud est initialement vide %s\n",nd->prefix);
-  
-  strcpy(nd->prefix,"test phrase");
-  
-  printf("préfixe de racine: %s\n",nd->prefix);
-  
-  creer_tableau_fils(nd);
-  
-  
-  node* filsA = get_fils_node(nd,'A');
-  if(filsA == NULL){
-    filsA = creer_noeud();
-    set_fils_node(nd,filsA,'A');
-  }
-  
-  filsA = get_fils_node(nd,'A');
-  
-  set_prefix(filsA,"BBB");
-  
-  printf("test des liens (pointeurs)\n");
-  printf("nd->fils[A]->prefix: %s\tfilsA->prefix: %s\n",nd->tab_fils['A']->prefix,filsA->prefix);
-  
-  
-  nd = creer_noeud();
-  creer_tableau_fils(nd);
-  printf("racine creer\n");
-  node* filst = get_fils_node(nd,'t');
-  filst = creer_noeud();
-  creer_tableau_fils(filst);
-  set_prefix(filst,"t");
-  set_fils_node(nd,filst,'t');
-  printf("fils 't' creer\n");
-  node* filsoaster = creer_noeud();
-  set_prefix(filsoaster,"oast");
-  creer_tableau_fils(filsoaster);
-  add_epsilon_node(filsoaster);
-  node* er = creer_noeud();
-  set_prefix(er, "er");
-  prefix_add_epsilon(er);
-  set_fils_node(filsoaster, er, 'e');
-  set_fils_node(filst,filsoaster,'o');
-  printf("fils 'oaster' creer\n");
-  node* filsester = creer_noeud();
-  set_prefix(filsester, "ester");
-  prefix_add_epsilon(filsester);
-  set_fils_node(filst,filsester,'e');
-  
-  printf("recherche du mot toaster\n");
-  /* if(recherche_mot(nd,"toaster")){ */
-  if(search_word(nd,"toaster")){
-  printf("mot trouvé\n");
-  }else{
-    printf("pas trouvé\n");
+  words_list* mots = read_words(fichier);
+  words_list* head = mots;
+  if(mots == NULL){
+    fprintf(stderr, "erreur liste de mots vaut NULL\n");
+    exit(EXIT_FAILURE);
   }
 
-  if(recherche_arbre(nd,"toaster")){
-    printf("alex à trouver\n");
-  }else{
-    printf("alex à pas trouvé\n");
-  }
+  while(head != NULL && head->word != NULL){
+    printf("lu: %s\n", head->word);
+    // ajouter_mot(arbre, head->word);//
+    head = head->next;
+  } 
 
-  if(recherche_arbre(nd,"tester")){
-    printf("alex à trouvé tester\n");
-  }else{
-    printf("alex à pas trouvé tester\n");
-  }
+  printf("fin parsing\n");
 
-  printf("nd: %s->%s\n",get_prefix(get_fils_node(nd,'t')),get_prefix(get_fils_node(get_fils_node(nd,'t'),'o')));
+  ajouter_mot(arbre, "que");
+  affiche_noeud_simple(arbre);
 
-  printf("arbre avant suppression:\n");
-  affiche_noeud_simple(nd);
+  ajouter_mot(arbre, "que");
+  affiche_noeud_simple(arbre);
   
-  printf("test de suppression dans l'arbre\n");
-
-  int res = supression(nd, "toast");
-
-  printf("suppresion: %d\n", res);
-
-  affiche_noeud_simple(nd);
- 
-
+  printf("fin\n");
+     
 }
 
 
