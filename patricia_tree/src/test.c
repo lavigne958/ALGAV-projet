@@ -23,15 +23,11 @@ int main(){
 
 
   /* tes tests sont plus bas juste apres le main */
+  /*
   printf("==================== TEST ALEX =================\n\n");
   test_alex();
   printf("\n\n\n");
-  
-  /* test ajouter_mot */
-  printf("================== TEST HATHEM =================\n\n\n");
-  if(test_ajouter_mot()){
-    printf(" ===== test reussi =====\n");
-  }
+  */  
 
   /* test make_arbre_fichier */
   test_make_arbre_fichier();

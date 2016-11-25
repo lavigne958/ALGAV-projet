@@ -5,10 +5,7 @@
 #include "util.h"
 #include "struct.h"
 #include "access.h"
-
-
-
-
+#include "affichage.h"
 
 
 void sub_add_word(node* n,char* mot){
@@ -27,7 +24,7 @@ void sub_add_word(node* n,char* mot){
   node** new = NULL;
   char indice_reste_prefix, indice_reste_mot;
 
-
+  
   /* ----- gestions chaines et tailles chaines -------- */
   if(prefix[taille_prefix-1] == EPSILON){
     taille_prefix--;
@@ -43,22 +40,20 @@ void sub_add_word(node* n,char* mot){
   reste_prefix = str_sub(prefix, taille_prefix_commun, taille_prefix-1);
   reste_mot = str_sub(mot, taille_prefix_commun, taille_mot-1);
 
-  /* printf("|pref_commun|=%d - prefix_commun=%s - rest_prefix= %s - rest_mot=%s\n", taille_prefix_commun, prefix_commun, reste_prefix, reste_mot);*/
 
   /* ----- fin gestions chaines et tailles chaines -------- */
 
   if(prefix_avec_epsilon){ /* prefix_avec_epsilon == 1 */
-    /* printf("cas1\n"); */
 
     if( strncmp(mot,prefix,max(taille_prefix,taille_mot)) != 0 ){
-      /* maj des attributs de n */
-      set_prefix(n,prefix_commun);
+
+      /* creation du node fils */
       creer_tableau_fils(n);
       
       /* creation des nodes necessaire pour chaque cas
 	 + ajout des nodes cree
 	 + ajout des nodes EPSILON si necessaire */
-      if( strncmp(prefix_commun,prefix,taille_prefix) == 0 && reste_mot != NULL){
+      if( strncmp(prefix_commun,prefix,taille_prefix) == 0){ /* prefix == prefix_commun */
 
 	fils2 = creer_noeud();
 	set_prefix(fils2, reste_mot);
@@ -67,7 +62,6 @@ void sub_add_word(node* n,char* mot){
 	add_epsilon_node(n);
 
       }else if( strncmp(prefix_commun,mot,taille_mot) == 0 ){
-	/* printf("cas1.2\n"); */
 	
 	fils1 = creer_noeud();
 	set_prefix(fils1, reste_prefix);
@@ -76,7 +70,6 @@ void sub_add_word(node* n,char* mot){
 	
 	add_epsilon_node(n);
       }else{
-	/* printf("cas1.3\n"); */
 	
 	fils1 = creer_noeud();
 	set_prefix(fils1, reste_prefix);
@@ -88,28 +81,27 @@ void sub_add_word(node* n,char* mot){
 	prefix_add_epsilon(fils2);
 	set_fils_node(n, fils2, reste_mot[0]);
       }
+
+      /* maj des attributs de n */
+      set_prefix(n,prefix_commun);
+      
     }
     
   }else{ /* prefix_avec_epsilon == 0 */
     /*printf("cas2\n");*/ 
      
     if( strncmp(mot,prefix,max(taille_prefix,taille_mot)) == 0 ){
-      /*printf("cas2.1\n");*/
       
       if( !get_fils_node(n, EPSILON) ){
 	add_epsilon_node(n);
       }
       
     }else if( strncmp(prefix_commun,prefix,taille_prefix) == 0 ){
-      /*printf("cas2.2\n");*/
       
       fils2 = get_fils_node(n, reste_mot[0]);
       if(fils2){
-	printf("fils2 existe\n");
 	sub_add_word(fils2,reste_mot);
       }else{
-	printf("fils2 n'existe pas\n");
-	printf("reste_mot = %s | prefix = %s\n",reste_mot, prefix);
 	fils2 = creer_noeud();
 	set_prefix(fils2, reste_mot);
 	prefix_add_epsilon(fils2);
@@ -117,7 +109,6 @@ void sub_add_word(node* n,char* mot){
       }
       
     }else if( strncmp(prefix_commun,mot,taille_mot) == 0 ){
-      /*printf("cas2.3\n");*/
       
       /* maj des attributs de n */
       set_prefix(n,prefix_commun);
@@ -137,7 +128,6 @@ void sub_add_word(node* n,char* mot){
       add_epsilon_node(n);
 	
     }else{
-      printf("cas2.4\n");
        
       /* maj des attributs de n */
       set_prefix(n,prefix_commun);
@@ -173,6 +163,7 @@ void sub_add_word(node* n,char* mot){
 
 void ajouter_mot(node* arbre, char* mot){
 
+  
   node* fils;
   int taille_mot = strlen(mot);
   
@@ -202,7 +193,6 @@ void ajouter_mot(node* arbre, char* mot){
   }else{ /* cas ou le fils existe, parcourt recursif et insertion progressive */
     sub_add_word(fils,mot);
   }
-      
   return ;
 }
 
