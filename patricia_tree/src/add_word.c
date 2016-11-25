@@ -43,13 +43,14 @@ void sub_add_word(node* n,char* mot){
   reste_prefix = str_sub(prefix, taille_prefix_commun, taille_prefix-1);
   reste_mot = str_sub(mot, taille_prefix_commun, taille_mot-1);
 
+  /* printf("|pref_commun|=%d - prefix_commun=%s - rest_prefix= %s - rest_mot=%s\n", taille_prefix_commun, prefix_commun, reste_prefix, reste_mot);*/
+
   /* ----- fin gestions chaines et tailles chaines -------- */
 
   if(prefix_avec_epsilon){ /* prefix_avec_epsilon == 1 */
     /* printf("cas1\n"); */
 
     if( strncmp(mot,prefix,max(taille_prefix,taille_mot)) != 0 ){
-      
       /* maj des attributs de n */
       set_prefix(n,prefix_commun);
       creer_tableau_fils(n);
@@ -57,14 +58,12 @@ void sub_add_word(node* n,char* mot){
       /* creation des nodes necessaire pour chaque cas
 	 + ajout des nodes cree
 	 + ajout des nodes EPSILON si necessaire */
-      if( strncmp(prefix_commun,prefix,taille_prefix) == 0 ){
-	/* printf("cas1.1\n"); */
+      if( strncmp(prefix_commun,prefix,taille_prefix) == 0 && reste_mot != NULL){
 
 	fils2 = creer_noeud();
 	set_prefix(fils2, reste_mot);
 	prefix_add_epsilon(fils2);
 	set_fils_node(n, fils2, reste_mot[0]);
-
 	add_epsilon_node(n);
 
       }else if( strncmp(prefix_commun,mot,taille_mot) == 0 ){

@@ -56,7 +56,20 @@ void test_alex(){
 
   while(head != NULL && head->word != NULL){
     printf("lu: %s\n", head->word);
-    // ajouter_mot(arbre, head->word);//
+    if( head == NULL){
+      printf("le noeud vaut NUL\n");
+    }
+
+    if( head->word == NULL){
+      printf("le mot vaut NULL\n");
+    }
+    
+    if( strcmp(head->word, "que") == 0){
+      printf("affichage arbre\n");
+      affiche_noeud_simple(arbre);
+      printf("fin affichage\n");
+    }
+    ajouter_mot(arbre, head->word);
     head = head->next;
   } 
 
