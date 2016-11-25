@@ -12,7 +12,8 @@ OBJS=$(OBJ)access.o\
 	$(OBJ)test.o\
 	$(OBJ)supression.o\
 	$(OBJ)affichage.o\
-	$(OBJ)parser.o
+	$(OBJ)parser.o\
+	$(OBJ)comptage.o
 INCLUDE=$(DIR)include/
 LIB=$(DIR)lib/
 SRC=$(DIR)src/

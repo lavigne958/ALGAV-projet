@@ -9,6 +9,7 @@
 #include "insertion.h"
 #include "search.h"
 #include "parser.h"
+#include "comptage.h"
 
 void testf(node* nd){
   if(nd == NULL){
@@ -87,6 +88,12 @@ int main(){
   }else{
     printf("le mot n'existe pas.\n");
   }
+
+  printf("comptage du nombre de mots dans l'arbre\n");
+
+  int nb_mots = comptage(new_root);
+
+  printf("%d mots dans l'arbre\n", nb_mots);
   return 0;
 }
   

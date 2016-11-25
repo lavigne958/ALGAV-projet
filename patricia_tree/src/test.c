@@ -10,6 +10,7 @@
 #include "affichage.h"
 #include "add_word.h"
 #include "parser.h"
+#include "comptage.h"
 
 #define PATH_FICHIER_TEST "./annexe/test.txt"
 
@@ -27,10 +28,20 @@ int main(){
   printf("==================== TEST ALEX =================\n\n");
   test_alex();
   printf("\n\n\n");
+<<<<<<< HEAD
   */  
+=======
+  
+  /* test ajouter_mot */
+  printf("================== TEST HATHEM =================\n\n\n");
+  /*
+  if(test_ajouter_mot()){
+    printf(" ===== test reussi =====\n");
+  }
+>>>>>>> e5840b85105bd786a285fbee2bae9a33e7495365
 
-  /* test make_arbre_fichier */
-  test_make_arbre_fichier();
+   test make_arbre_fichier */
+  //test_make_arbre_fichier();
   
 
   return 0;
@@ -41,10 +52,12 @@ void test_alex(){
   node* arbre = creer_noeud();
   creer_tableau_fils(arbre);
 
+  /*
   char fichier[] = {"./annexe/test.txt"};
 
   words_list* mots = read_words(fichier);
   words_list* head = mots;
+  int i;
   if(mots == NULL){
     fprintf(stderr, "erreur liste de mots vaut NULL\n");
     exit(EXIT_FAILURE);
@@ -65,18 +78,59 @@ void test_alex(){
       affiche_noeud_simple(arbre);
       printf("fin affichage\n");
     }
-    ajouter_mot(arbre, head->word);
+    //ajouter_mot(arbre, head->word);
     head = head->next;
   } 
 
   printf("fin parsing\n");
+  */
 
-  ajouter_mot(arbre, "que");
-  affiche_noeud_simple(arbre);
+  node* bon = creer_noeud();
+  node* jours = creer_noeud();
+  node* he = creer_noeud();
+  node* c = creer_noeud();
+  node* ho = creer_noeud();
+  node* to = creer_noeud();
+  node* maman = creer_noeud();
 
-  ajouter_mot(arbre, "que");
-  affiche_noeud_simple(arbre);
+  set_prefix(maman, "maman");
+  prefix_add_epsilon(maman);
+
+  set_prefix(to, "to");
+  prefix_add_epsilon(to);
   
+  set_prefix(ho, "ho");
+  prefix_add_epsilon(ho);
+
+  set_prefix(c, "c");
+    creer_tableau_fils(c);
+  add_epsilon_node(c);
+  
+  set_prefix(he, "he");
+  creer_tableau_fils(he);
+  
+  set_prefix(bon, "bon");
+  creer_tableau_fils(bon);
+  add_epsilon_node(bon);
+  
+  set_prefix(jours, "jour");
+  prefix_add_epsilon(jours);
+
+  set_fils_node(arbre, maman, 'm');
+  set_fils_node(he, to, 't');
+  set_fils_node(c, ho, 'h');
+  set_fils_node(he, c, 'c');
+  set_fils_node(arbre, he, 'h');
+  set_fils_node(bon, jours, 'j');
+  set_fils_node(arbre, bon, 'b');
+  
+  affiche_noeud_simple(arbre);
+
+  printf("comptage du nombre de mots dans l'arbre\n");
+
+  int nb_mots = comptage_mot(arbre);
+
+  printf("%d mots trouvé(s) dans l'arbre\n", nb_mots);
   printf("fin\n");
      
 }

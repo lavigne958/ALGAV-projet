@@ -180,7 +180,7 @@ void add_epsilon_node(node* nd){
 }
 
 int prefix_has_epsilon(node* nd){
-  if(nd->prefix[nd->size] == EPSILON){
+  if(nd->prefix[nd->size-1] == EPSILON){
     return 1;
   }else{
     return 0;
