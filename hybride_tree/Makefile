@@ -9,7 +9,8 @@ OBJS=$(OBJ)util.o\
 	$(OBJ)search.o\
 	$(OBJ)affiche.o\
 	$(OBJ)access.o\
-	$(OBJ)insertion.o
+	$(OBJ)insertion.o\
+	$(OBJ)parser.o
 INCLUDE=$(DIR)include/
 LIB=$(DIR)lib/
 SRC=$(DIR)src/
