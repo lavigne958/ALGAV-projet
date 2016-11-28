@@ -22,15 +22,9 @@ void test_make_arbre_fichier();
 
 int main(){
 
-
-  /* tes tests sont plus bas juste apres le main */
-  /*
   printf("==================== TEST ALEX =================\n\n");
   test_alex();
-  printf("\n\n\n");
-<<<<<<< HEAD
-  */  
-=======
+  printf("\n\n\n"); 
   
   /* test ajouter_mot */
   printf("================== TEST HATHEM =================\n\n\n");
@@ -38,7 +32,6 @@ int main(){
   if(test_ajouter_mot()){
     printf(" ===== test reussi =====\n");
   }
->>>>>>> e5840b85105bd786a285fbee2bae9a33e7495365
 
    test make_arbre_fichier */
   //test_make_arbre_fichier();
@@ -131,8 +124,9 @@ void test_alex(){
   int nb_mots = comptage_mot(arbre);
 
   printf("%d mots trouvé(s) dans l'arbre\n", nb_mots);
-  printf("fin\n");
-     
+
+  affichage_racine_alphabetique(arbre);
+  printf("fin\n");     
 }
 
 

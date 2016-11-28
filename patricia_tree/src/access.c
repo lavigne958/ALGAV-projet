@@ -77,21 +77,21 @@ void set_prefix(node* node, char* prefix){
 }
 
 int prefix_equals_string(node* nd, char* string){
-  //get the prefix size to iterate thru
+  /* get the prefix size to iterate thru */
   unsigned int prefix_size = nd->size;
   unsigned int i=0;
 
-  //if the prefix has EPSILON, do not take it into count
-  /*if(nd->prefix[nd->size] == EPSILON){
+  /*if the prefix has EPSILON, do not take it into count
+  if(nd->prefix[nd->size] == EPSILON){
     prefix_size--;
     }*/
 
-  //if the string is not exactly the same size it can not be equals
+  /*if the string is not exactly the same size it can not be equals*/
   if(strlen(string) != prefix_size){
     return 0;
   }
 
-  //iterate thru the two word if any charactere is different then return 0
+  /*iterate thru the two word if any charactere is different then return 0*/
   while(i < prefix_size){
     if(nd->prefix[i] != string[i]){
       return 0;
@@ -192,6 +192,11 @@ int node_has_epsilon(node* nd){
     return 1;
   }else{
     node* epsilon = get_fils_node(nd,EPSILON);
+
+    if(is_node_null(epsilon)){
+      return 0;
+    }
+    
     if(epsilon->prefix[0] == EPSILON){
 	return 1;
     }else{

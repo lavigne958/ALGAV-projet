@@ -56,6 +56,48 @@ void affiche_noeud_simple(node* nd){
     }
   }
 }
-  
 
+void affichage_alpha(node* nd, char* buffer, int buffer_size){
+
+  char word[128];
+  int word_size;
+  
+  strcpy(word, buffer);
+  strcat(word, get_prefix(nd)); 
+  word_size = buffer_size + nd->size;
+  
+  if( prefix_has_epsilon(nd) ){
+    word[word_size-1] = '\0';
+    printf("- %s\n", word);
+    
+  }else{
+    if( node_has_epsilon(nd) ){
+      printf("- %s\n", word);
+      
+    }
+
+    int i;
+
+    for(i = 0; i < NB_CHAR_MAX; i++){
+      if( i != EPSILON ){
+	node* fils = get_fils_node(nd, (char)i);
+	if( !is_node_null(fils)){
+	  affichage_alpha(get_fils_node(nd, (char)i), word, word_size);
+	}
+      }
+    }
+  }
+}
+
+void affichage_racine_alphabetique(node* racine){
+  char buffer[512];
+  int i;
+  printf("======= Affichage de l'arbre ======\n");
+  for(i = 0; i < NB_CHAR_MAX; i++){
+    node* fils = get_fils_node(racine, (char) i);
+    if( !is_node_null(fils)){
+      affichage_alpha(fils, buffer, 0);
+    }
+  }
+}
 
