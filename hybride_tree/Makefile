@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-W -Wall -pedantic
+CFLAGS=-W -Wall
 LDFLAGS=
 
 DIR=./

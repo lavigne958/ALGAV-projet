@@ -7,7 +7,6 @@
 
 int aux_search(node* nd, char* mot){
   if( mot[0] == get_lettre(nd)){
-    printf("mot:%s, size: %d\n", mot, (int)strlen(mot));
     if( strlen(mot) == 1){
       if( get_key(nd) != -1){
 	return 1;
