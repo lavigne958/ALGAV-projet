@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "struct.h"
 #include "access.h"
 #include "util.h"
+#include "search.h"
 
 void aux_comptage(node* nd, int* counter){
   if( prefix_has_epsilon(nd)){
@@ -48,3 +50,56 @@ int comptage_mot(node* nd){
 
   return counter;
 }
+
+
+void aux_comptage_prefix_nb_mots(node* nd, char* string, int* counter){
+  if( prefix_equals_string(nd,string)){
+    *counter = comptage_mot(nd);
+    
+  }else{
+    int comon_prefix = taille_prefixe_commun(string, nd->prefix);
+    if( strlen(string) <= (unsigned int)nd->size ||  comon_prefix < nd->size){
+      if(strstr(get_prefix(nd), string)){
+	*counter = comptage_mot(nd);
+      }else{
+	return;
+      }
+    }else{
+      //cas ou la string est strictement plus grande que le prefixe avec le prefixe compris dedans
+      char* sub_str = &string[comon_prefix];
+      node* fils = get_fils_node(nd,sub_str[0]);
+      //if the node doesn't have a child with the same first letter then the string is not present
+      if(is_node_null(fils)){
+	printf("le fils: %c vaut NULL, %s n'existe pas dans l'arbre\n",string[0],string);
+	return;
+      }
+      aux_comptage_prefix_nb_mots(fils,sub_str, counter);
+    }
+  }
+}
+
+
+int comptage_prefix_nb_mots(node* nd, char* mot){
+  if( is_node_null(nd)){
+    exit_failure("comptage_prefix_nb_mots", "racine vaut NULL");
+  }
+
+  if( has_childs(nd)){
+    int i;
+    int counter = 0;
+
+    for(i = 0; i < NB_CHAR_MAX; i++){
+      node* fils = get_fils_node(nd, (char)i);
+
+      if(!is_node_null(fils)){
+	aux_comptage_prefix_nb_mots(fils, mot, &counter);
+      }
+    }
+    
+    return counter;
+  }else{
+    //if the root has no child then word is prefix of no-one.
+    return 0;
+  }
+}
+  

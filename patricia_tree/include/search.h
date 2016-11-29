@@ -6,7 +6,12 @@
  j'ai chope cette fonction sur internet (http://nicolasj.developpez.com/articles/libc/string/)
  et je ne l'ai pas verifie mais ca a l'air pas mal on retourne une chaine vide dans un certain 
  mais vu comment on l'utilise on devrait jamais tomber dans ce cas */
-char* str_sub (const char *s, unsigned int start, unsigned int end);
+
+
+//------------------------------------------------------
+//tu as déjà inclu la fonction dans util.h
+
+//char* str_sub (const char *s, unsigned int start, unsigned int end);
 
 /* fonction qui ne doit exister que dans recherche_mot
    permet de rendre la recursion de recherche_mot possible */
