@@ -13,7 +13,6 @@ int aux_comptage(node* nd){
   }
   
   if(get_key(nd) >= 0){
-    printf("+1 -- %c\n", get_lettre(nd));
     res = 1;
   }
 

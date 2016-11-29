@@ -62,7 +62,7 @@ void test_alex(){
 
   printf(" --------- parsing ---------------\n\n");
 
-  words_list* head = read_words("annexe/test.txt");
+  words_list* head = read_words("annexe/hamlet.txt");
   words_list* current = head;
   
   if(head == NULL){
@@ -71,7 +71,6 @@ void test_alex(){
   }
 
   while(current != NULL && current->word != NULL){
-    printf("lu: %s\n", current->word);
     if( current == NULL){
       printf("le noeud vaut NUL\n");
     }
@@ -80,11 +79,6 @@ void test_alex(){
       printf("le mot vaut NULL\n");
     }
     
-    if( strcmp(current->word, "que") == 0){
-      printf("affichage arbre\n");
-      affichage_simple(new_root);
-      printf("fin affichage\n");
-    }
     insert(new_root, current->word);
     current = current->next;
   } 
@@ -107,6 +101,7 @@ void test_alex(){
 
   printf("%d mots dans l'arbre\n", nb_mots);
 
+  return 0;
 }
 
 

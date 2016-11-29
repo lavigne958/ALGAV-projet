@@ -20,10 +20,9 @@ node* aux_insert(node* nd, char* mot, int val){
   }else{
     char lettre = get_lettre(nd);
     if(mot[0] == lettre && strlen(mot) == 1){
-      // ----------- ajouter la clef ------------ possible
-      // ------------------------------------------------
-      return nd;
       
+      set_key(nd, val);
+      return nd;
     }
 
     if(mot[0] == lettre && strlen(mot) > 1){
@@ -52,6 +51,5 @@ void insert(racine* root, char* mot){
     set_lettre(root->tree, mot[0]);
   }
 
-  printf("insertion du mot: %s\n", mot);
   root->tree = aux_insert(root->tree, mot, root->counter++);
 }
