@@ -10,6 +10,8 @@
 #include "search.h"
 #include "parser.h"
 #include "comptage.h"
+#include "delete.h"
+
 
 void testf(node* nd){
   if(nd == NULL){
@@ -22,7 +24,17 @@ void testf(node* nd){
   }
 }
 
+void test_alex();
+void test_hatem();
+
 int main(){
+  test_hatem();
+  return 0;
+}
+
+
+
+void test_alex(){
   char mot[1024];
   printf("création d'une nouvelle racine\n");
   racine* new_root = creer_racine();
@@ -94,6 +106,47 @@ int main(){
   int nb_mots = comptage(new_root);
 
   printf("%d mots dans l'arbre\n", nb_mots);
-  return 0;
+
 }
+
+
+void test_hatem(){
+  char mot[1024];
+  printf("création d'une nouvelle racine\n");
+  racine* new_root = creer_racine();
+
   
+  printf(" --------- parsing ---------------\n\n");
+
+  words_list* head = read_words("annexe/test.txt");
+  words_list* current = head;
+  
+  if(head == NULL){
+    fprintf(stderr, "erreur liste de mots vaut NULL\n");
+    exit(EXIT_FAILURE);
+  }
+
+  while(current != NULL && current->word != NULL){
+    printf("lu: %s\n", current->word);
+    if( current == NULL){
+      printf("le noeud vaut NUL\n");
+    }
+
+    if( current->word == NULL){
+      printf("le mot vaut NULL\n");
+    }
+    
+    insert(new_root, current->word);
+    current = current->next;
+  } 
+
+  printf("fin parsing\n");
+
+  affichage_simple(new_root);
+  printf("--------------------------------------------------\n");
+  delete_word(new_root,"quel");
+  affichage_simple(new_root);
+  printf("--------------------------------------------------\n");
+  
+
+}
