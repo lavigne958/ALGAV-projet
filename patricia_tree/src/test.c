@@ -42,12 +42,15 @@ int main(){
 
 
 void test_alex(){
+  printf("creation de l'arbre\n");
   node* arbre = creer_noeud();
+  printf("creation de ses fils\n");
   creer_tableau_fils(arbre);
 
   
   char fichier[] = {"./annexe/hamlet.txt"};
 
+  printf("parsing\n");
   words_list* mots = read_words(fichier);
   words_list* head = mots;
   int i;
@@ -57,6 +60,7 @@ void test_alex(){
     exit(EXIT_FAILURE);
   }
 
+  printf("insertion\n");
   while(head != NULL && head->word != NULL){
     if( head == NULL){
       printf("le noeud vaut NUL\n");
@@ -65,7 +69,8 @@ void test_alex(){
     if( head->word == NULL){
       printf("le mot vaut NULL\n");
     }
-    
+
+    printf("insertion de: %s\n", head->word);
     ajouter_mot(arbre, head->word);
     head = head->next;
   } 
@@ -88,6 +93,24 @@ void test_alex(){
   int nb_suffixes = comptage_prefix_nb_mots(arbre, saisie);
 
   printf("%s est préfixe de %d mot(s)\n", saisie, nb_suffixes);
+
+  printf("suppression de tout les mot contenu dans le fichier hamlet.txt\n");
+
+  head = mots;
+
+  while(head != NULL && head->word != NULL){
+    if(head->word == NULL){
+      printf("le mot à supprimet vaut NULL\n");
+      continue;
+    }
+    supression(arbre, head->word);
+    head = head->next;
+  }
+
+  printf("suppression terminée\n");
+
+  affichage_racine_alphabetique(arbre);
+  
   
   printf("fin\n");     
 }
