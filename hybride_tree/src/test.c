@@ -28,7 +28,8 @@ void test_alex();
 void test_hatem();
 
 int main(){
-  test_hatem();
+  test_alex();
+  //test_hatem();
   return 0;
 }
 
@@ -101,6 +102,17 @@ void test_alex(){
 
   printf("%d mots dans l'arbre\n", nb_mots);
 
+  printf("combien de suffixes complètes un mot, veuillez saisir un mot\n: ");
+  fgets(mot, 1024, stdin);
+  mot[strlen(mot) - 1] = '\0';
+
+  nb_mots = comptage_prefix_nb_mots(new_root, mot);
+
+  printf("%s est prefixe de %d mots\n", mot, nb_mots);
+  getc(stdin);
+
+  affichage_alpha(new_root);
+
   return 0;
 }
 
@@ -139,7 +151,7 @@ void test_hatem(){
 
   affichage_simple(new_root);
   printf("--------------------------------------------------\n");
-  delete_word(new_root,"quel");
+  //delete_word(new_root,"quel");
   affichage_simple(new_root);
   printf("--------------------------------------------------\n");
   
