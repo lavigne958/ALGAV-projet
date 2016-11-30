@@ -30,12 +30,9 @@ void test_hatem_profondeur();
 
 
 int main(){
-<<<<<<< HEAD
+  /*  test_alex();*/
   test_hatem_profondeur();
-=======
-  test_alex();
-  //test_hatem();
->>>>>>> 2120168a1a2f83f39eea97e66abcd24f9e7e1b01
+  
   return 0;
 }
 
@@ -119,7 +116,6 @@ void test_alex(){
 
   affichage_alpha(new_root);
 
-  return 0;
 }
 
 

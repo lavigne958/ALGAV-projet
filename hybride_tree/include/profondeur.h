@@ -5,4 +5,6 @@ int profondeur_sous_arbre(node* n);
 
 int profondeur_arbre_entier(racine* racine);
 
+int profondeur_rotation(node* n);
+
 #endif
