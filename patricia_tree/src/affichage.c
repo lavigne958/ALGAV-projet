@@ -92,7 +92,11 @@ void affichage_alpha(node* nd, char* buffer, int buffer_size){
 void affichage_racine_alphabetique(node* racine){
   char buffer[512];
   int i;
+
+  buffer[0] = '\0';
+  
   printf("======= Affichage de l'arbre ======\n");
+  
   for(i = 0; i < NB_CHAR_MAX; i++){
     node* fils = get_fils_node(racine, (char) i);
     if( !is_node_null(fils)){

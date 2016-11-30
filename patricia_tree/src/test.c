@@ -42,22 +42,26 @@ int main(){
 
 
 void test_alex(){
+  printf("creation de l'arbre\n");
   node* arbre = creer_noeud();
+  printf("creation de ses fils\n");
   creer_tableau_fils(arbre);
 
-  /*
-  char fichier[] = {"./annexe/test.txt"};
+  
+  char fichier[] = {"./annexe/hamlet.txt"};
 
+  printf("parsing\n");
   words_list* mots = read_words(fichier);
   words_list* head = mots;
   int i;
+  
   if(mots == NULL){
     fprintf(stderr, "erreur liste de mots vaut NULL\n");
     exit(EXIT_FAILURE);
   }
 
+  printf("insertion\n");
   while(head != NULL && head->word != NULL){
-    printf("lu: %s\n", head->word);
     if( head == NULL){
       printf("le noeud vaut NUL\n");
     }
@@ -65,59 +69,13 @@ void test_alex(){
     if( head->word == NULL){
       printf("le mot vaut NULL\n");
     }
-    
-    if( strcmp(head->word, "que") == 0){
-      printf("affichage arbre\n");
-      affiche_noeud_simple(arbre);
-      printf("fin affichage\n");
-    }
-    //ajouter_mot(arbre, head->word);
+
+    printf("insertion de: %s\n", head->word);
+    ajouter_mot(arbre, head->word);
     head = head->next;
   } 
 
   printf("fin parsing\n");
-  */
-
-  node* bon = creer_noeud();
-  node* jours = creer_noeud();
-  node* he = creer_noeud();
-  node* c = creer_noeud();
-  node* ho = creer_noeud();
-  node* to = creer_noeud();
-  node* maman = creer_noeud();
-
-  set_prefix(maman, "maman");
-  prefix_add_epsilon(maman);
-
-  set_prefix(to, "to");
-  prefix_add_epsilon(to);
-  
-  set_prefix(ho, "ho");
-  prefix_add_epsilon(ho);
-
-  set_prefix(c, "c");
-    creer_tableau_fils(c);
-  add_epsilon_node(c);
-  
-  set_prefix(he, "he");
-  creer_tableau_fils(he);
-  
-  set_prefix(bon, "bon");
-  creer_tableau_fils(bon);
-  add_epsilon_node(bon);
-  
-  set_prefix(jours, "jour");
-  prefix_add_epsilon(jours);
-
-  set_fils_node(arbre, maman, 'm');
-  set_fils_node(he, to, 't');
-  set_fils_node(c, ho, 'h');
-  set_fils_node(he, c, 'c');
-  set_fils_node(arbre, he, 'h');
-  set_fils_node(bon, jours, 'j');
-  set_fils_node(arbre, bon, 'b');
-  
-  affiche_noeud_simple(arbre);
 
   printf("comptage du nombre de mots dans l'arbre\n");
 
@@ -126,6 +84,34 @@ void test_alex(){
   printf("%d mots trouvé(s) dans l'arbre\n", nb_mots);
 
   affichage_racine_alphabetique(arbre);
+
+  printf("recherche du nombre de suffixes à partir d'un mot\n: ");
+  char saisie[20];
+  fgets(saisie, 19, stdin);
+  saisie[strlen(saisie)-1] = '\0';
+
+  int nb_suffixes = comptage_prefix_nb_mots(arbre, saisie);
+
+  printf("%s est préfixe de %d mot(s)\n", saisie, nb_suffixes);
+
+  printf("suppression de tout les mot contenu dans le fichier hamlet.txt\n");
+
+  head = mots;
+
+  while(head != NULL && head->word != NULL){
+    if(head->word == NULL){
+      printf("le mot à supprimet vaut NULL\n");
+      continue;
+    }
+    supression(arbre, head->word);
+    head = head->next;
+  }
+
+  printf("suppression terminée\n");
+
+  affichage_racine_alphabetique(arbre);
+  
+  
   printf("fin\n");     
 }
 

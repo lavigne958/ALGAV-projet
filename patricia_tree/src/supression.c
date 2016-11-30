@@ -9,8 +9,22 @@
 //recursive function that finds and delete a string in the dictionary
 int aux_supression(node* nd, char* mot){
   //terminal case: if we found the string
-  if( prefix_equals_string(nd, mot) ){
-    printf("le mot a ete trouver\n");
+  char prefix[NB_CHAR_MAX];
+  int pref_size;
+
+  strcpy( prefix, get_prefix(nd));
+  printf("noeud: %s - size: %d - mot: %s\n", get_prefix(nd), nd->size, mot);
+
+  if( prefix_has_epsilon(nd)){
+    printf("has epsilon\n");
+    pref_size = nd->size - 1;
+    prefix[pref_size] = '\0';
+  }else{
+    pref_size = nd->size;
+  }
+    
+  if( strcmp(prefix, mot) == 0 ){
+    printf("le mot %s a ete trouver\n", mot);
     //if the string has epsilon, it has no child we just return 1 to delete the node
     if( prefix_has_epsilon(nd)){
       printf("le prefix contient epsilon a la fin\n");
@@ -44,7 +58,8 @@ int aux_supression(node* nd, char* mot){
       //return 0 so we stop deleteting in chain the nodes
       return 0;
     }
-    exit_failure("aux_suppression", "prefix = mot (%s), epsilon non present\n");
+    printf("prefix = mot (%s), epsilon non present\n", prefix);
+    return -1;
     
   }else{
     printf("prefix != mot a supprimer\n");
@@ -85,6 +100,7 @@ int aux_supression(node* nd, char* mot){
 	  printf("il y a 1 fils\n");
 	  sprintf(nd->tab_fils[last_fils]->prefix, "%s%s", get_prefix(nd),
 		  get_prefix(nd->tab_fils[last_fils]));
+	  nd->size = strlen(nd->tab_fils[last_fils]->prefix);
 	  node* del_node = nd;
 	  free(del_node);
 	//---------------------------------
@@ -103,6 +119,7 @@ int aux_supression(node* nd, char* mot){
 	strcpy(tmp_pre, grd_child->prefix);
 	printf("tmp_prefix: %s\n", tmp_pre);
 	sprintf(grd_child->prefix, "%s%s", get_prefix(fils), tmp_pre);
+	grd_child->size = strlen(grd_child->prefix);
 	printf("resultat concat: %s\n", grd_child->prefix);
 	set_fils_node(nd, grd_child, grd_child->prefix[0]);
 	free(tmp_pre);
@@ -123,6 +140,18 @@ int supression(node* nd, char* mot){
   if(is_node_null(nd)){
     exit_failure("suppression", "noeud nd est null");
   }
-  
-  return aux_supression(nd, mot);
+
+  int val;
+
+  if( has_childs(nd)){
+    int i;
+    for(i = 0; i < NB_CHAR_MAX; i++){
+      node* fils = get_fils_node(nd, (char)i);
+      if( !is_node_null(fils)){
+	val = aux_supression(fils, mot);
+      }
+    }
+  }
+  return val;
+  //return aux_supression(nd, mot);
 }
