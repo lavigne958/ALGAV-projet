@@ -3,6 +3,12 @@
 #include <string.h>
 
 
+int max(int a, int b){
+  if(a<b)
+    return b;
+  return a;
+}
+
 
 void exit_failure(char* nom_func, char* mess){
   fprintf(stderr,"!---! Erreur !---!\n");
@@ -51,10 +57,3 @@ char* str_sub (const char *s, int start,int end){
 
 
   
-int max(int x, int y){
-  if(x<y)
-    return y;
-  if(x>y)
-    return x;
-  return x;
-}
