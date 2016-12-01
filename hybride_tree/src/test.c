@@ -139,7 +139,7 @@ void test_hatem(){
 
   affichage_simple(new_root);
   printf("--------------------------------------------------\n");
-  delete_word(new_root,"quel");
+  //delete_word(new_root,"quel");
   affichage_simple(new_root);
   printf("--------------------------------------------------\n");
   
