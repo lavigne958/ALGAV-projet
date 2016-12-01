@@ -11,6 +11,7 @@
 #include "add_word.h"
 #include "parser.h"
 #include "comptage.h"
+#include "profondeur.h"
 
 #define PATH_FICHIER_TEST "./annexe/test.txt"
 
@@ -18,24 +19,18 @@
 void test_alex();
 int test_ajouter_mot();
 void test_make_arbre_fichier();
-
+void test_hatem_profondeur();
 
 int main(){
 
   printf("==================== TEST ALEX =================\n\n");
-  test_alex();
+  /* test_alex(); */
   printf("\n\n\n"); 
   
   /* test ajouter_mot */
   printf("================== TEST HATHEM =================\n\n\n");
-  /*
-  if(test_ajouter_mot()){
-    printf(" ===== test reussi =====\n");
-  }
 
-   test make_arbre_fichier */
-  //test_make_arbre_fichier();
-  
+  test_hatem_profondeur();
 
   return 0;
 }
@@ -330,4 +325,11 @@ void test_make_arbre_fichier(){
   node* tree = make_arbre_fichier(PATH_FICHIER_TEST);
   affiche_noeud_simple(tree);
   return;
+}
+
+
+void test_hatem_profondeur(){
+  node* tree = make_arbre_fichier(PATH_FICHIER_TEST);
+  affiche_noeud_simple(tree);
+  printf("profondeur: %d\n",profondeur_arbre_entier(tree));
 }

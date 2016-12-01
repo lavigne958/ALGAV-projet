@@ -11,8 +11,8 @@ OBJS=$(OBJ)util.o\
 	$(OBJ)access.o\
 	$(OBJ)insertion.o\
 	$(OBJ)parser.o\
-	$(OBJ)comptage.o\
-	$(OBJ)delete.o
+	$(OBJ)delete.o\
+	$(OBJ)profondeur.o
 INCLUDE=$(DIR)include/
 LIB=$(DIR)lib/
 SRC=$(DIR)src/

@@ -2,6 +2,11 @@
 #define UTIL_H
 
 
+
+int max(int a, int b);
+
+
+
 /**
  * affiche un message dans le flux d'erreur
  * prend un nom de fonction (celle qui à déclenché l'erreur
