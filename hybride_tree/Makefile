@@ -12,6 +12,8 @@ OBJS=$(OBJ)util.o\
 	$(OBJ)insertion.o\
 	$(OBJ)parser.o\
 	$(OBJ)delete.o\
+	$(OBJ)comptage.o\
+	$(OBJ)rotation.o\
 	$(OBJ)profondeur.o
 INCLUDE=$(DIR)include/
 LIB=$(DIR)lib/
@@ -21,9 +23,9 @@ HC=
 O=
 
 .PHONY: all test clean
-all: $(OBJS) test.o
-	$(CC) -o $(BIN)test test.o $(OBJS) $(LDFLAGS)
-test.o: $(SRC)test.c
+all: $(OBJS) $(OBJ)test.o
+	$(CC) -o $(BIN)test $(OBJ)test.o $(OBJS) $(LDFLAGS)
+$(OBJ)test.o: $(SRC)test.c
 	$(CC) -o $@ -c $^ $(CFLAGS) -I$(INCLUDE)
 $(OBJ)%.o: $(SRC)%.c
 	@if [ -d $(OBJ) ]; then : ; else mkdir $(OBJ); fi

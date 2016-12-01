@@ -12,6 +12,7 @@
 #include "comptage.h"
 #include "delete.h"
 #include "profondeur.h"
+#include "rotation.h"
 
 void testf(node* nd){
   if(nd == NULL){
@@ -30,8 +31,8 @@ void test_hatem_profondeur();
 
 
 int main(){
-  /*  test_alex();*/
-  test_hatem_profondeur();
+  test_alex();
+  //test_hatem_profondeur();
   
   return 0;
 }
@@ -66,7 +67,7 @@ void test_alex(){
 
   printf(" --------- parsing ---------------\n\n");
 
-  words_list* head = read_words("annexe/hamlet.txt");
+  words_list* head = read_words("annexe/test.txt");
   words_list* current = head;
   
   if(head == NULL){
@@ -88,6 +89,16 @@ void test_alex(){
   } 
 
   printf("fin parsing\n");
+
+  affichage_simple(new_root);
+
+  printf("equilibrage de la racine\n\n");
+
+  equilibre(new_root->tree->inf, new_root->tree);
+
+  printf("fin\n");
+
+  affichage_simple(new_root);
 
   printf("recherche d'un mot existant\n:");
   fgets(mot, 1024, stdin);

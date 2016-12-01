@@ -37,6 +37,7 @@ void aux_affichage_simple(node* nr, int indent){
     }
     aux_affichage_simple(nr->inf, indent+1);
   }
+    
 }
 
 

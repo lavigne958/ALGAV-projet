@@ -9,5 +9,7 @@ int aux_delete_word(node* n, char* word, node* father);
 
 int delete_word(racine* racine, char* word);
 
+int side_son(node* n, node* father);
+
 
 #endif

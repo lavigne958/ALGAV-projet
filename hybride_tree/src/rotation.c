@@ -3,23 +3,22 @@
 #include "util.h"
 #include "struct.h"
 #include "access.h"
+#include "delete.h"
 #include "profondeur.h"
 
-void rotation_gauche(node* nd){
+node* rotation_gauche(node* nd){
   node* filsD = get_supp_node(nd);
-  node* filsGfilsD = get_inf_node(get_supp_node(nd));
 
-  set_supp_node(nd, filsGfilsD);
+  set_supp_node(nd, get_inf_node(filsD));
   set_inf_node(filsD, nd);
 
   return filsD;
 }
 
-void rotation_droite(node* nd){
+node* rotation_droite(node* nd){
   node* filsG = get_inf_node(nd);
-  node* filsDfilsg = get_supp_node(get_inf_node(nd));
 
-  set_inf_node(nd, filsDfilsg);
+  set_inf_node(nd, get_supp_node(filsG));
   set_supp_node(filsG, nd);
 
   return filsG;
@@ -27,18 +26,18 @@ void rotation_droite(node* nd){
 
 
 void equilibre(node* nd, node* father){
-
-  int prof = profondeur(get_inf_node(nd)) - profondeur(get_supp_node(nd));
+  node* new_nd;
+  int prof = profondeur_rotation(get_inf_node(nd)) - profondeur_rotation(get_supp_node(nd));
 
   if( prof == 2){
     node* filsG = get_inf_node(nd);
 
-    if(profondeur(get_inf_node(filsG)) < profondeur(get_supp_node(filsG))){
+    if(profondeur_rotation(get_inf_node(filsG)) < profondeur_rotation(get_supp_node(filsG))){
       filsG = rotation_gauche(filsG);
       set_inf_node(nd, filsG);
     }
 
-    node* new_nd = rotation_droite(nd);
+    new_nd = rotation_droite(nd);
     if( side_son(nd, father) == 1){
       set_supp_node(father, new_nd);
     }else if( side_son(nd, father) == -1){
@@ -48,8 +47,23 @@ void equilibre(node* nd, node* father){
     }
   }
 
+  //prof = profondeur(get_inf_node(nd)) - profondeur(get_supp_node(nd));
   if( prof == -2){
     node* filsD = get_supp_node(nd);
 
-    if( profondeur(get_inf_node(filsD)) < profondeur(get_supp_node(filsD)))
-  
+    if( profondeur_rotation(get_inf_node(filsD)) > profondeur_rotation(get_supp_node(filsD))){
+      filsD = rotation_droite(filsD);
+      set_supp_node(nd, filsD);
+    }
+
+    new_nd = rotation_gauche(nd);
+    
+    if( side_son(nd, father) == 1){
+      set_supp_node(father, new_nd);
+    }else if( side_son(nd, father) == -1){
+      set_inf_node(father, new_nd);
+    }else{
+      printf("impossible car ca serait le fils du milieur\n");
+    }
+  }
+}  
