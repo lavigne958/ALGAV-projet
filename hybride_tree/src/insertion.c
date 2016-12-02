@@ -4,6 +4,7 @@
 #include "struct.h"
 #include "util.h"
 #include "access.h"
+#include "rotation.h"
 
 node* aux_insert(node* nd, char* mot, int val){
   if(is_node_null(nd)){
@@ -20,7 +21,6 @@ node* aux_insert(node* nd, char* mot, int val){
   }else{
     char lettre = get_lettre(nd);
     if(mot[0] == lettre && strlen(mot) == 1){
-      
       set_key(nd, val);
       return nd;
     }
@@ -52,4 +52,63 @@ void insert(racine* root, char* mot){
   }
 
   root->tree = aux_insert(root->tree, mot, root->counter++);
+}
+
+
+node* aux_insert_equilibre(node* nd, char* mot, int val){
+  if(is_node_null(nd)){
+    nd = creer_noeud();
+    set_lettre(nd, mot[0]);
+    if(strlen(mot) == 1){
+      set_key(nd, val);
+      return nd;
+    }else{
+      char* sub_str = &mot[1];
+      set_eq_node(nd, aux_insert_equilibre(get_eq_node(nd), sub_str, val));
+      return nd;
+    }
+  }else{
+    char lettre = get_lettre(nd);
+    if(mot[0] == lettre && strlen(mot) == 1){
+      set_key(nd, val);
+      return nd;
+    }
+
+    node* new_child;
+    
+    if(mot[0] == lettre && strlen(mot) > 1){
+      char* sub_str = &mot[1];
+      new_child = aux_insert_equilibre(get_eq_node(nd), sub_str, val);
+      set_eq_node(nd, new_child);
+      nd = equilibre(nd);
+      
+      return nd;
+    }else if(mot[0] < lettre){
+      new_child = aux_insert_equilibre(get_inf_node(nd), mot, val);
+      set_inf_node(nd, new_child);
+      nd = equilibre(nd);
+      return nd;
+      
+    }else{
+      set_supp_node(nd, aux_insert_equilibre(get_supp_node(nd), mot, val));
+      nd = equilibre(nd);
+
+      return nd;
+    }
+  }
+}
+
+
+void insert_equilibre(racine* root, char* mot){
+  if(root == NULL){
+    exit_failure("insert", "racine vaut NULL");
+  }
+  
+  if(is_node_null(root->tree)){
+    printf("le noeud à la racine vaut NULL\n");
+    root->tree = creer_noeud();
+    set_lettre(root->tree, mot[0]);
+  }
+  
+  root->tree = aux_insert_equilibre(root->tree, mot, root->counter++);
 }

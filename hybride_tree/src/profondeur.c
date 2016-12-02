@@ -47,21 +47,18 @@ int profondeur_arbre_entier(racine* racine){
   node* n;
   int g=0, m=0, d=0;
   
-  printf("1\n");
   if(is_node_null(racine->tree)){
     return -1;
   }else{
     n = racine->tree;
   }
-  printf("2\n");
+  
   if( is_node_null(get_inf_node(n)) &&
       is_node_null(get_eq_node(n)) &&
       is_node_null(get_supp_node(n)) ){
-    printf("3\n");
     return 0;
     
   }else{
-    printf("4\n");
     if(!is_node_null(get_inf_node(n)))
       g = profondeur_sous_arbre(get_inf_node(n));
     if(!is_node_null(get_eq_node(n)))
@@ -73,22 +70,14 @@ int profondeur_arbre_entier(racine* racine){
   }
 }
 
-
 int profondeur_rotation(node* n){
-
-  int g=0, d=0;
-
-  if(is_node_null(get_inf_node(n)) &&
-     is_node_null(get_supp_node(n)) ){
-    return 0;
-    
+  
+  if( is_node_null(n)){
+    return -1;
   }else{
- 
-    if(!is_node_null(get_inf_node(n)))
-      g = profondeur_sous_arbre(get_inf_node(n));
-    if(!is_node_null(get_supp_node(n)))
-      d = profondeur_sous_arbre(get_supp_node(n));
-    return 1 + max(g,d);
+    node* inf = get_inf_node(n);
+    node* supp = get_supp_node(n);
+    return 1 + max(profondeur_rotation(inf), profondeur_rotation(supp));
   }
 }
   
