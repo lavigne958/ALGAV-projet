@@ -14,7 +14,10 @@ OBJS=$(OBJ)access.o\
 	$(OBJ)affichage.o\
 	$(OBJ)parser.o\
 	$(OBJ)comptage.o\
-	$(OBJ)profondeur.o
+	$(OBJ)profondeur.o\
+	$(OBJ)free.o\
+	$(OBJ)clone.o\
+	$(OBJ)fusion.o
 INCLUDE=$(DIR)include/
 LIB=$(DIR)lib/
 SRC=$(DIR)src/
