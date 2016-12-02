@@ -1,0 +1,2 @@
+ceci est un second fichier utile pour mon test. bon je sais pas quoi mettre dans ce fichier car je ne suis pas qqn d inspire.
+cette fonction fusion me fatigue, j ai du creer plein de fonction et y en a marre, je pense que dans ce fichier,  il y a des mots commun, donc c est cool et ya de grande chance qu on entre dans tous les cas.

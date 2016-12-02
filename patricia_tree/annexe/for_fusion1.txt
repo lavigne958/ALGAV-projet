@@ -1,0 +1,3 @@
+dans ce superbe fichier, je vais stocker les mots qui seront dans treeA.
+L'objectif est de tester ma superbe fonction fusion qui fusionne 2 patricia tries.
+J ecris encore un peu et je m'arrete.

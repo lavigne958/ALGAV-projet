@@ -24,6 +24,7 @@ int test_ajouter_mot();
 void test_make_arbre_fichier();
 void test_hatem_profondeur();
 void test_hatem_clone_free();
+void test_hatem_fusion();
 
 int main(){
 
@@ -34,7 +35,8 @@ int main(){
   /* test ajouter_mot */
   printf("================== TEST HATHEM =================\n\n\n");
 
-  test_hatem_clone_free();
+  /*test_hatem_clone_free();*/
+  test_hatem_fusion();
   
   return 0;
 }
@@ -115,11 +117,34 @@ void test_alex(){
 }
 
 
+void test_hatem_fusion(){
+  
+  node* treeA = make_arbre_fichier("./annexe/for_fusion1.txt");
+  /*printf("----- affichage de treeA -----\n");
+  affiche_noeud_simple(treeA);  
+  */
+  printf("\n");
+  
+  node* treeB = make_arbre_fichier("./annexe/for_fusion2.txt");
+  printf("----- affichage de treeB -----\n");
+  affiche_noeud_simple(treeB);  
+  
+  printf("\n");
+  
+  node* treeAB = fusion(treeA,treeB);
+  /*printf("----- affichage de treeAB -----\n");
+  affiche_noeud_simple(treeAB);
+  c est ok pour ca */
 
+  printf("----- affichage de treeB -----\n");
+  affiche_noeud_simple(treeB);  
+
+}
 
 
 
 void test_hatem_clone_free(){
+
   node* tree = make_arbre_fichier(PATH_FICHIER_TEST);
   printf("----- affichage de tree -----\n");
   affiche_noeud_simple(tree);
