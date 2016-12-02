@@ -12,6 +12,9 @@
 #include "parser.h"
 #include "comptage.h"
 #include "profondeur.h"
+#include "clone.h"
+#include "free.h"
+#include "fusion.h"
 
 #define PATH_FICHIER_TEST "./annexe/test.txt"
 
@@ -20,6 +23,7 @@ void test_alex();
 int test_ajouter_mot();
 void test_make_arbre_fichier();
 void test_hatem_profondeur();
+void test_hatem_clone_free();
 
 int main(){
 
@@ -30,8 +34,8 @@ int main(){
   /* test ajouter_mot */
   printf("================== TEST HATHEM =================\n\n\n");
 
-  test_hatem_profondeur();
-
+  test_hatem_clone_free();
+  
   return 0;
 }
 
@@ -114,6 +118,25 @@ void test_alex(){
 
 
 
+
+void test_hatem_clone_free(){
+  node* tree = make_arbre_fichier(PATH_FICHIER_TEST);
+  printf("----- affichage de tree -----\n");
+  affiche_noeud_simple(tree);
+  node* c = clone(tree);
+  printf("----- affichage du clone -----\n");
+  affiche_noeud_simple(c);
+  printf("----- free clone -----\n");
+  free(c);
+  if(!c)
+    printf("le clone n'existe plus\n");
+  else{
+    printf("le clone existe toujours\n");
+    printf("----- affichage du clone -----\n");
+    affiche_noeud_simple(c);
+  }
+  return;
+}
 
 int test_ajouter_mot(){
   node* arbre = creer_noeud();
