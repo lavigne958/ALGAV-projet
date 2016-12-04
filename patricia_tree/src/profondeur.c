@@ -37,14 +37,17 @@ int profondeur_arbre_entier(node* n){
   int tmp,i;
   if(is_node_null(n))
     return -1;
-  
+
+  //compare si le prerix vaut rien, alors on quite promptement
   if(strcmp(get_prefix(n),""))
     exit_failure("profondeur_arbre_entier","cette fonction doit etre appelee sur une racine\n");
 
   if(has_childs(n)){
     for(i = 0; i < NB_CHAR_MAX; i++){
       if(n->tab_fils[i] != NULL){
+	//calcule pour chaque fils
 	tmp = profondeur_sous_arbre(n->tab_fils[i]);
+	//incrément du max entre les fils seullement
 	p = max(tmp,p);
       }
     }
@@ -53,8 +56,3 @@ int profondeur_arbre_entier(node* n){
     return 0;
   }
 }
-
-
-
-			   
-   
