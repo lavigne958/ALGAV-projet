@@ -10,9 +10,12 @@ node* clone(node* n){
   node* new_node;
   if(!n)
     exit_failure("clone","le node a cloner n'existe pas");
-  
+
+  //alloue un nouveau noeud
   new_node = creer_noeud();
+  //met à jour le préfix
   set_prefix(new_node, get_prefix(n));
+  //s'il existe des fils les recopies
   if(has_childs(n)){
     new_node->tab_fils = clone_tab_fils(n->tab_fils);
   }

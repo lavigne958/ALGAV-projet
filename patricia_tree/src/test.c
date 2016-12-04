@@ -5,7 +5,7 @@
 #include "struct.h"
 #include "access.h"
 #include "search.h"
-#include "search_alex.h"
+#include "search.h"
 #include "supression.h"
 #include "affichage.h"
 #include "add_word.h"
@@ -29,14 +29,14 @@ void test_hatem_fusion();
 int main(){
 
   printf("==================== TEST ALEX =================\n\n");
-  /* test_alex(); */
+  test_alex();
   printf("\n\n\n"); 
   
   /* test ajouter_mot */
   printf("================== TEST HATHEM =================\n\n\n");
 
   /*test_hatem_clone_free();*/
-  test_hatem_fusion();
+  //test_hatem_fusion();
   
   return 0;
 }
@@ -49,7 +49,7 @@ void test_alex(){
   creer_tableau_fils(arbre);
 
   
-  char fichier[] = {"./annexe/hamlet.txt"};
+  char fichier[] = {"./annexe/test.txt"};
 
   printf("parsing\n");
   words_list* mots = read_words(fichier);
@@ -63,15 +63,6 @@ void test_alex(){
 
   printf("insertion\n");
   while(head != NULL && head->word != NULL){
-    if( head == NULL){
-      printf("le noeud vaut NUL\n");
-    }
-
-    if( head->word == NULL){
-      printf("le mot vaut NULL\n");
-    }
-
-    printf("insertion de: %s\n", head->word);
     ajouter_mot(arbre, head->word);
     head = head->next;
   } 
@@ -95,23 +86,23 @@ void test_alex(){
 
   printf("%s est préfixe de %d mot(s)\n", saisie, nb_suffixes);
 
-  printf("suppression de tout les mot contenu dans le fichier hamlet.txt\n");
+  node* nulls = creer_noeud();
+  creer_tableau_fils(nulls);
 
-  head = mots;
+  int nb_nulls = comptage_null(nulls);
 
-  while(head != NULL && head->word != NULL){
-    if(head->word == NULL){
-      printf("le mot à supprimet vaut NULL\n");
-      continue;
-    }
-    supression(arbre, head->word);
-    head = head->next;
-  }
+  printf("l'arbre contient %d pointeurs vers null\n", nb_nulls);
 
-  printf("suppression terminée\n");
+  getc(stdin);
 
-  affichage_racine_alphabetique(arbre);
-  
+  ajouter_mot(nulls, "bonjour");
+
+  nb_nulls = comptage_null(nulls);
+  printf("l'arbre contient %d pointeurs vers null\n", nb_nulls);
+
+  ajouter_mot(nulls, "bonto");
+  nb_nulls = comptage_null(nulls);
+  printf("l'arbre contient %d pointeurs vers null\n", nb_nulls);
   
   printf("fin\n");     
 }

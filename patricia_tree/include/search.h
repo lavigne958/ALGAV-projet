@@ -1,24 +1,14 @@
 #ifndef _SEARCH_H
 #define _SEARCH_H
 
+/**
+ * effectue la recherche d'un mot dans l'arbre.
+ * si le mot existe: retour 1
+ * si le mot existe mais ne ce finit par epsilon: retourne -1
+ * si le mot n'existe pas: retourne 0
+ */
 
-/* fonction qui renvoi la sous chaine de s comprise entre les indices stars et end 
- j'ai chope cette fonction sur internet (http://nicolasj.developpez.com/articles/libc/string/)
- et je ne l'ai pas verifie mais ca a l'air pas mal on retourne une chaine vide dans un certain 
- mais vu comment on l'utilise on devrait jamais tomber dans ce cas */
+int search_word(node*, char*);
 
-
-//------------------------------------------------------
-//tu as déjà inclu la fonction dans util.h
-
-//char* str_sub (const char *s, unsigned int start, unsigned int end);
-
-/* fonction qui ne doit exister que dans recherche_mot
-   permet de rendre la recursion de recherche_mot possible */
-int sub_search(node* node,char* chaine);
-
-/* recherche le mot chaine dans le Patricia_Tries arbre 
- retoune 1 si chaine est un mot de arbre, 0 sinon */
-int recherche_mot(node* arbre,char* chaine);
-
+int recherche_arbre(node*, char*);
 #endif

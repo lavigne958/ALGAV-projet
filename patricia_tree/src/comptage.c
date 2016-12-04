@@ -8,12 +8,16 @@
 #include "search.h"
 
 void aux_comptage(node* nd, int* counter){
+
+  //cas simple, on à trouvé un mot.
   if( prefix_has_epsilon(nd)){
+    //on augmente le compteur
     (*counter)++;
   }
   
   int i;
-  
+
+  //si le noeud à des fils ( donc des sous-mots possibles)
   if(has_childs(nd)){
     /* parse all the child of the node to call recursivly the counter */
     for(i = 0; i < NB_CHAR_MAX; i++){
@@ -102,4 +106,58 @@ int comptage_prefix_nb_mots(node* nd, char* mot){
     return 0;
   }
 }
+
+int aux_comptage_null(node* nd){
+  int counter = 0;
+
+  //si il existe des fils
+  if(has_childs(nd)){
+    int i;
+
+    for(i = 0; i < NB_CHAR_MAX; i++){
+      node* fils = get_fils_node(nd, (char)i);
+
+      //si le fils vaut null, +1
+      if( is_node_null(fils)){
+	counter++;
+      }else{
+
+	//sinon on vérifie ses sous fils
+	counter += aux_comptage_null(fils);
+      }
+    }    
+  }else{
+    //si aucune fils alors le noeud à NB_CHAR_MAX (127) fils à null 
+    counter = NB_CHAR_MAX;
+  }
+
+  return counter;
+}
   
+int comptage_null(node* nd){
+  if( is_node_null(nd)){
+    exit_failure("comptage_null", "la racine vaut null");
+  }
+
+  int counter = 0;
+
+  /* même fonction que celle récursive au dessus,
+   * seuld détails, pour la racine il faut tester si le noeud n'est pas NULL
+   * et arreter le programme promptement dans ce cas
+   */
+  if(has_childs(nd)){
+    int i;
+    for(i = 0; i < NB_CHAR_MAX; i++){
+      node* fils = get_fils_node(nd, (char)i);
+      if(is_node_null(fils)){
+	counter++;
+      }else{
+	counter += aux_comptage_null(fils);
+      }
+    }
+  }else{
+    counter = NB_CHAR_MAX;
+  }
+
+  return counter;
+}

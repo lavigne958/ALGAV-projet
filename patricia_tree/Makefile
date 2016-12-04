@@ -1,6 +1,5 @@
 CC=gcc
 CFLAGS=-W -Wall 
-LDFLAGS=
 
 DIR=./
 BIN=$(DIR)bin/
@@ -22,8 +21,6 @@ INCLUDE=$(DIR)include/
 LIB=$(DIR)lib/
 SRC=$(DIR)src/
 
-HC=
-O=
 
 .PHONY: all test clean
 all: $(OBJS)
@@ -31,9 +28,6 @@ all: $(OBJS)
 $(OBJ)%.o: $(SRC)%.c
 	@if [ -d $(OBJ) ]; then : ; else mkdir $(OBJ); fi
 	$(CC) -o $@ -c $^ $(CFLAGS) -I$(INCLUDE)
-#
-#$(OBJ)search.o: $(SRC)search.c access.h structure.h
-#	$(CC) -o $@ -c $< $(CFLAGS)
 
 $(INCLUDE)%.h:
 	@if [ -d $(INCLUDE) ]; then : ; else mkdir $(INCLUDE); fi

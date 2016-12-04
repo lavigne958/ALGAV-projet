@@ -7,7 +7,6 @@
  * tableau de fils vaut NULL
  *
 */
-
 node* creer_noeud();
 
 /**
@@ -50,14 +49,12 @@ int prefix_equals_string(node*, char*);
 
 /**
  * renvoie le fils pointé par la lettre index
-x*/
-
+ */
 node* get_fils_node(node*, char);
 
 /**
  * ajoute le fils 'fils' au tablea de nd à l'index 'index'
  */
-
 void set_fils_node(node*,node*,char);
 
 

@@ -27,13 +27,20 @@ int affiche_attribut_node(node* n){
 
 void aux_affiche_noeud_simple(node* nd, int indent){
   int i, j;
+
+  //affiche le préfixe simplement: prefix: xxxxxx
   printf("prefix: %s\n", get_prefix(nd));
-  
+
+  //si des fils existent
   if(nd->tab_fils != NULL){
-    
+
+    //pour chacun d'entre eux
     for(i = 0; i < NB_CHAR_MAX; i++){
-      node* fils = nd->tab_fils[i];
-      if(fils != NULL){
+      node* fils = get_fils_node(nd, (char)i);
+      if(!is_node_null(fils)){
+	int i;
+
+	//affiche l'indentation puis recursivement sur les fils
 	for(j = 0; j < indent; j++){
 	  printf("\t");
 	}
@@ -61,16 +68,21 @@ void affichage_alpha(node* nd, char* buffer, int buffer_size){
 
   char word[128];
   int word_size;
-  
+
+  //make a copy of the buffer not to lose it.
+  //concate the prerix to the copy of the buffer
+  //adjust the new size of the buffer
   strcpy(word, buffer);
   strcat(word, get_prefix(nd)); 
   word_size = buffer_size + nd->size;
-  
+
+  //if the prefix has epsilon then we need to adjuste the size, the last char and pritn it.
   if( prefix_has_epsilon(nd) ){
     word[word_size-1] = '\0';
     printf("- %s\n", word);
     
   }else{
+    //else it is jsute a subword of its childs
     if( node_has_epsilon(nd) ){
       printf("- %s\n", word);
       
@@ -81,7 +93,10 @@ void affichage_alpha(node* nd, char* buffer, int buffer_size){
     for(i = 0; i < NB_CHAR_MAX; i++){
       if( i != EPSILON ){
 	node* fils = get_fils_node(nd, (char)i);
+
 	if( !is_node_null(fils)){
+
+	  //recursive case
 	  affichage_alpha(get_fils_node(nd, (char)i), word, word_size);
 	}
       }
@@ -93,6 +108,7 @@ void affichage_racine_alphabetique(node* racine){
   char buffer[512];
   int i;
 
+  //initiate the buffer with a null char at the begining to make it length 0;
   buffer[0] = '\0';
   
   printf("======= Affichage de l'arbre ======\n");

@@ -143,15 +143,18 @@ int supression(node* nd, char* mot){
 
   int val;
 
+  //if it has childs
   if( has_childs(nd)){
     int i;
+    
     for(i = 0; i < NB_CHAR_MAX; i++){
       node* fils = get_fils_node(nd, (char)i);
+
+      //and they are not NULL
       if( !is_node_null(fils)){
 	val = aux_supression(fils, mot);
       }
     }
   }
   return val;
-  //return aux_supression(nd, mot);
 }
