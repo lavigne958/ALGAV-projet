@@ -13,7 +13,7 @@
 #include "comptage.h"
 #include "profondeur.h"
 #include "clone.h"
-#include "free.h"
+#include "free_memory.h"
 #include "fusion.h"
 
 #define PATH_FICHIER_TEST "./annexe/test.txt"
