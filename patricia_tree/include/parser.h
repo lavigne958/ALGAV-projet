@@ -9,6 +9,11 @@ typedef struct words_list{
   struct words_list* next;
 }words_list;
 
+
+/**
+ * permet de lire tout les mots d'un fichier dont
+ * le nom est passé en paramtètre
+ */
 words_list* read_words(char*);
 
 #endif

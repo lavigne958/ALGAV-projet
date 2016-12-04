@@ -102,4 +102,48 @@ int comptage_prefix_nb_mots(node* nd, char* mot){
     return 0;
   }
 }
+
+int aux_comptage_null(node* nd){
+  int counter = 0;
+
+  if(has_childs(nd)){
+    int i;
+
+    for(i = 0; i < NB_CHAR_MAX; i++){
+      node* fils = get_fils_node(nd, (char)i);
+      if( is_node_null(fils)){
+	counter++;
+      }else{
+	counter += aux_comptage_null(fils);
+      }
+    }    
+  }else{
+    counter = NB_CHAR_MAX;
+  }
+
+  return counter;
+}
   
+int comptage_null(node* nd){
+  if( is_node_null(nd)){
+    exit_failure("comptage_null", "la racine vaut null");
+  }
+
+  int counter = 0;
+
+  if(has_childs(nd)){
+    int i;
+    for(i = 0; i < NB_CHAR_MAX; i++){
+      node* fils = get_fils_node(nd, (char)i);
+      if(is_node_null(fils)){
+	counter++;
+      }else{
+	counter += aux_comptage_null(fils);
+      }
+    }
+  }else{
+    counter = NB_CHAR_MAX;
+  }
+
+  return counter;
+}

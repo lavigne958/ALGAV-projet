@@ -1,9 +1,9 @@
 #ifndef _ADD_WORD_H
 #define _ADD_WORD_H
 
-
-
-
+/**
+ * construit un arbre à partir d'un fichier
+ */
 node* make_arbre_fichier(char* path);
 
 

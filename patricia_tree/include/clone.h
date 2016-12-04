@@ -1,8 +1,14 @@
 #ifndef _CLONE_H
 #define _CLONE_H
 
-node* clone(node* n);
+/**
+ * clone un noeud
+ */
+node* clone(node*);
 
-node** clone_tab_fils(node** tf);
+/**
+ * clone un tableau de fils
+ */
+node** clone_tab_fils(node** );
 
 #endif
