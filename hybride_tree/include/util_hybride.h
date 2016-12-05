@@ -1,5 +1,5 @@
-#ifndef UTIL_H
-#define UTIL_H
+#ifndef _HYBRIDE_UTIL_H
+#define _HYBRIDE_UTIL_H
 
 
 

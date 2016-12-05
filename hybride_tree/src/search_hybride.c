@@ -1,11 +1,11 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "struct.h"
-#include "util.h"
-#include "access.h"
+#include "struct_hybride.h"
+#include "util_hybride.h"
+#include "access_hybride.h"
 
-int aux_search(node* nd, char* mot){
+int aux_search(node_h* nd, char* mot){
   if( mot[0] == get_lettre(nd)){
     if( strlen(mot) == 1){
       if( get_key(nd) != -1){
@@ -14,7 +14,7 @@ int aux_search(node* nd, char* mot){
 	return 0;
       }
     }else{
-      if( is_node_null(get_eq_node(nd))){
+      if( is_node_null_hybride(get_eq_node(nd))){
 	return 0;
       }else{
 	return aux_search(get_eq_node(nd), &mot[1]);
@@ -23,13 +23,13 @@ int aux_search(node* nd, char* mot){
   }
 
   if( mot[0] < get_lettre(nd)){
-    if( is_node_null(get_inf_node(nd))){
+    if( is_node_null_hybride(get_inf_node(nd))){
       return 0;
     }else{
       return aux_search(get_inf_node(nd), mot);
     }
   }else{
-    if( is_node_null(get_supp_node(nd))){
+    if( is_node_null_hybride(get_supp_node(nd))){
       return 0;
     }else{
       return aux_search(get_supp_node(nd), mot);
@@ -42,7 +42,7 @@ int search(racine* racine, char* mot){
     exit_failure("search", "racine NULL");
   }
 
-  if(is_node_null(racine->tree)){
+  if(is_node_null_hybride(racine->tree)){
     return 0;
   }else{
     return aux_search(racine->tree, mot);

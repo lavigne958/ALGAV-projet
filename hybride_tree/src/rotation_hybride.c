@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-#include "util.h"
-#include "struct.h"
-#include "access.h"
-#include "delete.h"
-#include "profondeur.h"
+#include "util_hybride.h"
+#include "struct_hybride.h"
+#include "access_hybride.h"
+#include "delete_hybride.h"
+#include "profondeur_hybride.h"
 
-node* rotation_gauche(node* nd){
-  node* new_nd = nd->supp;
+node_h* rotation_gauche(node_h* nd){
+  node_h* new_nd = nd->supp;
 
   nd->supp = new_nd->inf;
   new_nd->inf = nd;
@@ -15,8 +15,8 @@ node* rotation_gauche(node* nd){
   return new_nd;
 }
 
-node* rotation_droite(node* nd){
-  node* new_nd = nd->inf;
+node_h* rotation_droite(node_h* nd){
+  node_h* new_nd = nd->inf;
 
   nd->inf = new_nd->supp;
   new_nd->supp = nd;
@@ -24,16 +24,16 @@ node* rotation_droite(node* nd){
   return new_nd;
 }
 
-node* double_rotation_droite(node* nd){
-  node* filsG = get_inf_node(nd);
+node_h* double_rotation_droite(node_h* nd){
+  node_h* filsG = get_inf_node(nd);
 
   set_inf_node(nd, rotation_gauche(filsG));
 
   return rotation_droite(nd);
 }
 
-node* double_rotation_gauche(node* nd){
-  node* filsD = get_supp_node(nd);
+node_h* double_rotation_gauche(node_h* nd){
+  node_h* filsD = get_supp_node(nd);
 
   set_supp_node(nd, rotation_droite(filsD));
 
@@ -41,15 +41,15 @@ node* double_rotation_gauche(node* nd){
 }
 
 
-node* equilibre(node* nd){
-  node* filsG = get_inf_node(nd);
-  node* filsD = get_supp_node(nd);
+node_h* equilibre(node_h* nd){
+  node_h* filsG = get_inf_node(nd);
+  node_h* filsD = get_supp_node(nd);
 
   int prof = profondeur_rotation(filsG) - profondeur_rotation(filsD);
 
   if( prof == 2){
-    node* filsGG = get_inf_node(filsG);
-    node* filsGD = get_supp_node(filsG);
+    node_h* filsGG = get_inf_node(filsG);
+    node_h* filsGD = get_supp_node(filsG);
 
     if( profondeur_rotation(filsGG) < profondeur_rotation(filsGD)){
       filsG = rotation_gauche(filsG);
@@ -60,8 +60,8 @@ node* equilibre(node* nd){
   }
 
   if( prof == -2){
-    node* filsDG = get_inf_node(filsD);
-    node* filsDD = get_supp_node(filsD);
+    node_h* filsDG = get_inf_node(filsD);
+    node_h* filsDD = get_supp_node(filsD);
 
     if( profondeur_rotation(filsDG) > profondeur_rotation(filsDD)){
       filsD = rotation_droite(filsD);

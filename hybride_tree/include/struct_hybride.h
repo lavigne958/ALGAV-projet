@@ -11,13 +11,13 @@
  * - int val: une valeur si le noeud est la fin d'un mot
  */
 
-typedef struct node{
+typedef struct node_h{
   char lettre;
-  struct node* inf;
-  struct node* eq;
-  struct node* supp;
+  struct node_h* inf;
+  struct node_h* eq;
+  struct node_h* supp;
   int key;
-}node;
+}node_h;
 
   
 
@@ -28,7 +28,7 @@ typedef struct node{
  * - un compteur pour les ajouts.
  */
 typedef struct racine{
-  node* tree;
+  node_h* tree;
   int counter;
 }racine;
 

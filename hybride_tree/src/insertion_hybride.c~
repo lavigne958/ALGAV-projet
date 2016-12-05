@@ -1,14 +1,14 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "struct.h"
+#include "struct_hybride.h"
 #include "util.h"
-#include "access.h"
+#include "access_hybride.h"
 #include "rotation.h"
 
-node* aux_insert(node* nd, char* mot, int val){
-  if(is_node_null(nd)){
-    nd = creer_noeud();
+node_h* aux_insert(node_h* nd, char* mot, int val){
+  if(is_node_null_hybride(nd)){
+    nd = creer_noeud_hybride();
     set_lettre(nd, mot[0]);
     if(strlen(mot) == 1){
       set_key(nd, val);
@@ -45,9 +45,9 @@ void insert(racine* root, char* mot){
     exit_failure("insert", "racine vaut NULL");
   }
 
-  if(is_node_null(root->tree)){
+  if(is_node_null_hybride(root->tree)){
     printf("le noeud à la racine vaut NULL\n");
-    root->tree = creer_noeud();
+    root->tree = creer_noeud_hybride();
     set_lettre(root->tree, mot[0]);
   }
 
@@ -55,9 +55,9 @@ void insert(racine* root, char* mot){
 }
 
 
-node* aux_insert_equilibre(node* nd, char* mot, int val){
-  if(is_node_null(nd)){
-    nd = creer_noeud();
+node_h* aux_insert_equilibre(node_h* nd, char* mot, int val){
+  if(is_node_null_hybride(nd)){
+    nd = creer_noeud_hybride();
     set_lettre(nd, mot[0]);
     if(strlen(mot) == 1){
       set_key(nd, val);
@@ -74,7 +74,7 @@ node* aux_insert_equilibre(node* nd, char* mot, int val){
       return nd;
     }
 
-    node* new_child;
+    node_h* new_child;
     
     if(mot[0] == lettre && strlen(mot) > 1){
       char* sub_str = &mot[1];
@@ -104,9 +104,9 @@ void insert_equilibre(racine* root, char* mot){
     exit_failure("insert", "racine vaut NULL");
   }
   
-  if(is_node_null(root->tree)){
+  if(is_node_null_hybride(root->tree)){
     printf("le noeud à la racine vaut NULL\n");
-    root->tree = creer_noeud();
+    root->tree = creer_noeud_hybride();
     set_lettre(root->tree, mot[0]);
   }
   

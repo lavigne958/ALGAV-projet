@@ -1,6 +1,6 @@
 #ifndef _ROTATION_H
 #define _ROTATION_H
 
-node* equilibre(node*);
+node_h* equilibre(node_h*);
 
 #endif

@@ -3,15 +3,15 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "struct.h"
+#include "struct_hybride.h"
 #include "util.h"
-#include "access.h"
+#include "access_hybride.h"
 
 /**
  * renvoi le node le plus a droite
  **/
-node* get_extrem_droite(node* n){
-  if( is_node_null(get_supp_node(n))){
+node_h* get_extrem_droite(node_h* n){
+  if( is_node_null_hybride(get_supp_node(n))){
     return n;
   }else{
     return get_extrem_droite(get_supp_node(n));
@@ -19,16 +19,16 @@ node* get_extrem_droite(node* n){
 }
 
 /**
- * soit 2 node* tel que n fils de father
+ * soit 2 node_h* tel que n fils de father
  * retourne 1 si n est le fils gauche, 
  * -1 si n est le fils droit,
  * 0 si n est le fils du milieu
  * exit sinon
  **/
-int side_son(node* n, node* father){  
-  if( is_node_null(n) )
+int side_son(node_h* n, node_h* father){  
+  if( is_node_null_hybride(n) )
     exit_failure("side_son", "n vaut NULL");
-  if( is_node_null(father) )
+  if( is_node_null_hybride(father) )
     exit_failure("side_son", "father vaut NULL");
   if( get_inf_node(father) == n)
     return -1;
@@ -48,13 +48,13 @@ int side_son(node* n, node* father){
 
 
 
-int delete_node(node* n, node* father, int can_remove){
+int delete_node(node_h* n, node_h* father, int can_remove){
   int side, fg_null, fd_null;
-  node *gauche, *droit, *min;
+  node_h *gauche, *droit, *min;
   printf("entree delete_node\n");
   if(can_remove == -1){
-    /*dans ce cas, on doit determiner si on peut supprimer le node*/
-    if(is_node_null(get_eq_node(n)))
+    /*dans ce cas, on doit determiner si on peut supprimer le node_h*/
+    if(is_node_null_hybride(get_eq_node(n)))
       can_remove = 1;
     else
       can_remove = 0;
@@ -67,10 +67,10 @@ int delete_node(node* n, node* father, int can_remove){
   else{ /* on peut effacer */
     
     /* initialistation des variables */
-    fg_null = is_node_null(get_inf_node(n));
+    fg_null = is_node_null_hybride(get_inf_node(n));
     if(!fg_null)
       gauche = get_inf_node(n);
-    fd_null = is_node_null(get_supp_node(n));
+    fd_null = is_node_null_hybride(get_supp_node(n));
     if(!fd_null)
       droit = get_supp_node(n);
 
@@ -82,11 +82,11 @@ int delete_node(node* n, node* father, int can_remove){
       }else if(!fg_null && fd_null){ 
 	set_key(n,get_key(gauche));
 	set_lettre(n,get_lettre(gauche));
-	if( !is_node_null(get_inf_node(gauche)))
+	if( !is_node_null_hybride(get_inf_node(gauche)))
 	  set_inf_node(n,get_inf_node(gauche));
-	if( !is_node_null(get_supp_node(gauche)))
+	if( !is_node_null_hybride(get_supp_node(gauche)))
 	  set_supp_node(n,get_supp_node(gauche));
-	if( !is_node_null(get_eq_node(gauche)))
+	if( !is_node_null_hybride(get_eq_node(gauche)))
 	  set_eq_node(n,get_eq_node(gauche));
 	free(gauche);
 	return 0;
@@ -94,11 +94,11 @@ int delete_node(node* n, node* father, int can_remove){
       }else if(fg_null && !fd_null){ /* fg_null && !fd_null */
 	set_key(n,get_key(droit));
 	set_lettre(n,get_lettre(droit));
-	if( !is_node_null(get_inf_node(droit)))
+	if( !is_node_null_hybride(get_inf_node(droit)))
 	  set_inf_node(n,get_inf_node(droit));
-	if( !is_node_null(get_supp_node(droit)))
+	if( !is_node_null_hybride(get_supp_node(droit)))
 	  set_supp_node(n,get_supp_node(droit));
-	if( !is_node_null(get_eq_node(droit)))
+	if( !is_node_null_hybride(get_eq_node(droit)))
 	  set_eq_node(n,get_eq_node(droit));
 	free(droit);
 	return 0;
@@ -109,11 +109,11 @@ int delete_node(node* n, node* father, int can_remove){
 
 	set_key(n,get_key(gauche));
 	set_lettre(n,get_lettre(gauche));
-	if( !is_node_null(get_inf_node(gauche)))
+	if( !is_node_null_hybride(get_inf_node(gauche)))
 	  set_inf_node(n,get_inf_node(gauche));
-	if( !is_node_null(get_supp_node(gauche)))
+	if( !is_node_null_hybride(get_supp_node(gauche)))
 	  set_supp_node(n,get_supp_node(gauche));
-	if( !is_node_null(get_eq_node(gauche)))
+	if( !is_node_null_hybride(get_eq_node(gauche)))
 	  set_eq_node(n,get_eq_node(gauche));
 	free(gauche);
 	return 0;
@@ -176,7 +176,7 @@ int delete_node(node* n, node* father, int can_remove){
 } /* fin fonction */
   
   
-int aux_delete_word(node* n, char* word, node* father){
+int aux_delete_word(node_h* n, char* word, node_h* father){
   printf("entree aux_delete_word: %s\n",word);
   /*
     marqueur = 1  => autorisation de supprimer le pere
@@ -203,7 +203,7 @@ int aux_delete_word(node* n, char* word, node* father){
     }else{ /* taille_mot != 1 */
       printf("1.2\n");
 
-      if( is_node_null(get_eq_node(n)) ){
+      if( is_node_null_hybride(get_eq_node(n)) ){
 	printf("1.2.1\n");
 	
 	return 0;
@@ -225,7 +225,7 @@ int aux_delete_word(node* n, char* word, node* father){
     
   }else if(word[0] < get_lettre(n) ){ /* word[0] != get_lettre(n) */
       printf("2\n");
-    if( is_node_null(get_inf_node(n)) ){
+    if( is_node_null_hybride(get_inf_node(n)) ){
       printf("2.1\n");
 
       return 0;
@@ -238,7 +238,7 @@ int aux_delete_word(node* n, char* word, node* father){
   }else{
     printf("3\n");
     
-    if( is_node_null(get_supp_node(n)) ){
+    if( is_node_null_hybride(get_supp_node(n)) ){
       printf("3.1\n");
       
       return 0;
@@ -261,7 +261,7 @@ int delete_word(racine* racine, char* word){
   if(!racine)
     exit_failure("delete_word", "l'arbre vaut NULL");
 
-  if(is_node_null(racine->tree)){       
+  if(is_node_null_hybride(racine->tree)){       
     return 0;
   }else{
     return aux_delete_word(racine->tree, word, NULL);
