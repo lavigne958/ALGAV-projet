@@ -7,7 +7,6 @@
  * tableau de fils vaut NULL
  *
 */
-
 node* creer_noeud();
 
 /**

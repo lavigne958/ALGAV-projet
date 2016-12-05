@@ -176,7 +176,6 @@ void add_epsilon_node(node* nd){
   nd->tab_fils[(int)EPSILON]->prefix[0] = EPSILON;
   nd->tab_fils[(int)EPSILON]->prefix[1] = '\0';
   nd->tab_fils[(int)EPSILON]->size = 1;
-  /* partout j 'ai tab_fils */
 }
 
 int prefix_has_epsilon(node* nd){
