@@ -6,7 +6,7 @@
  * alloue l'espace pour le prefixe
  * tableau de fils vaut NULL
  *
-*/
+ */
 node* creer_noeud();
 
 /**
@@ -26,22 +26,20 @@ node** creer_tab_sans_pere();
 /**
  * creer le tableau de fils
  * creer les pointeurs et les structures
-*/
+ */
 void creer_tableau_fils(node*);
 
 /**
- * renvoie le préfixe du noeud
- * 
-*/
+ * renvoie le préfixe du noeud 
+ */
 char* get_prefix(node*);
 
 /**
  * modifie le préfixe du noeud
- * 
-*/
+ */
 void set_prefix(node*, char*);
 
-/** 
+/**
  * vérifie si un prefix est égale à une string, 
  * si EPSILON est présent, la fonction ne le compte pas
  */

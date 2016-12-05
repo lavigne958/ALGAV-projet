@@ -19,4 +19,5 @@ void affiche_noeud_simple(node*);
  * pratique, ordoné et facile à lire
  */
 void affichage_racine_alphabetique(node*);
+
 #endif
