@@ -217,3 +217,38 @@ node* make_arbre_fichier(char* path){
   }while(retour_lecture != EOF);
   return arbre;
 }
+
+node* make_arbre_liste(char** files_list, int list_size){
+  int i;
+  node* root = creer_noeud();
+  FILE* file = NULL;
+  int lu;
+  char buff[100];
+  char annexe[100];
+
+  for(i = 0; i < list_size; i++){
+    
+    strcpy(annexe, "shakespear/");
+    strcat(annexe, files_list[i]);
+    
+    if( !(file = fopen(annexe, "r"))){
+      sprintf(buff, "impossible d'ouvrir le fichier: %s\n", files_list[i]);
+      exit_failure("make_arbre_liste", buff);
+    }
+
+    memset(buff, '\0', 100);
+
+    lu = fscanf(file, "%s ", buff);
+    
+    while(lu != EOF){
+      ajouter_mot(root, buff);
+      
+      memset(buff, '\0', 100);
+      lu = fscanf(file, "%s ", buff);
+    }
+
+    fclose(file);
+  }
+
+  return root;
+}

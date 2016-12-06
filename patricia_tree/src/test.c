@@ -43,6 +43,7 @@ int main(){
 
 
 void test_alex(){
+  /*
   printf("creation de l'arbre\n");
   node* arbre = creer_noeud();
   printf("creation de ses fils\n");
@@ -103,6 +104,36 @@ void test_alex(){
   ajouter_mot(nulls, "bonto");
   nb_nulls = comptage_null(nulls);
   printf("l'arbre contient %d pointeurs vers null\n", nb_nulls);
+  */
+
+  FILE* liste;
+  int nb_files;
+  char** liste_files;
+  int i = 0;
+  
+  liste = fopen("liste_shakespear.txt", "r");
+
+  fscanf(liste,"%d\n", &nb_files);
+
+  liste_files = (char**) malloc(sizeof(char*) * nb_files);
+  
+  while(!feof(liste)){
+    liste_files[i] = (char*) malloc(sizeof(char) * 100);
+
+    fscanf(liste,"%s ", liste_files[i]);
+    i++;
+  }
+    
+  node* racine;
+
+  racine = make_arbre_liste(liste_files, 37);
+
+  nb_files = comptage_mot(racine);
+
+  printf("racine contient: %d mots\n",nb_files);
+  getc(stdin);
+
+  affichage_racine_alphabetique(racine);
   
   printf("fin\n");     
 }

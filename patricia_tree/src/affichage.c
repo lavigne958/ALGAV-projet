@@ -38,7 +38,6 @@ void aux_affiche_noeud_simple(node* nd, int indent){
     for(i = 0; i < NB_CHAR_MAX; i++){
       node* fils = get_fils_node(nd, (char)i);
       if(!is_node_null(fils)){
-	int i;
 
 	//affiche l'indentation puis recursivement sur les fils
 	for(j = 0; j < indent; j++){

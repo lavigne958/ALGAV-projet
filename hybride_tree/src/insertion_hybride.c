@@ -112,3 +112,63 @@ void insert_equilibre(racine* root, char* mot){
   
   root->tree = aux_insert_equilibre(root->tree, mot, root->counter++);
 }
+
+racine* make_arbre_fichier_hybride(char* path){
+  racine* root = creer_racine();
+  FILE* file;
+  char buff[100];
+  int lu = 0;
+
+  if( !(file = fopen(path, "r"))){
+    exit_failure("make_arbre_fichier_hybride","impossible d'ouvrir le fichier");
+  }
+
+  memset(buff, '\0', 100);
+  
+  lu = fscanf(file, "%s ", buff);
+
+  while(lu != EOF){
+    insert_equilibre(root, buff);
+
+    memset(buff, '\0', 100);
+    lu = fscanf(file, "%s ", buff);
+  }
+
+  return root;
+}
+
+racine* make_arbre_liste_hybride(char** liste_files, int nb_liste){
+  int i;
+  FILE* file = NULL;
+  int lu;
+  char buff[100];
+  char folder[50];
+  racine* root = creer_racine();
+
+  for(i = 0; i < nb_liste; i++){
+
+    strcpy(folder, "shakespear/");
+    strcat(folder, liste_files[i]);
+
+    if( !(file = fopen(folder, "r"))){
+      sprintf(buff, "impossible d'ouvrir le fichier: %s", liste_files[i]);
+      exit_failure("make_arbre_liste_hybride", buff);
+    }
+
+    memset(buff, '\0', 100);
+
+    lu = fscanf(file, "%s ", buff);
+
+    while(lu != EOF){
+      insert_equilibre(root, buff);
+
+      memset(buff, '\0', 100);
+      lu = fscanf(file, "%s ", buff);
+    }
+
+    fclose(file);
+  }
+
+  return root;
+}
+  

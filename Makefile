@@ -7,6 +7,7 @@ BIN=$(DIR)bin/
 OBJ=$(DIR)obj/
 OBJS=$(OBJ)transfert.o\
 	$(OBJ)parser.o\
+	$(OBJ)calcul_temps.o\
 	$(OBJ)util_project.o
 HYBRIDE=$(DIR)hybride_tree/
 PATRICIA=$(DIR)patricia_tree/

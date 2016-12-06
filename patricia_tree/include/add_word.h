@@ -19,4 +19,6 @@ void sub_add_word(node* n,char* mot);
  */
 void ajouter_mot(node* arbre, char* mot);
 
+node* make_arbre_liste(char** files_list, int list_size);
+
 #endif
