@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include <sys/time.h>
 
 #include "util.h"
@@ -14,13 +15,12 @@
 #include "search_hybride.h"
 
 long get_time(){
-  struct timeval temps;
+  struct timespec temps;
 
-  if( gettimeofday(&temps, NULL) == -1){
-    exit_failure("gettimeofday", "impossible de récupérer le temps depuis epoch");
-  }
+  clock_gettime(CLOCK_MONOTONIC, &temps);
 
-  return (temps.tv_sec * 1000000) + temps.tv_usec;
+  return (temps.tv_sec * 1000000000) + temps.tv_nsec;
+
 }
   
 int calcul_insertion_patricia(node** racine_p){
@@ -51,7 +51,7 @@ int calcul_insertion_patricia(node** racine_p){
 
   after = get_time();
 
-  long res = (after - before ) / 1000;
+  long res = (after - before ) ;
 
   return res;
 }
@@ -84,7 +84,7 @@ int calcul_insertion_hybride(racine** racine_h){
 
   after = get_time();
 
-  long res = (after - before ) / 1000;
+  long res = (after - before );
 
   return res;
 }
@@ -163,6 +163,34 @@ int calcul_recherche_mot_hybride(racine* root, char* mot){
   }else{
     printf("(hybride) le mot n'existe pas\n");
   }
+
+  return after - before;
+}
+
+int calcul_profondeur(node* root, int* profondeur){
+  long before, after;
+  
+  if(is_node_null(root)){
+    exit_failure("calcul_profondeur", "la racin vaut NULL");
+  }
+
+  before = get_time();
+
+  *profondeur = profondeur_arbre_entier(root);
+
+  after = get_time();
+
+  return after - before;
+}
+
+int calcul_profondeur_hybride(racine* root, int* profondeur){
+  long before, after;
+
+  before = get_time();
+
+  *profondeur = profondeur_arbre_entier_hybride(root);
+
+  after = get_time();
 
   return after - before;
 }
