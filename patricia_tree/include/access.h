@@ -1,6 +1,8 @@
 #ifndef _ACCESS_H
 #define _ACCESS_H
 
+#include "struct.h"
+
 /**
  * creer un noeud vide
  * alloue l'espace pour le prefixe

@@ -63,7 +63,7 @@ void test_alex(){
 
   printf("fin\n");
 
-  affichage_alpha(balanced_root);
+  affichage_alphabetique_hybride(balanced_root);
 
 }
 
@@ -145,6 +145,6 @@ void test_hatem_profondeur(){
 
   printf("fin parsing\n");
 
-  printf("profondeur de l'arbre est: %d\n", profondeur_arbre_entier(new_root));
+  printf("profondeur de l'arbre est: %d\n", profondeur_arbre_entier_hybride(new_root));
   
 }

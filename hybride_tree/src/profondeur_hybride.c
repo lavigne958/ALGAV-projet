@@ -17,7 +17,7 @@ int max_3(int a, int b, int c){
 	      
       
 
-int profondeur_sous_arbre(node_h* n){
+int profondeur_sous_arbre_hybride(node_h* n){
 
   int g=0, m=0, d=0;
 
@@ -29,11 +29,11 @@ int profondeur_sous_arbre(node_h* n){
   }else{
   
     if(!is_node_null_hybride(get_inf_node(n)))
-      g = profondeur_sous_arbre(get_inf_node(n));
+      g = profondeur_sous_arbre_hybride(get_inf_node(n));
     if(!is_node_null_hybride(get_supp_node(n)))
-      d = profondeur_sous_arbre(get_supp_node(n));
+      d = profondeur_sous_arbre_hybride(get_supp_node(n));
     if(!is_node_null_hybride(get_eq_node(n)))
-      m = profondeur_sous_arbre(get_eq_node(n));
+      m = profondeur_sous_arbre_hybride(get_eq_node(n));
     
     return 1 + max_3(g,m,d);
   }
@@ -43,7 +43,7 @@ int profondeur_sous_arbre(node_h* n){
 
 
 
-int profondeur_arbre_entier(racine* racine){
+int profondeur_arbre_entier_hybride(racine* racine){
 
   node_h* n;
   int g=0, m=0, d=0;
@@ -61,11 +61,11 @@ int profondeur_arbre_entier(racine* racine){
     
   }else{
     if(!is_node_null_hybride(get_inf_node(n)))
-      g = profondeur_sous_arbre(get_inf_node(n));
+      g = profondeur_sous_arbre_hybride(get_inf_node(n));
     if(!is_node_null_hybride(get_eq_node(n)))
-      m = profondeur_sous_arbre(get_eq_node(n));
+      m = profondeur_sous_arbre_hybride(get_eq_node(n));
     if(!is_node_null_hybride(get_supp_node(n)))
-      d = profondeur_sous_arbre(get_supp_node(n));
+      d = profondeur_sous_arbre_hybride(get_supp_node(n));
 
     return 1 + max_3(g,m,d);
   }

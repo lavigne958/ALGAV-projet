@@ -7,7 +7,7 @@
 #include "struct_hybride.h"
 #include "access_hybride.h"
 #include "transfert.h"
-
+#include "util.h"
 
 
 /*----- fonction don't j'ai besoin ds hybride -----*/
