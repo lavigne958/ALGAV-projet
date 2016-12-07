@@ -10,7 +10,7 @@
 #include "comptage.h"
 #include "comptage_hybride.h"
 #include "calcul_temps.h"
-
+#include "soutenance.h"
 
 void test_alex(){
   long t_insert_p;
@@ -26,9 +26,7 @@ void test_alex(){
   t_insert_p = calcul_insertion_patricia(&racine_p);
   t_insert_h = calcul_insertion_hybride(&racine_h);
 
-  printf("insertion shakespear\n - Patricia: %ld ms\n - Hybride: %ld ms\n", (t_insert_p / 1000000), (t_insert_h / 1000000));
-  printf("nb_mot_patricia = %d\n", comptage_mot(racine_p));
-  printf("nb_mot_hybride = %d\n", comptage_hybride(racine_h));
+  printf("insertion shakespear\n - Patricia: %ld ms\n - Hybride: %ld ms\n", t_insert_p / 1000000, t_insert_h / 1000000);
   getc(stdin);
 
   printf("intertion d'un mot (non anglais) dans l'arbre contenant tout shakespear\n");
@@ -38,7 +36,7 @@ void test_alex(){
   t_insert_p = calcul_ajout_mot(racine_p, "bonjour");
   t_insert_h = calcul_ajout_mot_hybride(racine_h, "bonjour");
 
-  printf("insertion \"bonjour\"\n - Patricia: %ld nano secondes\n - Hybride: %ld nano secondes\n", t_insert_p, t_insert_h);
+  printf("insertion \"bonjour\"\n - Patricia: %ld ns\n - Hybride: %ld ns\n", t_insert_p, t_insert_h);
   getc(stdin);
   
   printf("Recherche d'un mot dans l'arbre\n");
@@ -48,44 +46,30 @@ void test_alex(){
   buff[strlen(buff) - 1] = '\0';
 
   printf("recherche du mot: %s\n", buff);
-  /*
-  node* n_test =get_fils_node(racine_p, 'h');
-  if( n_test == NULL){
-    printf("le noeud h vaut NULL");
-  }else{
-    printf("prefix de n_test: %s\n", get_prefix(n_test));
-    n_test = get_fils_node(n_test, 'o');
-    printf("prefix de n_test: %s\n", get_prefix(n_test));
-    n_test = get_fils_node(n_test, 'n');
-    printf("prefix de n_test: %s\n", get_prefix(n_test));
-    n_test = get_fils_node(n_test, 'o');
-    printf("prefix de n_test: %s\n", get_prefix(n_test));
-    n_test = get_fils_node(n_test, 'r');
-    if(has_childs(n_test)){
-      printf("n_test:r a des fils\n");
-    }
-    
-    printf("prefix de n_test: %s\n", get_prefix(n_test));
-    n_test = get_fils_node(n_test, 'i');
-    char* prefix_test = get_prefix(n_test);
-    int i;
-    for(i = 0; i < strlen(prefix_test); i++){
-      printf("%x-", prefix_test[i]);
-    }
-
-    printf("\n");
-  }
-  */
+  
   t_insert_p = calcul_recherche_mot(racine_p, buff);
   t_insert_h = calcul_recherche_mot_hybride(racine_h, buff);
 
-  printf("recherche de \"%s\"\n - Patricia: %ld nano secondes\n - Hybride: %ld nano secondes\n",buff, t_insert_p, t_insert_h);
+  printf("recherche de \"%s\"\n - Patricia: %ld ns\n - Hybride: %ld ns\n",buff, t_insert_p, t_insert_h);
+  getc(stdin);
 
-}
+  printf("Profondeur des deux arbes:\n");
 
+  int prof_p;
+  int prof_h;
   
+  t_insert_p = calcul_profondeur(racine_p, &prof_p);
+  t_insert_h = calcul_profondeur_hybride(racine_h, &prof_h);
+
+  printf("Les profondeurs sont le suivantes:\n");
+  printf("- |patricia| = %d\n- |hybride| = %d\n", prof_p, prof_h);
+  printf("Temps de calcul:\n - Patricia: %ld ms\n - Hybride: %ld ms\n", t_insert_p / 1000000, t_insert_h / 1000000);
+  getc(stdin);
+}  
 
 int main(){
-  test_alex();
+  //test_alex();
+
+  soutenance();
   return EXIT_SUCCESS;
 }
