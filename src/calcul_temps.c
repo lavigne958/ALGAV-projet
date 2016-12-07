@@ -8,11 +8,13 @@
 #include "access.h"
 #include "add_word.h"
 #include "search.h"
+#include "profondeur.h"
 
 #include "struct_hybride.h"
 #include "access_hybride.h"
 #include "insertion_hybride.h"
 #include "search_hybride.h"
+#include "profondeur_hybride.h"
 
 long get_time(){
   struct timespec temps;
