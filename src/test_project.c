@@ -59,7 +59,6 @@ void test_alex(){
 
   printf("Profondeur des deux arbes:\n");
 
-<<<<<<< HEAD
   int prof_p;
   int prof_h;
   
@@ -70,13 +69,8 @@ void test_alex(){
   printf("- |patricia| = %d\n- |hybride| = %d\n", prof_p, prof_h);
   printf("Temps de calcul:\n - Patricia: %ld ms\n - Hybride: %ld ms\n", t_insert_p / 1000000, t_insert_h / 1000000);
   getc(stdin);
-}  
+}
 
-int main(){
-  //test_alex();
-
-  soutenance();
-=======
 void test_patricia_to_hybride(){
   racine* tree_h;
   node* tree_p = make_arbre_fichier(PATH_FICHIER_TEST);
@@ -89,9 +83,14 @@ void test_patricia_to_hybride(){
   
 }
 
+
 int main(){
-  test_patricia_to_hybride();
   //test_alex();
->>>>>>> 3d987b3983e5055deb9c0cf08b6a34e490bddc33
+
+  soutenance();
+  
+  //test_patricia_to_hybride();
+  //test_alex();
+
   return EXIT_SUCCESS;
 }

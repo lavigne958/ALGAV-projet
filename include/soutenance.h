@@ -9,5 +9,6 @@ void soutenance_fusion();
 void soutenance_insertion_equilibre();
 void soutenance_comptage_mot();
 void soutenance_affichage_alphabetique();
+void soutenance_transfert();
 
 #endif
