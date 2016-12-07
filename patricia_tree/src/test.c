@@ -13,7 +13,7 @@
 #include "comptage.h"
 #include "profondeur.h"
 #include "clone.h"
-#include "free_memory.h"
+#include "free.h"
 #include "fusion.h"
 
 #define PATH_FICHIER_TEST "./annexe/test.txt"
@@ -29,14 +29,14 @@ void test_hatem_fusion();
 int main(){
 
   printf("==================== TEST ALEX =================\n\n");
-  test_alex();
+  //test_alex();
   printf("\n\n\n"); 
   
   /* test ajouter_mot */
   printf("================== TEST HATHEM =================\n\n\n");
 
-  /*test_hatem_clone_free();*/
-  //test_hatem_fusion();
+  //test_hatem_clone_free();
+  test_hatem_fusion();
   
   return 0;
 }
@@ -142,6 +142,7 @@ void test_alex(){
 void test_hatem_fusion(){
   
   node* treeA = make_arbre_fichier("./annexe/for_fusion1.txt");
+  affichage_racine_alphabetique(treeA);
   /*printf("----- affichage de treeA -----\n");
   affiche_noeud_simple(treeA);  
   */
@@ -149,17 +150,14 @@ void test_hatem_fusion(){
   
   node* treeB = make_arbre_fichier("./annexe/for_fusion2.txt");
   printf("----- affichage de treeB -----\n");
-  affiche_noeud_simple(treeB);  
+  affichage_racine_alphabetique(treeB);
+  //affiche_noeud_simple(treeB);  
   
   printf("\n");
   
   node* treeAB = fusion(treeA,treeB);
-  /*printf("----- affichage de treeAB -----\n");
+  printf("----- affichage de treeAB -----\n");
   affiche_noeud_simple(treeAB);
-  c est ok pour ca */
-
-  printf("----- affichage de treeB -----\n");
-  affiche_noeud_simple(treeB);  
 
 }
 
@@ -174,14 +172,8 @@ void test_hatem_clone_free(){
   printf("----- affichage du clone -----\n");
   affiche_noeud_simple(c);
   printf("----- free clone -----\n");
-  free(c);
-  if(!c)
-    printf("le clone n'existe plus\n");
-  else{
-    printf("le clone existe toujours\n");
-    printf("----- affichage du clone -----\n");
-    affiche_noeud_simple(c);
-  }
+  free_tree(c);
+  
   return;
 }
 

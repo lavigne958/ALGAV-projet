@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "struct.h" 
 #include "util.h"
@@ -59,7 +60,7 @@ char* get_prefix(node* n){
     return n->prefix;
 }
 
-void set_prefix(node* node, char* prefix){
+void set_prefix(node* node, char* nouv_prefix){
   if( is_node_null(node) ){
     exit_failure("set_prefix","erreur node = NULL");
   }
@@ -68,12 +69,13 @@ void set_prefix(node* node, char* prefix){
     exit_failure("set_prefix","erreur prefix = NULL");
   }
 
-  if(strlen(prefix) > (NB_CHAR_MAX + 1)){
+  if(strlen(nouv_prefix) > (NB_CHAR_MAX + 1)){
     exit_failure("set_prefix","erreur prefix trop grand");
   }
   
-  strcpy(node->prefix,prefix);
-  node->size = strlen(prefix);
+  strcpy(node->prefix, nouv_prefix);
+
+  node->size = strlen(nouv_prefix);
 }
 
 int prefix_equals_string(node* nd, char* string){
@@ -81,10 +83,10 @@ int prefix_equals_string(node* nd, char* string){
   unsigned int prefix_size = nd->size;
   unsigned int i=0;
 
-  /*if the prefix has EPSILON, do not take it into count
-  if(nd->prefix[nd->size] == EPSILON){
+  /*if the prefix has EPSILON, do not take it into count */
+  if(nd->prefix[nd->size-1] == EPSILON){
     prefix_size--;
-    }*/
+  }
 
   /*if the string is not exactly the same size it can not be equals*/
   if(strlen(string) != prefix_size){
