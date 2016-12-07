@@ -6,11 +6,15 @@
 #include "struct_hybride.h"
 #include "add_word.h"
 #include "affichage.h"
+#include "affiche_hybride.h"
 #include "access.h"
 #include "comptage.h"
 #include "comptage_hybride.h"
 #include "calcul_temps.h"
 #include "soutenance.h"
+#include "transfert.h"
+
+#define PATH_FICHIER_TEST "./patricia_tree/annexe/test.txt"
 
 void test_alex(){
   long t_insert_p;
@@ -55,6 +59,7 @@ void test_alex(){
 
   printf("Profondeur des deux arbes:\n");
 
+<<<<<<< HEAD
   int prof_p;
   int prof_h;
   
@@ -71,5 +76,22 @@ int main(){
   //test_alex();
 
   soutenance();
+=======
+void test_patricia_to_hybride(){
+  racine* tree_h;
+  node* tree_p = make_arbre_fichier(PATH_FICHIER_TEST);
+  printf("--------------------------\n");
+  affiche_noeud_simple(tree_p);
+  printf("--------------------------\n");
+  tree_h = patricia_to_hybride(tree_p);
+  printf("--------------------------\n");
+  affichage_alphabetique_hybride(tree_h);
+  
+}
+
+int main(){
+  test_patricia_to_hybride();
+  //test_alex();
+>>>>>>> 3d987b3983e5055deb9c0cf08b6a34e490bddc33
   return EXIT_SUCCESS;
 }

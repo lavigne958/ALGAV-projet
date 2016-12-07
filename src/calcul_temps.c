@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <sys/time.h>
+#include <sys/resource.h>
 
 #include "util.h"
 #include "struct.h"
@@ -17,12 +18,13 @@
 #include "profondeur_hybride.h"
 
 long get_time(){
+  
   struct timespec temps;
 
   clock_gettime(CLOCK_MONOTONIC, &temps);
 
   return (temps.tv_sec * 1000000000) + temps.tv_nsec;
-
+  
 }
   
 int calcul_insertion_patricia(node** racine_p){

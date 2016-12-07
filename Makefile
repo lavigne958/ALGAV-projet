@@ -8,6 +8,7 @@ OBJ=$(DIR)obj/
 OBJS=$(OBJ)transfert.o\
 	$(OBJ)parser.o\
 	$(OBJ)calcul_temps.o\
+	$(OBJ)soutenance.o\
 	$(OBJ)util_project.o
 HYBRIDE=$(DIR)hybride_tree/
 PATRICIA=$(DIR)patricia_tree/
@@ -26,7 +27,7 @@ OBJ_P=$(PATRICIA)obj/access.o\
 	$(PATRICIA)obj/affichage.o\
 	$(PATRICIA)obj/comptage.o\
 	$(PATRICIA)obj/profondeur.o\
-	$(PATRICIA)obj/free_memory.o\
+	$(PATRICIA)obj/free.o\
 	$(PATRICIA)obj/clone.o\
 	$(PATRICIA)obj/fusion.o
 INCLUDE=$(DIR)include/

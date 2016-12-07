@@ -11,7 +11,7 @@ int calcul_ajout_mot(node*, char*);
 int calcul_ajout_mot_hybride(racine*, char*);
 int calcul_recherche_mot(node*, char*);
 int calcul_recherche_mot_hybride(racine*, char*);
-int calcul_profondeur(node*);
-int calcul_profondeur_hybride(racine*);
+int calcul_profondeur(node*, int*);
+int calcul_profondeur_hybride(racine*, int*);
 
 #endif

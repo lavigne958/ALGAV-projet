@@ -77,7 +77,7 @@ void affichage_alpha(node* nd, char* buffer, int buffer_size){
 
   //if the prefix has epsilon then we need to adjuste the size, the last char and pritn it.
   if( prefix_has_epsilon(nd) ){
-    word[word_size-2] = '\0';
+    word[word_size-1] = '\0';
     printf("- %s\n", word);
     
   }else{

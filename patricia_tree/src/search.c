@@ -15,9 +15,13 @@ int search_word(node* nd, char* string){
     if( prefix_has_epsilon(nd) ){
       return 1;
     }else{
-      //else the word is there but not a full word
-      printf("le mot %s est dans l'arbre mais n'a pas epsilon\n",string);
-      return -1;
+      if( !is_node_null(get_fils_node(nd, EPSILON))){
+	return 1;
+      }else{
+	//else the word is there but not a full word
+	printf("le mot %s est dans l'arbre mais n'a pas epsilon\n",string);
+	return -1;
+      }
     }
   }else{
     //recursive case

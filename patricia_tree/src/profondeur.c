@@ -35,6 +35,7 @@ int profondeur_sous_arbre(node* n){
 int profondeur_arbre_entier(node* n){
   int p = 0;
   int tmp,i;
+  
   if(is_node_null(n))
     return -1;
 
@@ -44,7 +45,7 @@ int profondeur_arbre_entier(node* n){
 
   if(has_childs(n)){
     for(i = 0; i < NB_CHAR_MAX; i++){
-      if(n->tab_fils[i] != NULL){
+      if( !is_node_null(n->tab_fils[i])){
 	//calcule pour chaque fils
 	tmp = profondeur_sous_arbre(n->tab_fils[i]);
 	//incrément du max entre les fils seullement

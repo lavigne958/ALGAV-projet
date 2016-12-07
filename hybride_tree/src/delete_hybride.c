@@ -50,8 +50,7 @@ int side_son(node_h* n, node_h* father){
 
 int delete_node(node_h* n, node_h* father, int can_remove){
   int side, fg_null, fd_null;
-  node_h *gauche, *droit, *min;
-  printf("entree delete_node\n");
+  node_h *gauche = NULL, *droit = NULL, *min = NULL;
   if(can_remove == -1){
     /*dans ce cas, on doit determiner si on peut supprimer le node_h*/
     if(is_node_null_hybride(get_eq_node(n)))
@@ -60,8 +59,6 @@ int delete_node(node_h* n, node_h* father, int can_remove){
       can_remove = 0;
   }
 
-  printf("can remove = %d\n",can_remove);
-  printf("lettre(n) = %c\n",get_lettre(n));
   if(!can_remove)
     return 0;
   else{ /* on peut effacer */
@@ -116,6 +113,7 @@ int delete_node(node_h* n, node_h* father, int can_remove){
 	if( !is_node_null_hybride(get_eq_node(gauche)))
 	  set_eq_node(n,get_eq_node(gauche));
 	free(gauche);
+	n->inf = NULL;
 	return 0;
 
       } /* fin !fg_null && !fd_null */    
@@ -177,7 +175,6 @@ int delete_node(node_h* n, node_h* father, int can_remove){
   
   
 int aux_delete_word(node_h* n, char* word, node_h* father){
-  printf("entree aux_delete_word: %s\n",word);
   /*
     marqueur = 1  => autorisation de supprimer le pere
     marqueur = 0  => interdiction de supprimer le pere
@@ -186,13 +183,10 @@ int aux_delete_word(node_h* n, char* word, node_h* father){
   int marqueur;
   
   if( word[0] == get_lettre(n)){
-    printf("1\n");
     
     if( strlen(word) == 1){ /* taille_mot = 1 */
-      printf("1.1\n");
 
       if( get_key(n) != -1){
-	printf("1.1.1\n");
 	
 	set_key(n, -1);
 	return delete_node(n,father,-1);
@@ -201,21 +195,16 @@ int aux_delete_word(node_h* n, char* word, node_h* father){
 	exit_failure("aux_delete_word","cle=-1 et pas de fils"); 
       }
     }else{ /* taille_mot != 1 */
-      printf("1.2\n");
 
       if( is_node_null_hybride(get_eq_node(n)) ){
-	printf("1.2.1\n");
 	
 	return 0;
       }else{
-	printf("1.2.2\n");
 	
 	marqueur = aux_delete_word(get_eq_node(n), &word[1], n);
 	if(get_key(n) != -1){
-	  printf("on rentre ici\n");
 	  marqueur = 0;
 	}else{
-	  printf("lettre = -1 aparemment\n");
 	}
 	marqueur = delete_node(n, father, marqueur);
 	return marqueur;
@@ -224,26 +213,20 @@ int aux_delete_word(node_h* n, char* word, node_h* father){
     
     
   }else if(word[0] < get_lettre(n) ){ /* word[0] != get_lettre(n) */
-      printf("2\n");
     if( is_node_null_hybride(get_inf_node(n)) ){
-      printf("2.1\n");
 
       return 0;
     }else{
-      printf("2.2\n");
 
       marqueur = aux_delete_word(get_inf_node(n), word, n);
       return 0;
     }
   }else{
-    printf("3\n");
     
     if( is_node_null_hybride(get_supp_node(n)) ){
-      printf("3.1\n");
       
       return 0;
     }else{
-      printf("3.2\n");
       
       marqueur = aux_delete_word(get_supp_node(n), word, n);
       return 0;
@@ -254,7 +237,6 @@ int aux_delete_word(node_h* n, char* word, node_h* father){
 
 
 int delete_word(racine* racine, char* word){
-  printf("entree delete_word\n");
   if(!word)
     exit_failure("delete_word", "le mot a supprimer vaut NULL");
 

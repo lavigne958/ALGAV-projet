@@ -9,7 +9,6 @@
 void free_tree(node* n){
 
   int i;
-  printf("free de: %s\n", get_prefix(n));
 
   //si des fils existent
   if(has_childs(n) ){

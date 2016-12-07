@@ -158,7 +158,6 @@ node* fusion(node* treeA, node* treeB){
     return treeB;
   if( b_null)
     return treeA;
-  printf("on va dans fusion_aux\n");
   return fusion_aux(treeA,treeB);
   }
 

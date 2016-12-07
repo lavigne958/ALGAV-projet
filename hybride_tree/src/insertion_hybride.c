@@ -113,7 +113,7 @@ void insert_equilibre(racine* root, char* mot){
   root->tree = aux_insert_equilibre(root->tree, mot, root->counter++);
 }
 
-racine* make_arbre_fichier_hybride(char* path){
+racine* make_arbre_fichier_hybride(char* path, int equilibre){
   racine* root = creer_racine();
   FILE* file;
   char buff[100];
@@ -128,7 +128,11 @@ racine* make_arbre_fichier_hybride(char* path){
   lu = fscanf(file, "%s ", buff);
 
   while(lu != EOF){
-    insert_equilibre(root, buff);
+
+    if(equilibre)
+      insert_equilibre(root, buff);
+    else
+      insert(root, buff);
 
     memset(buff, '\0', 100);
     lu = fscanf(file, "%s ", buff);
