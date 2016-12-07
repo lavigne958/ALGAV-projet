@@ -38,7 +38,6 @@ void aux_affiche_noeud_simple(node* nd, int indent){
     for(i = 0; i < NB_CHAR_MAX; i++){
       node* fils = get_fils_node(nd, (char)i);
       if(!is_node_null(fils)){
-	int i;
 
 	//affiche l'indentation puis recursivement sur les fils
 	for(j = 0; j < indent; j++){
@@ -78,7 +77,7 @@ void affichage_alpha(node* nd, char* buffer, int buffer_size){
 
   //if the prefix has epsilon then we need to adjuste the size, the last char and pritn it.
   if( prefix_has_epsilon(nd) ){
-    word[word_size-1] = '\0';
+    word[word_size-2] = '\0';
     printf("- %s\n", word);
     
   }else{

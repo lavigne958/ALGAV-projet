@@ -3,5 +3,5 @@
 
 void aux_affichage_simple(node_h*, int);
 void affichage_simple(racine*);
-void affichage_alpha(racine*);
+void affichage_alphabetique_hybride(racine*);
 #endif

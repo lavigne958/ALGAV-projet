@@ -60,10 +60,20 @@ void test_alex(){
 
   affichage_simple(balanced_root);
   getc(stdin);
+  printf("insertion de hamlet dans nouvelle arbre\n");
+
+  racine* root;
+  root = make_arbre_fichier_hybride("annexe/hamlet.txt");
+
+  affichage_alphabetique_hybride(root);
+  int nb_mots = comptage_hybride(root);
+  printf("root contient %d\n", nb_mots);
+
+  getc(stdin);
 
   printf("fin\n");
 
-  affichage_alpha(balanced_root);
+  affichage_alphabetique_hybride(balanced_root);
 
 }
 
@@ -145,6 +155,6 @@ void test_hatem_profondeur(){
 
   printf("fin parsing\n");
 
-  printf("profondeur de l'arbre est: %d\n", profondeur_arbre_entier(new_root));
+  printf("profondeur de l'arbre est: %d\n", profondeur_arbre_entier_hybride(new_root));
   
 }

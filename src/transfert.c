@@ -7,7 +7,7 @@
 #include "struct_hybride.h"
 #include "access_hybride.h"
 #include "transfert.h"
-
+#include "util.h"
 
 
 /*----- fonction don't j'ai besoin ds hybride -----*/
@@ -126,18 +126,18 @@ node_h* tab_fils_p_to_hybride(node** tf, int* nb_mot){
 racine* patricia_to_hybride(node* tree_p){
 
   racine* tree_h;
-  int* nb_mot;
+  int nb_mot;
 
   if(strcmp( get_prefix(tree_p), "") == 0)
     exit_failure("patricia_to_hybride","il faut passer un patrici_tree entier");
 
-  *nb_mot = 0;
+  nb_mot = 0;
   tree_h = creer_racine();
   if(!is_node_null(tree_p) && has_childs(tree_p) ){
-    tree_h->tree = tab_fils_p_to_hybride(get_tab_fils(tree_p), nb_mot);
+    tree_h->tree = tab_fils_p_to_hybride(get_tab_fils(tree_p), &nb_mot);
   }
 
-  tree_h->counter = *nb_mot;
+  tree_h->counter = nb_mot;
   return tree_h;
 }
     

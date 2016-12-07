@@ -6,7 +6,7 @@
 #include "access.h"
 #include "util.h"
 #include "clone.h"
-#include "free_memory.h"
+#include "free.h"
 
     
 
@@ -90,6 +90,7 @@ node* fusion_aux(node* a, node* b){
       else{
 	tmp = fusion_aux(fils_b, new_tf[ (int) reste_b[0] ]);
 	free_tree(fils_b);
+	fils_b = NULL;
 	free_tree(new_tf[ (int) reste_b[0] ]);
 	new_tf[ (int) reste_b[0] ] = tmp;
       }
@@ -110,6 +111,7 @@ node* fusion_aux(node* a, node* b){
       else{
 	tmp = fusion_aux(fils_a, new_tf[ (int) reste_a[0] ]);
 	free_tree(fils_a);
+	fils_a = NULL;
 	free_tree(new_tf[ (int) reste_a[0] ]);
 	new_tf[ (int) reste_a[0] ] = tmp;
       }

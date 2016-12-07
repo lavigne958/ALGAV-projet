@@ -3,5 +3,6 @@
 
 void insert(racine*, char*);
 void insert_equilibre(racine*, char*);
-
+racine* make_arbre_fichier_hybride(char*);
+racine* make_arbre_liste_hybride(char** , int );
 #endif

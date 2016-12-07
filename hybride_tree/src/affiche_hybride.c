@@ -88,7 +88,7 @@ void aux_affichage_alpha(node_h* nd, char* buff, int buff_size){
   }
 }
 
-void affichage_alpha(racine* root){
+void affichage_alphabetique_hybride(racine* root){
   if(root == NULL){
     exit_failure("affichage_alpha", "la racine vaut NULL");
   }

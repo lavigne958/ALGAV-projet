@@ -14,7 +14,7 @@ OBJS=$(OBJ)access.o\
 	$(OBJ)parser.o\
 	$(OBJ)comptage.o\
 	$(OBJ)profondeur.o\
-	$(OBJ)free_memory.o\
+	$(OBJ)free.o\
 	$(OBJ)clone.o\
 	$(OBJ)fusion.o
 INCLUDE=$(DIR)include/

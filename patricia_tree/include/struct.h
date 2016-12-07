@@ -1,7 +1,7 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
-#define PREFIX_MAX 20
+#define PREFIX_MAX 150
 #define NB_CHAR_MAX 127
 #define EPSILON '_'
 

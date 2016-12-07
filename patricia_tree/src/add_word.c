@@ -9,8 +9,6 @@
 
 
 void sub_add_word(node* n,char* mot){
-  
-  
   int taille_prefix_commun; 
   char* prefix_commun =NULL;
   char* reste_prefix = NULL;
@@ -39,13 +37,17 @@ void sub_add_word(node* n,char* mot){
   prefix_commun = str_sub(prefix,0, taille_prefix_commun-1);
   reste_prefix = str_sub(prefix, taille_prefix_commun, taille_prefix-1);
   reste_mot = str_sub(mot, taille_prefix_commun, taille_mot-1);
+  
 
-
+  
   /* ----- fin gestions chaines et tailles chaines -------- */
 
   if(prefix_avec_epsilon){ /* prefix_avec_epsilon == 1 */
+    
+    
+    if( strncmp(mot,prefix,max(taille_prefix,taille_mot)) != 0 ) {
+      
 
-    if( strncmp(mot,prefix,max(taille_prefix,taille_mot)) != 0 ){
 
       /* creation du node fils */
       creer_tableau_fils(n);
@@ -71,6 +73,7 @@ void sub_add_word(node* n,char* mot){
 	add_epsilon_node(n);
       }else{
 	
+	
 	fils1 = creer_noeud();
 	set_prefix(fils1, reste_prefix);
 	prefix_add_epsilon(fils1);
@@ -88,6 +91,7 @@ void sub_add_word(node* n,char* mot){
     }
     
   }else{ /* prefix_avec_epsilon == 0 */
+    	
     /*printf("cas2\n");*/ 
      
     if( strncmp(mot,prefix,max(taille_prefix,taille_mot)) == 0 ){
@@ -128,7 +132,8 @@ void sub_add_word(node* n,char* mot){
       add_epsilon_node(n);
 	
     }else{
-       
+
+            
       /* maj des attributs de n */
       set_prefix(n,prefix_commun);
 
@@ -142,10 +147,24 @@ void sub_add_word(node* n,char* mot){
       new[(int)indice_reste_prefix] = fils1;
 
       fils2 = creer_noeud();
+
       set_prefix(fils2, reste_mot);
+
+
+
       prefix_add_epsilon(fils2);
 
-
+      /*
+      if(strstr(mot, "rificab")){
+	printf("mot: %s ", mot);
+	printf("prefix: %s ", prefix);
+	printf("prefix_commun: %s ", prefix_commun);
+	printf("reste_mot: %s ", reste_mot);
+	printf("reste_prefix: %s ", reste_prefix);
+	printf("taille_commun: %d", taille_prefix_commun);
+	printf("prefix_fils2 = %s\n", get_prefix(fils2));
+      }*/
+      
       indice_reste_mot = reste_mot[0];
       new[(int)indice_reste_mot] = fils2;
 
@@ -216,4 +235,39 @@ node* make_arbre_fichier(char* path){
       
   }while(retour_lecture != EOF);
   return arbre;
+}
+
+node* make_arbre_liste(char** files_list, int list_size){
+  int i;
+  node* root = creer_noeud();
+  FILE* file = NULL;
+  int lu;
+  char buff[100];
+  char annexe[100];
+
+  for(i = 0; i < list_size; i++){
+    
+    strcpy(annexe, "shakespear/");
+    strcat(annexe, files_list[i]);
+    
+    if( !(file = fopen(annexe, "r"))){
+      sprintf(buff, "impossible d'ouvrir le fichier: %s\n", files_list[i]);
+      exit_failure("make_arbre_liste", buff);
+    }
+
+    memset(buff, '\0', 100);
+
+    lu = fscanf(file, "%s ", buff);
+    
+    while(lu != EOF){
+      ajouter_mot(root, buff);
+      
+      memset(buff, '\0', 100);
+      lu = fscanf(file, "%s ", buff);
+    }
+
+    fclose(file);
+  }
+
+  return root;
 }
