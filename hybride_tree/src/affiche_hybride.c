@@ -8,8 +8,12 @@
 
 void aux_affichage_simple(node_h* nr, int indent){
   int i;
-  
-  printf("%c->", get_lettre(nr));
+
+  if(get_key(nr) != -1){
+    printf("%c*->", get_lettre(nr));
+  }else{
+    printf("%c->", get_lettre(nr));
+  }
   
   if( is_node_null_hybride(nr->inf) &&
       is_node_null_hybride(nr->eq) &&

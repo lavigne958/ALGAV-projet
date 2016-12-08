@@ -92,6 +92,11 @@ void soutenance_recherche(){
 
   printf("les deux arbres contiennent tout Shakespear\n\n");
 
+  int nb_mots_p = comptage_mot(root_p);
+  int nb_mots_h = comptage_hybride(root_h);
+
+  printf("nombre de mots:\n- [Patricia]: %d\n- [Hybride]: %d\n", nb_mots_p, nb_mots_h);
+
   printf("veuillez saisir un mot à rechercher: ");
 
   fgets(saisie, 50, stdin);
@@ -168,7 +173,8 @@ void soutenance_fusion(){
 
   printf(" ------- Résultat ------\n");
 
-  affichage_racine_alphabetique(root_1_p);
+  //affichage_racine_alphabetique(root_1_p);
+  affiche_noeud_simple(root_1_p);
   printf("===><===");
   getc(stdin);
 }
@@ -262,30 +268,11 @@ void soutenance_transfert(){
 }
 
 void soutenance_transfert2(){
-
   node* tree_p;
-
-  racine* new_root = creer_racine();  
-  printf(" --------- parsing ---------------\n\n");
-  words_list* head = read_words(PATH_FICHIER_TEST);
-  words_list* current = head;
-  if(head == NULL){
-    fprintf(stderr, "erreur liste de mots vaut NULL\n");
-    exit(EXIT_FAILURE);
-  }
-  while(current != NULL && current->word != NULL){
-    printf("lu: %s\n", current->word);
-    if( current == NULL){
-      printf("le noeud vaut NUL\n");
-    }
-    if( current->word == NULL){
-      printf("le mot vaut NULL\n");
-    }
-    insert(new_root, current->word);
-    current = current->next;
-  } 
-  printf("fin parsing\n");
-
+  
+  printf("création d'une nouvelle racine\n");
+  racine* new_root = make_arbre_fichier_hybride("soutenance/affichage.txt", 1);
+  
 
   printf("--------------------------\n");
   affichage_alphabetique_hybride(new_root);
@@ -293,6 +280,7 @@ void soutenance_transfert2(){
   tree_p = hybride_to_patricia(new_root);
   printf("--------------------------\n");
   affiche_noeud_simple(tree_p);
+  getc(stdin);
  
 }
 
