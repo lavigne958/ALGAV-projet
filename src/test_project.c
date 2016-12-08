@@ -134,9 +134,8 @@ int main(){
   //test_patricia_to_hybride();
   //test_hybride_to_patricia();
   //test_alex();
-  //soutenance();
-    
   soutenance();
+    
   
   //test_patricia_to_hybride();
   //test_alex();

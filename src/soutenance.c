@@ -21,8 +21,14 @@
 #include "delete_hybride.h"
 #include "comptage_hybride.h"
 
+#include "parser_hybride.h"
+
 //------- global -----
 #include "transfert.h"
+
+#define PATH_FICHIER_TEST "./patricia_tree/annexe/test.txt"
+
+
 
 void soutenance_insertion(){
   node* root_p =  NULL;
@@ -250,6 +256,44 @@ void soutenance_transfert(){
 
   printf("==><==");
   getc(stdin);
+
+  affichage_alphabetique_hybride(root_h);
+  getc(stdin);
+}
+
+void soutenance_transfert2(){
+
+  node* tree_p;
+
+  racine* new_root = creer_racine();  
+  printf(" --------- parsing ---------------\n\n");
+  words_list* head = read_words(PATH_FICHIER_TEST);
+  words_list* current = head;
+  if(head == NULL){
+    fprintf(stderr, "erreur liste de mots vaut NULL\n");
+    exit(EXIT_FAILURE);
+  }
+  while(current != NULL && current->word != NULL){
+    printf("lu: %s\n", current->word);
+    if( current == NULL){
+      printf("le noeud vaut NUL\n");
+    }
+    if( current->word == NULL){
+      printf("le mot vaut NULL\n");
+    }
+    insert(new_root, current->word);
+    current = current->next;
+  } 
+  printf("fin parsing\n");
+
+
+  printf("--------------------------\n");
+  affichage_alphabetique_hybride(new_root);
+  printf("--------------------------\n");
+  tree_p = hybride_to_patricia(new_root);
+  printf("--------------------------\n");
+  affiche_noeud_simple(tree_p);
+ 
 }
 
   
@@ -272,6 +316,7 @@ void soutenance(){
     printf(" 6 - comptage du nombre de mots dans les deux structures\n");
     printf(" 7 - affichage par ordre aphabetique des deux arbres\n");
     printf(" 8 - transfet d'un arbre Patricia vers un arbre Hybride\n");
+    printf(" 9 - transfet d'un arbre Hybride vers un arbre Patricia\n");
     printf(" 0 - Quitter\n\n");
     
     printf("choix: ");
@@ -304,11 +349,14 @@ void soutenance(){
     case 8:
       soutenance_transfert();
       break;
+    case 9:
+      soutenance_transfert2();
+      break;
     case 0:
       quitter = 1;
       break;
     default:
-      printf("choix inconue... veuillez choisir un valeur entre 0 et 7\n");
+      printf("choix inconue... veuillez choisir un valeur entre 0 et 9\n");
     }
 
     printf("================================================================\n");
