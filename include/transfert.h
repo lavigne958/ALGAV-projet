@@ -33,6 +33,6 @@ racine* patricia_to_hybride(node* tree_p);
  * fonction renvoyant un arbre patricia resultant de l'arbre hybride
  * passer en parametre
  */
-/*node_p* hybride_to_patricia(racine* tree_h);
- */
+node* hybride_to_patricia(racine* tree_h);
+
 #endif

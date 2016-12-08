@@ -8,7 +8,7 @@
 #include "access_hybride.h"
 #include "transfert.h"
 #include "util.h"
-
+#include "affichage.h"
 
 /*----- fonction don't j'ai besoin ds hybride -----*/
 
@@ -153,43 +153,123 @@ racine* patricia_to_hybride(node* tree_p){
     
     
 /*-----fonctions permettant le passage de hybride a patricia-----*/
-/*
-void parcourt(node_h* h, node** tf){
 
-  node_h* l = get_inf_node(l);
-  if(is_node_null_hybride(l)){
+void make_tab_fils(node* p, node_h* h, int with_epsilon);
+
+
+void sub_make_node(node* new_p,char* pref, int indice_pref,node_h* h){
+
+  node_h *gauche, *droit, *mid;
+  int gauche_null = 0, droit_null = 0, mid_null = 0;
+
+  gauche = get_inf_node(h);
+  if(is_node_null_hybride(gauche))
+    gauche_null = 1;
+
+  droit = get_supp_node(h);
+  if(is_node_null_hybride(droit))
+    droit_null = 1;
+
+  mid = get_eq_node(h);
+  if(is_node_null_hybride(mid))
+    mid_null = 1;
+
+  if(mid_null){
     
-
-
-void make_tab_fils(node* p, node_h* h){
-  
-  node_h *tmp = h, *eq = NULL, *inf=NULL, *supp=NULL;
-  node** new_tf = creer_tab_sans_pere();
-  int eq_null, inf_null, supp_null, l;
-
-  eq = get_eq_node(h);
-  if(is_node_null_hybride(eq))
-    eq_null = 1;
-
-  inf = get_inf_node(h);
-  if(is_node_null_hybride(inf))
-    inf_null = 1;
-
-  supp = get_supp_node(h);
-  if(is_node_null_hybride(supp))
-    supp_null = 1;
-
-  if(!inf_null || !supp_null){
-
-    while(tmp){
-      if(!inf_null)
-      if(!eq_null){
-	l = (int) get_lettre(h);
-	new_tf[l] = make_node_p();
+    if(!droit_null || !gauche_null){
+      make_tab_fils(new_p,h,0);
+    }else{
+      pref[indice_pref] = get_lettre(h);
+      indice_pref++;
+      pref[indice_pref] = EPSILON;
+    }
+    
+  }else{
+    if(!droit_null || !gauche_null){
+      make_tab_fils(new_p,h,0);
+    }else{
+      pref[indice_pref] = get_lettre(h);
+      indice_pref++;
+      if(get_key(h) != -1){
+	make_tab_fils(new_p,get_eq_node(h),1);
+      }else{
+	sub_make_node(new_p,pref,indice_pref, get_eq_node(h));
       }
     }
-  }else{} // pas de node ds les cote de h 
-	
+  }
+}
+
+
+node* make_node(node_h* h){
+
+  node* new_p;
+  int j, i;
+  char pref[PREFIX_MAX];
+  for(j=0;j<PREFIX_MAX;j++)
+    pref[j] = '\0';
+     
+   new_p = creer_noeud();
+   i = 0;
+
+   pref[i] = get_lettre(h);
+   i++;
+
+   if(is_node_null_hybride(get_eq_node(h))){
+     pref[i] = EPSILON;
+     set_prefix(new_p,pref);
+   }else{
+     if( get_key(h) != -1 ){
+       h = get_eq_node(h);
+       make_tab_fils(new_p,h,1);
+     }else{
+       h = get_eq_node(h);
+       sub_make_node(new_p,pref,i,h);
+     }
+   }
+   set_prefix(new_p, pref);
+   return new_p;
+   
+}
+       
+
+
+void parcourt(node_h* h, node** tf){
+  node_h *inf=NULL, *supp=NULL;
+  int l = (int) get_lettre(h);
+
+
+  inf = get_inf_node(h);
+  if(!is_node_null_hybride(inf))
+    parcourt(inf,tf);
+    
+  tf[l] = make_node(h);
+  
+  supp = get_supp_node(h);
+  if(!is_node_null_hybride(supp))
+    parcourt(supp,tf);
+
+}
+
+
+void make_tab_fils(node* p, node_h* h, int with_epsilon){
+
+  
+  /* creation du tab_fils qui deviendra fils de p */
+  node** new_tf = creer_tab_sans_pere();
+  
+  /* insertion des nodes dans tab_fils en parcourant 
+     tous les cotes possibles */
+  parcourt(h,new_tf);
+
+  /* mettre tf fils de p */
+  set_tab_fils(p,new_tf);
+
+  /* si with_epsi = 1, il faut ajouter le node epsilon */
+  if(with_epsilon)
+    add_epsilon_node(p);
+
+}
+    
 
 
 
@@ -204,8 +284,8 @@ node* hybride_to_patricia(racine* tree_h){
     printf("l'arbre a transferer vaut null\n");
 
   tree_a = creer_noeud();
-  make_tab_fils(tree_a, tree_h->tree);
+  make_tab_fils(tree_a, tree_h->tree,0);
 
   return tree_a;
 }
-*/  
+  

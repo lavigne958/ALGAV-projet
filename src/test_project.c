@@ -8,11 +8,15 @@
 #include "affichage.h"
 #include "affiche_hybride.h"
 #include "access.h"
+#include "access_hybride.h"
 #include "comptage.h"
 #include "comptage_hybride.h"
 #include "calcul_temps.h"
 #include "soutenance.h"
 #include "transfert.h"
+#include "insertion_hybride.h"
+#include "parser_hybride.h"
+
 
 #define PATH_FICHIER_TEST "./patricia_tree/annexe/test.txt"
 
@@ -59,7 +63,6 @@ void test_alex(){
 
   printf("Profondeur des deux arbes:\n");
 
-<<<<<<< HEAD
   int prof_p;
   int prof_h;
   
@@ -70,13 +73,9 @@ void test_alex(){
   printf("- |patricia| = %d\n- |hybride| = %d\n", prof_p, prof_h);
   printf("Temps de calcul:\n - Patricia: %ld ms\n - Hybride: %ld ms\n", t_insert_p / 1000000, t_insert_h / 1000000);
   getc(stdin);
-}  
+}
 
-int main(){
-  //test_alex();
 
-  soutenance();
-=======
 void test_patricia_to_hybride(){
   racine* tree_h;
   node* tree_p = make_arbre_fichier(PATH_FICHIER_TEST);
@@ -89,9 +88,53 @@ void test_patricia_to_hybride(){
   
 }
 
+
+void test_hybride_to_patricia(){
+
+  node* tree_p;
+
+  printf("création d'une nouvelle racine\n");
+  racine* new_root = creer_racine();  
+  printf(" --------- parsing ---------------\n\n");
+  words_list* head = read_words(PATH_FICHIER_TEST);
+  words_list* current = head;
+  if(head == NULL){
+    fprintf(stderr, "erreur liste de mots vaut NULL\n");
+    exit(EXIT_FAILURE);
+  }
+  while(current != NULL && current->word != NULL){
+    printf("lu: %s\n", current->word);
+    if( current == NULL){
+      printf("le noeud vaut NUL\n");
+    }
+    if( current->word == NULL){
+      printf("le mot vaut NULL\n");
+    }
+    insert(new_root, current->word);
+    current = current->next;
+  } 
+  printf("fin parsing\n");
+
+
+  printf("--------------------------\n");
+  affichage_alphabetique_hybride(new_root);
+  printf("--------------------------\n");
+  tree_p = hybride_to_patricia(new_root);
+  printf("--------------------------\n");
+  affiche_noeud_simple(tree_p);
+ 
+
+
+}
+
+
+
+
 int main(){
-  test_patricia_to_hybride();
+  //test_patricia_to_hybride();
+  test_hybride_to_patricia();
   //test_alex();
->>>>>>> 3d987b3983e5055deb9c0cf08b6a34e490bddc33
+  //soutenance();
+    
   return EXIT_SUCCESS;
 }

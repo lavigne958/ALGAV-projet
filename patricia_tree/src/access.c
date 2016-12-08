@@ -8,7 +8,7 @@
 
 
 int is_node_null(node* n){
-       return n == NULL;
+  return n == NULL;
 }
 
 node** creer_tab_sans_pere(){
@@ -29,35 +29,35 @@ node** creer_tab_sans_pere(){
 
 void creer_tableau_fils(node* n){
 
-    if(is_node_null(n)){
-      exit_failure("creer_tableau_fils","erreur node = null");
-    }
+  if(is_node_null(n)){
+    exit_failure("creer_tableau_fils","erreur node = null");
+  }
 	
-    n->tab_fils = creer_tab_sans_pere();
+  n->tab_fils = creer_tab_sans_pere();
 }
 
 node* creer_noeud(){
-    node* retour;
+  node* retour;
     
-    if( (retour = (node*) malloc(sizeof(node))) == NULL)
-      exit_failure("creer_noeud","erreur malloc dans creer_noeud");
+  if( (retour = (node*) malloc(sizeof(node))) == NULL)
+    exit_failure("creer_noeud","erreur malloc dans creer_noeud");
 
-    retour->tab_fils = NULL;  /* moi j'ai retour->tab_fils = NULL; */
-    strcpy(retour->prefix,"\0");
-    retour->size = 0;
+  retour->tab_fils = NULL;
+  strcpy(retour->prefix,"\0");
+  retour->size = 0;
 
-    return retour;
+  return retour;
 }
 
 
 
 char* get_prefix(node* n){
   
-    if( is_node_null(n) ){
-      return NULL;
-    }
+  if( is_node_null(n) ){
+    return NULL;
+  }
     
-    return n->prefix;
+  return n->prefix;
 }
 
 void set_prefix(node* node, char* nouv_prefix){
@@ -144,7 +144,7 @@ void set_fils_node(node* nd, node* fils, char index){
   }
 
   nd->tab_fils[(int) index] = fils;
-  /*nd->tab_fils[(int) index] = fils;*/
+
 }
 
 
@@ -199,7 +199,7 @@ int node_has_epsilon(node* nd){
     }
     
     if(epsilon->prefix[0] == EPSILON){
-	return 1;
+      return 1;
     }else{
       return 0;
     }
