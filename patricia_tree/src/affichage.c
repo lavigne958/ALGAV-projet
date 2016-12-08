@@ -50,13 +50,13 @@ void aux_affiche_noeud_simple(node* nd, int indent){
 }
 
 void affiche_noeud_simple(node* nd){
-  printf("affiche de l'arbre\n");
 
   int i;
 
   for(i = 0; i < NB_CHAR_MAX; i++){
     node* fils = nd->tab_fils[i];
     if(fils != NULL){
+      
       printf("racine->%c\n", (char)i);
       aux_affiche_noeud_simple(fils,1);
     }

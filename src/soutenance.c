@@ -10,6 +10,7 @@
 #include "search.h"
 #include "supression.h"
 #include "fusion.h"
+#include "comptage.h"
 
 //-------- Hybride ------
 #include "struct_hybride.h"
@@ -18,6 +19,10 @@
 #include "affiche_hybride.h"
 #include "search_hybride.h"
 #include "delete_hybride.h"
+#include "comptage_hybride.h"
+
+//------- global -----
+#include "transfert.h"
 
 void soutenance_insertion(){
   node* root_p =  NULL;
@@ -183,7 +188,69 @@ void soutenance_insertion_equilibre(){
 }
 
 
-void soutenance_comptage_mot();
+void soutenance_comptage_mot(){
+  node* root_p = make_arbre_fichier("soutenance/hamlet.txt");
+  racine* root_h = make_arbre_fichier_hybride("soutenance/hamlet.txt", 1);
+
+  FILE* system;
+
+  system = popen("sort -u soutenance/hamlet.txt | wc -l", "r");
+
+  printf("-------- comptage du nombre de mots dans l'arbre --------\n\n");
+
+  int nb_mots_p = comptage_mot(root_p);
+  int nb_mots_h = comptage_hybride(root_h);
+  int nb_mots_s = -1;
+
+  fscanf(system, "%d",&nb_mots_s);
+  
+  printf(" [Patricia]: %d mot(s)\n", nb_mots_p);
+  printf(" [Hybride]: %d mot(s)\n", nb_mots_h);
+  printf(" [Shell command]: %d mot(s)\n", nb_mots_s);
+  
+
+  printf("===><===");
+  getc(stdin);
+}
+
+void soutenance_affichage_alphabetique(){
+  node* root_p = make_arbre_fichier("soutenance/affichage.txt");
+  racine* root_h = make_arbre_fichier_hybride("soutenance/affichage.txt", 1);
+
+  printf(" ------- Affichage par ordre alphabétique ------\n");
+
+  affichage_racine_alphabetique(root_p);
+  printf("==><==");
+  getc(stdin);
+
+  printf("\n\n");
+
+  affichage_alphabetique_hybride(root_h);
+  printf("==><==");
+  getc(stdin);
+}
+
+void soutenance_transfert(){
+  node* root_p = make_arbre_fichier("soutenance/affichage.txt");
+  racine* root_h = NULL;
+
+
+  printf(" ------- Arbre Patricia -------\n");
+  affiche_noeud_simple(root_p);
+
+  printf("==><==");
+  getc(stdin);
+
+  printf("convertion en arbre Hybride...\n\n");
+
+  root_h = patricia_to_hybride(root_p);
+
+  printf(" -------- Arbre Hybride ----------\n");
+  affichage_simple(root_h);
+
+  printf("==><==");
+  getc(stdin);
+}
 
   
 void soutenance(){
@@ -193,6 +260,9 @@ void soutenance(){
   printf(" Dictionaires de mots - ALGAV \n\n");
 
   while(!quitter){
+
+    system("clear");
+
     printf("veuillez choisir une option parmis: \n");
     printf(" 1 - insertion d'un mot dans les deux arbres\n");
     printf(" 2 - recherche d'un mot dans les deux arbres\n");
@@ -201,6 +271,7 @@ void soutenance(){
     printf(" 5 - insetion equilibre d'un arbre Hybride\n");
     printf(" 6 - comptage du nombre de mots dans les deux structures\n");
     printf(" 7 - affichage par ordre aphabetique des deux arbres\n");
+    printf(" 8 - transfet d'un arbre Patricia vers un arbre Hybride\n");
     printf(" 0 - Quitter\n\n");
     
     printf("choix: ");
@@ -223,13 +294,16 @@ void soutenance(){
       break;
     case 5:
       soutenance_insertion_equilibre();
-      break;/*
+      break;
     case 6:
       soutenance_comptage_mot();
       break;
     case 7:
       soutenance_affichage_alphabetique();
-      break;*/
+      break;
+    case 8:
+      soutenance_transfert();
+      break;
     case 0:
       quitter = 1;
       break;
