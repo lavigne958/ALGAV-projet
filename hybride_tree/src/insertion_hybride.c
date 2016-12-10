@@ -105,7 +105,6 @@ void insert_equilibre(racine* root, char* mot){
   }
   
   if(is_node_null_hybride(root->tree)){
-    printf("le noeud à la racine vaut NULL\n");
     root->tree = creer_noeud_hybride();
     set_lettre(root->tree, mot[0]);
   }

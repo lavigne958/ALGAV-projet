@@ -4,6 +4,11 @@
 #include "access_hybride.h"
 #include "util_hybride.h"
 
+
+/**
+ * retourner le plus grend nombre entre les 3 entier passer
+ * en parametre
+ **/
 int max_3(int a, int b, int c){
   int m;
   if(a<b)
@@ -70,6 +75,8 @@ int profondeur_arbre_entier_hybride(racine* racine){
     return 1 + max_3(g,m,d);
   }
 }
+
+
 
 int profondeur_rotation(node_h* n){
   

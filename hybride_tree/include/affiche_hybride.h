@@ -1,7 +1,17 @@
 #ifndef _HYBRIDE_AFFICHE_H
 #define _HYBRIDE_AFFICHE_H
 
-void aux_affichage_simple(node_h*, int);
+
+/**
+ * affiche l'arbre entier indenter
+ * attention, difficile a comprendre sur un grand arbre
+ **/
 void affichage_simple(racine*);
+
+/**
+ * affiche tous les mots trouvé dans l'arbre
+ **/
 void affichage_alphabetique_hybride(racine*);
+
+
 #endif

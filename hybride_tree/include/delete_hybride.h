@@ -3,12 +3,19 @@
 
 
 
-int delete_node(node_h* n, node_h* father, int can_remove);
-
-int aux_delete_word(node_h* n, char* word, node_h* father);
-
+/**
+ * supprime de l'arbre le mot passer en parametre
+ **/
 int delete_word(racine* racine, char* word);
 
+
+/**
+ * soit 2 node_h* tel que n fils de father retourne
+ * 1 si n est le fils gauche, 
+ * -1 si n est le fils droit,
+ * 0 si n est le fils du milieu
+ * exit sinon
+ **/
 int side_son(node_h* n, node_h* father);
 
 

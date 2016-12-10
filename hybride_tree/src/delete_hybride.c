@@ -18,13 +18,7 @@ node_h* get_extrem_droite(node_h* n){
   }
 }
 
-/**
- * soit 2 node_h* tel que n fils de father
- * retourne 1 si n est le fils gauche, 
- * -1 si n est le fils droit,
- * 0 si n est le fils du milieu
- * exit sinon
- **/
+
 int side_son(node_h* n, node_h* father){  
   if( is_node_null_hybride(n) )
     exit_failure("side_son", "n vaut NULL");
@@ -47,7 +41,14 @@ int side_son(node_h* n, node_h* father){
 
 
 
-
+/**
+ * supprime le node passer n passer en parametre 
+ * en fonction de can_remove
+ * si can_remove = 1 suppression possible
+ * si can_remove = 0 supppression imposible
+ * si can_remove = -1 cette fonction doit e charger de determiner
+ *                    si oui ou non on peut le supprimer
+ **/
 int delete_node(node_h* n, node_h* father, int can_remove){
   int side, fg_null, fd_null;
   node_h *gauche = NULL, *droit = NULL, *min = NULL;
@@ -170,10 +171,14 @@ int delete_node(node_h* n, node_h* father, int can_remove){
 	
       } /* fin fg_null && fd_null */
     } /* fin un autre node est le pere */
-  } /* fin on peut effacer */
-} /* fin fonction */
+  }
+} 
   
-  
+/**
+ * parcourt les noeud de l'arbre recursivement a la remonter
+ * fait appele a delete_node a la descente pour supprimer les
+ * nodes qui ne sont plus util dans l'arbre
+ **/  
 int aux_delete_word(node_h* n, char* word, node_h* father){
   /*
     marqueur = 1  => autorisation de supprimer le pere
@@ -233,8 +238,7 @@ int aux_delete_word(node_h* n, char* word, node_h* father){
     }
   }
   return -10;
-} /* fin fonction */
-
+}
 
 int delete_word(racine* racine, char* word){
   if(!word)

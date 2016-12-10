@@ -65,10 +65,7 @@ void aux_affichage_alpha(node_h* nd, char* buff, int buff_size){
   node_h* eq = get_eq_node(nd);
   node_h* supp = get_supp_node(nd);
 
-  //printf("buff: %s - lettre: %c\n", buff, get_lettre(nd));
-
   if( !is_node_null_hybride(inf)){
-    //printf("fils inff\n");
     aux_affichage_alpha(inf, buff, buff_size);
   }
 
@@ -81,13 +78,11 @@ void aux_affichage_alpha(node_h* nd, char* buff, int buff_size){
   }
 
   if( !is_node_null_hybride(eq)){
-    //printf("fils eq\n");
 
     aux_affichage_alpha(eq, word, word_size);    
   }
 
   if( !is_node_null_hybride(supp)){
-    //printf("fils supp\n");
     aux_affichage_alpha(supp, buff, buff_size);
   }
 }
