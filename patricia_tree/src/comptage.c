@@ -21,7 +21,6 @@ void aux_comptage(node* nd, int* counter){
   if(has_childs(nd)){
     /* parse all the child of the node to call recursivly the counter */
     for(i = 0; i < NB_CHAR_MAX; i++){
-      //printf("verifie fils %d-[%c]\n", i, (char)i);
       node* fils = get_fils_node(nd, (char)i);
       
       /* if the node is not null a child has a prefix */

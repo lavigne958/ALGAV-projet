@@ -4,8 +4,6 @@
 /**
  *supprime un mot de l'arbre 
 */
-
-
 int supression(node*, char*);
 
 #endif

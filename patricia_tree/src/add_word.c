@@ -91,8 +91,6 @@ void sub_add_word(node* n,char* mot){
     }
     
   }else{ /* prefix_avec_epsilon == 0 */
-    	
-    /*printf("cas2\n");*/ 
      
     if( strncmp(mot,prefix,max(taille_prefix,taille_mot)) == 0 ){
       
@@ -153,18 +151,6 @@ void sub_add_word(node* n,char* mot){
 
 
       prefix_add_epsilon(fils2);
-
-      /*
-      if(strstr(mot, "rificab")){
-	printf("mot: %s ", mot);
-	printf("prefix: %s ", prefix);
-	printf("prefix_commun: %s ", prefix_commun);
-	printf("reste_mot: %s ", reste_mot);
-	printf("reste_prefix: %s ", reste_prefix);
-	printf("taille_commun: %d", taille_prefix_commun);
-	printf("prefix_fils2 = %s\n", get_prefix(fils2));
-      }*/
-      
       indice_reste_mot = reste_mot[0];
       new[(int)indice_reste_mot] = fils2;
 
@@ -173,7 +159,7 @@ void sub_add_word(node* n,char* mot){
 
     }
 	
-  } /* fin condition sur prefix_avec_epsilon  */
+  }
   return;
 }
 
@@ -225,7 +211,7 @@ node* make_arbre_fichier(char* path){
   int retour_lecture;
   char buff[1024];
 
-  printf("ouverture du fichier\n");
+  
   if( !(fic = fopen(path, "r")) )
     exit_failure("make_arbre_fichier", "echec d'ouverture de fichier");
   do{    

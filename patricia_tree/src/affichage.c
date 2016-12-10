@@ -22,9 +22,6 @@ int affiche_attribut_node(node* n){
   return 1;
 }
 
-
-
-
 void aux_affiche_noeud_simple(node* nd, int indent){
   int i, j;
 

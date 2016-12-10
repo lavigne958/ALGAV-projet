@@ -28,6 +28,4 @@ char* str_sub(const char *s, int start,int end);
  */
 int max(int x, int y);
 
-
-
 #endif

@@ -112,12 +112,11 @@ node* get_fils_node(node* n, char index){
   if(is_node_null(n))
     exit_failure("get_fils_node","node vaut NULL");
 
-  if( n->tab_fils == NULL) /* moi j'ai   if( n->tab_fils == NULL) */
+  if( n->tab_fils == NULL) 
     exit_failure("get_fils_node","fils vaut NULL");
 
     
   fils = n->tab_fils[(int)index];
-  /* moi j ai fils = n->tab_fils[(int)index]; */
   
   if(is_node_null(fils)){
     return NULL;
@@ -133,7 +132,7 @@ void set_fils_node(node* nd, node* fils, char index){
     exit(EXIT_FAILURE);
   }
 
-  if(nd->tab_fils == NULL){ /*   if(nd->tab_fils == NULL){ */
+  if(nd->tab_fils == NULL){ 
     exit_failure("set_fils_node", "tableau de fils vaut NULL");
     exit(EXIT_FAILURE);
   }
@@ -251,5 +250,3 @@ void set_size(node* n, int new_size){
   
   n->size = new_size;
 }
-
-

@@ -4,7 +4,8 @@
 
 #include "struct.h"
 
-/* structure de liste chainé de mots
+/**
+ * structure de liste chainé de mots
  * permet de stocker les mots lu depuis un fichier
  */
 typedef struct words_list{

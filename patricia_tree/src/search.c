@@ -6,8 +6,6 @@
 #include "access.h"
 
 int search_word(node* nd, char* string){
-  //printf("string: %s ", string);
-  //printf("prefix: %s ", get_prefix(nd));
   
   //terminal case: the prefix equal the string
   if( prefix_equals_string(nd,string)){

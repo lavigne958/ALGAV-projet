@@ -70,7 +70,9 @@ void prefix_add_epsilon(node*);
 void add_epsilon_node(node*);
 
 /**
- * test si le noeud en cours ce termine par EPSILON ou contient EPSILON dans son premier noeud (le noeud est un mot mais n'est pas une feuille
+ * test si le noeud en cours ce termine par EPSILON 
+ * ou contient EPSILON dans son premier noeud 
+ * (le noeud est un mot mais n'est pas une feuille)
  */
 int prefix_has_epsilon(node*);
 
@@ -85,7 +87,8 @@ node** creer_tab_fils(void);
 int node_has_epsilon(node*);
 
 /**
- * test si un noeud à des fils, par défaut un noeud creer n'a pas de fils, sont tableau de fils vaut NULL
+ * test si un noeud à des fils, par défaut un noeud creer n'a pas de fils, 
+ * sont tableau de fils vaut NULL
  */
 int has_childs(node*);
 
