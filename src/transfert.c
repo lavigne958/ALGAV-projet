@@ -13,7 +13,9 @@
 /*----- fonction don't j'ai besoin ds hybride -----*/
 
 /**
- * fonction qui ajoute un node a droite ou a gauche de n
+ * fonction recursive qui va parcourir les node gauche et droit
+ * pour inserer le node n au bonne endroit dans l'arbre.
+ * ne prend pas en compte es fils du milieu
  **/
 void add_in_side(node_h* n, node_h* new_node){
   char lettre_n = get_lettre(n);
@@ -42,6 +44,9 @@ void add_in_side(node_h* n, node_h* new_node){
 
 /*----- fonction don't j'ai besoin ds patricia -----*/
 
+/**
+ * renvoie la premiere lettre du prefix du node passer en parametre
+ **/
 char get_char_zero(node* n){
   char* p = get_prefix(n);
   return p[0]; 
@@ -51,8 +56,20 @@ char get_char_zero(node* n){
 
 /*----- fonctions permettant le passage de patricia a hybride -----*/
 
+/**
+ * fait appel a mv_node_p_to_hybride pour creer les nodes necessaires
+ * fait en sorte que les nodes_hybride creer par la fonction
+ * mv_node_p_to_hybride soit creer au bonne endroit
+ **/
 node_h* tab_fils_p_to_hybride(node** tf, int* nb_mot);
 
+/**
+ * creer un sous arbre de trie hybride a partir d'un node_patricia
+ * chaque fois qu'un mot est rencontrer, lui affecte en cle le parametre nb_mot.
+ * a chaque affectation, nb_mot est incrementé.
+ * cette fonction est semi-recursive avec tab_fils_p_to_hybride
+ * elle s'occupe des creation de nodes et desmaj de cle
+ **/
 node_h* mv_node_p_to_hybride(node* p, int* nb_mot){
 
   int i = 0, prefix_avec_epsilon = 0;
@@ -96,7 +113,11 @@ node_h* mv_node_p_to_hybride(node* p, int* nb_mot){
   return new_node;
 }
 
-
+/**
+ * fait appel a mv_node_p_to_hybride pour creer les nodes necessaires
+ * fait en sorte que les nodes_hybride creer par la fonction
+ * mv_node_p_to_hybride soit creer au bonne endroit
+ **/
 node_h* tab_fils_p_to_hybride(node** tf, int* nb_mot){
   int i;
   node_h *new_node = NULL, *tmp = NULL;
@@ -154,9 +175,21 @@ racine* patricia_to_hybride(node* tree_p){
     
 /*-----fonctions permettant le passage de hybride a patricia-----*/
 
+/**
+ * fonction semi-recursive avec make_node.
+ * parcourt tous les fils droit et gauche possible a partir 
+ * du node_hybride passer en parametre et fait appel a make_node
+ * pour chacun d'eux
+ * permet ainsi de creer le tableau de fils du node_patricia 
+ * passer en parametre
+ **/
+
 void make_tab_fils(node* p, node_h* h, int with_epsilon);
 
-
+/**
+ * fonction recursive qui creer le prefix du node_patricia a partir du sous_arbre
+ * hybride passer en parametre
+ **/
 void sub_make_node(node* new_p,char* pref, int indice_pref,node_h* h){
 
   node_h *gauche, *droit, *mid;
@@ -199,7 +232,11 @@ void sub_make_node(node* new_p,char* pref, int indice_pref,node_h* h){
   }
 }
 
-
+/**
+ * creer le sous-arbre patricia associe au node_hybride 
+ * passer en parametre
+ * est semi recursive avec la fonction make_tab_fils
+ **/
 node* make_node(node_h* h){
 
   node* new_p;
@@ -232,7 +269,11 @@ node* make_node(node_h* h){
 }
        
 
-
+/**
+ * parcourt tous les fils droit et fils gauche possible pour appeler
+ * make_node et ainsi creer le tableau de fils du node patricia
+ * passer en parametre 
+ *//
 void parcourt(node_h* h, node** tf){
   node_h *inf=NULL, *supp=NULL;
   int l = (int) get_lettre(h);
@@ -250,7 +291,14 @@ void parcourt(node_h* h, node** tf){
 
 }
 
-
+/**
+ * fonction semi-recursive avec make_node.
+ * parcourt tous les fils droit et gauche possible a partir 
+ * du node_hybride passer en parametre et fait appel a make_node
+ * pour chacun d'eux
+ * permet ainsi de creer le tableau de fils du node_patricia 
+ * passer en parametre
+ **/
 void make_tab_fils(node* p, node_h* h, int with_epsilon){
 
   
@@ -273,18 +321,15 @@ void make_tab_fils(node* p, node_h* h, int with_epsilon){
 
 
 
-
 node* hybride_to_patricia(racine* tree_h){
 
   node* tree_a = NULL;
   
   if(!tree_h)
     exit_failure("hybride_to_patricia","tree_h = NULL");
-  if(tree_h->tree == NULL)
-    printf("l'arbre a transferer vaut null\n");
-
   tree_a = creer_noeud();
-  make_tab_fils(tree_a, tree_h->tree,0);
+  if(tree_h->tree != NULL)
+    make_tab_fils(tree_a, tree_h->tree,0);
 
   return tree_a;
 }
