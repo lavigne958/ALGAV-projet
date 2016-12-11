@@ -273,7 +273,7 @@ node* make_node(node_h* h){
  * parcourt tous les fils droit et fils gauche possible pour appeler
  * make_node et ainsi creer le tableau de fils du node patricia
  * passer en parametre 
- *//
+ **/
 void parcourt(node_h* h, node** tf){
   node_h *inf=NULL, *supp=NULL;
   int l = (int) get_lettre(h);
